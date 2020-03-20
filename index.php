@@ -58,7 +58,11 @@ switch ($c_pars['action']) {
         require VIEWS.IMPRESS;
         break;
     case 'upload':
-        require VIEWS.UPLOAD;
+        if ($_SESSION['state'] == 1) {
+            require VIEWS.UPLOAD;
+        } else {
+            require VIEWS.LISTVIEW;
+        }
         break;
     case 'login':
         require VIEWS.LOGINPAGE;
@@ -103,17 +107,17 @@ switch ($c_pars['action']) {
                         $addon->provider = $_SESSION['user'];
                         $addon->create();
                     }
-                }
-
-                # move previous versions into archive
-
-                if (is_file($addon_dir . $addon_name)) {
-                    $success = move_uploaded_file($c_pars['upload']['tmp_name'], $addon_dir . $addon_name);
+                } elseif (is_file($addon_dir.$addon_name)) {
+                    $success = move_uploaded_file($c_pars['upload']['tmp_name'], $addon_dir.$addon_name);
                     if ($success) {
-                        $addon = new Addon($addon_dir . $addon_name, time());
+                        $addon = new Addon($addon_dir.$addon_name, time());
                         $addon->read();
                     }
+
                 } else {
+
+                    # move existing addon versions into archive
+
                     $files = glob($addon_dir . $addon_basename . '*.*');
                     if ($files) {
                         if (!is_dir($addon_dir . ARCHIVE)) mkdir($addon_dir . ARCHIVE, 0755, true);
@@ -201,13 +205,13 @@ switch ($c_pars['action']) {
                         $addon->read();
                         if ($addon->object_id != '' and $c_pars['item'] == $addon->object_id) {
                             $addon->delete();
-                            $repo = new CreateRepoXML(ADDONFOLDER.$_SESSION['version'], DATADIR);
-                            $repo->createRepoAddonSummary();
-                            $repo->createMD5();
                         }
                     }
                 }
             }
+            $repo = new CreateRepoXML(ADDONFOLDER.$_SESSION['version'], DATADIR);
+            $repo->createRepoAddonSummary();
+            $repo->createMD5();
         }
         require VIEWS.LISTVIEW;
         break;

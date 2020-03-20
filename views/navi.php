@@ -16,7 +16,8 @@
            title="Download and install the saXBMC Repository Addon to receive automatic Updates from this Repo">Download Repo Addon</a></li>
     <?php
         if ($_SESSION['state'] == 1) {
-            echo "<li><a href=\"".ROOT.CONTROLLER.'?action=upload'."\">Upload</a></li>";
+            echo "<li><a href=\"".ROOT.CONTROLLER.'?action=upload'."\" title='Addon Upload'>Upload</a></li>";
+            echo "<li><a href=\"".ROOT.CONTROLLER.'?action=setup'."\" title='My settings and contact data'>Setup</a></li>";
             echo "<li style=\"float: right\"><a href=\"".ROOT.CONTROLLER.'?action=logout'."\">Maintainer Logout</a></li>";
         } else {
             echo "<li style=\"float: right\"><a href=\"".ROOT.CONTROLLER.'?action=login'."\" title='Developers only'>Maintainer Login</a></li>";

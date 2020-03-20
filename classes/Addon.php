@@ -15,8 +15,8 @@ class CreateRepoXML
     function createRepoAddonSummary() {
 
         $addons = scanFolder($this->repo_zips, array('.', '..'));
+        $out = '<?xml version="1.0"?>' . PHP_EOL . '<addons>' . PHP_EOL;
         if ($addons) {
-            $out = '<?xml version="1.0"?>' . PHP_EOL . '<addons>' . PHP_EOL;
             foreach ($addons as $addon) {
                 $content = file($this->repo_zips . $addon . '/addon.xml', FILE_SKIP_EMPTY_LINES);
                 $s = true;
@@ -29,12 +29,12 @@ class CreateRepoXML
                     }
                 }
             }
-            $out .= '</addons>' . PHP_EOL;
-
-            $handle = fopen($this->repo_folder . '/addons.xml', 'w');
-            fwrite($handle, $out);
-            fclose($handle);
         }
+        $out .= '</addons>' . PHP_EOL;
+
+        $handle = fopen($this->repo_folder . '/addons.xml', 'w');
+        fwrite($handle, $out);
+        fclose($handle);
     }
 
     public function createMasterXML() {
