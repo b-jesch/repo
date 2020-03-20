@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<addon>
+  <name>oauth2client</name>
+  <addon_id>script.module.oauth2client</addon_id>
+  <version>4.1.3</version>
+  <tree>krypton</tree>
+  <summary>Google Oauth2Client libraries</summary>
+  <object>addons/krypton/zip/script.module.oauth2client/script.module.oauth2client-4.1.3.zip</object>
+  <object_id>1579609641</object_id>
+  <upload>21.01.2020 13:27</upload>
+  <provider>b-jesch</provider>
+  <author>Google</author>
+  <downloads>1</downloads>
+</addon>

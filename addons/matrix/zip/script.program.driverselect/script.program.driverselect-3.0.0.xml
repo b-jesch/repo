@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<addon>
+  <name>LibreELEC Module Drivers</name>
+  <addon_id>script.program.driverselect</addon_id>
+  <version>3.0.0</version>
+  <tree>matrix</tree>
+  <summary>LibreELEC driver selection</summary>
+  <object>addons/matrix/zip/script.program.driverselect/script.program.driverselect-3.0.0.zip</object>
+  <object_id>1583253091</object_id>
+  <upload>03.03.2020 17:31</upload>
+  <provider>b-jesch</provider>
+  <author>Birger Jesch</author>
+  <downloads>0</downloads>
+</addon>

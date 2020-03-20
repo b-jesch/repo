@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<addon>
+  <name>Lounge Ripper</name>
+  <addon_id>script.loungeripper</addon_id>
+  <version>0.1.27</version>
+  <tree>krypton</tree>
+  <summary>Rip DVDs and BluRays within Kodi</summary>
+  <object>addons/krypton/zip/script.loungeripper/script.loungeripper-0.1.27.zip</object>
+  <object_id>1581427957</object_id>
+  <upload>11.02.2020 14:32</upload>
+  <provider>b-jesch</provider>
+  <author>Birger Jesch</author>
+  <downloads>3</downloads>
+</addon>

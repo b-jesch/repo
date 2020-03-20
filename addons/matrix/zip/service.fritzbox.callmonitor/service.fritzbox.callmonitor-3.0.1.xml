@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<addon>
+  <name>Fritzbox Callmonitor</name>
+  <addon_id>service.fritzbox.callmonitor</addon_id>
+  <version>3.0.1</version>
+  <tree>matrix</tree>
+  <summary>Fritzbox Callmonitor</summary>
+  <object>addons/matrix/zip/service.fritzbox.callmonitor/service.fritzbox.callmonitor-3.0.1.zip</object>
+  <object_id>1579525516</object_id>
+  <upload>20.01.2020 14:05</upload>
+  <provider>b-jesch</provider>
+  <author>Birger Jesch, Lutz Leonhardt</author>
+  <downloads>2</downloads>
+</addon>

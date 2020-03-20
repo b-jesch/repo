@@ -1,0 +1,40 @@
+0.0.20
+- Bug fixed in time calculation for EPG scheduler
+
+0.0.19
+- some modifications on time calculation for recording/EPG schedules
+
+0.0.17
+- Ignore timers if they are in the past (VDR)
+- Add suspend option in shutdown method by OS
+
+0.0.16
+- Some setting defaults redefined
+
+0.0.15
+- Bugfix: Handle empty values in os-release on some platforms
+
+0.0.14
+- Bugfix: Prevent wakeup on disabled timers
+
+0.0.13
+- changing abort event on shutdown from detecting user activity to a defined key (select)
+
+0.0.12
+- small Bugfix
+
+0.0.11
+- Time calculations improvements
+
+0.0.9
+- Bugfix in shutdown wrapper script
+
+0.0.8
+- Bugfix (Python Bug in datetime.strptime)
+- Code optimizations for Windows
+
+0.0.2
+- some WIP
+
+0.0.1
+- Initial Release

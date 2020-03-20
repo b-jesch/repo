@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<addon>
+  <name>German Telecast Offers</name>
+  <addon_id>script.service.gto</addon_id>
+  <version>2.1.17</version>
+  <tree>krypton</tree>
+  <summary>Fetch todays TV Offers from different scrapers</summary>
+  <object>addons/krypton/zip/script.service.gto/script.service.gto-2.1.17.zip</object>
+  <object_id>1582272197</object_id>
+  <upload>21.02.2020 09:03</upload>
+  <provider>b-jesch</provider>
+  <author>Birger Jesch</author>
+  <downloads>0</downloads>
+</addon>

@@ -1,0 +1,222 @@
+/* CSS Document */
+.spacer {
+    color:#336699;
+    height:2px;
+    border: 0;
+    background-image: linear-gradient(to right,#fff,#336699,#fff);
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #336699;
+}
+
+li {
+    float: left;
+    border-right: 1px solid white;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helevtica;
+    font-weight: bold;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: #224466;
+}
+
+li:last-child {
+    border-right: none;
+    border-left: 1px solid white;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #EEEEEE;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: silver;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.text {
+    font-family: Verdana, Arial, Helevtica;
+    font-size: 14px;
+}
+
+.button, .button_red {
+    background-image:url(button.png);
+    width:80px;
+    color: white;
+    height:20px;
+    border:0px;
+    font-family:Verdana, Arial, Helvetica;
+    font-size:10px;
+    font-weight:bold;
+    margin: 5px;
+}
+
+.button_red {
+    background-image: url(button_red.png);
+}
+
+.banner {
+    height:120px;
+    background-image: url(mainheader.jpg);
+    background-position: left;
+    background-repeat: no-repeat;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.thumb {
+    width: 420px;
+    height: 175px;
+    vertical-align: middle;
+    text-align: right;
+    font-family: Verdana, Arial;
+    font-size: 14px;
+    border: 1px dotted #336699;
+    border-radius: 10px;
+    padding: 3px;
+    margin: 3px;
+}
+.inner {
+    width: 100%;
+    border-spacing: 3px;
+    padding: 3px;
+}
+
+#outer {
+    border-spacing: 20px;
+}
+
+.header {
+    background-color: silver;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+}
+
+.desc_form {
+    text-align: right;
+    vertical-align: middle;
+    font-family: Verdana, Arial;
+    font-size:12px;
+    width: 110px;
+    padding: 5px;
+}
+
+.textfield_form {
+    border: 1px solid black;
+    width:290px;
+    height:20px;
+    font-family: Verdana, Arial;
+    font-size:12px;
+    text-align: left;
+    padding: 5px;
+}
+
+body {
+    font-family: Verdana, Arial, Helevtica;
+    font-size: 14px;
+}
+
+h1 {
+    color: #6b6b6b;
+    font-size: 24px;
+    font-family: Verdana, Arial;
+    padding: 2px;
+    margin: 2px;
+}
+
+h2 {
+    color: #6b6b6b;
+    font-family: Verdana, Arial;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 2px;
+    margin: 2px;
+}
+
+h3 {
+    background-color: #336699;
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+    font-family: Verdana, Arial, Helevtica;
+    width: 99%;
+}
+
+.footer {
+    background-color: #336699;
+    color: white;
+    font-size: 16px;
+    padding-left: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 10px;
+    font-family: Verdana, Arial, Helevtica;
+    font-weight: bolder;
+    width: 99%;
+}
+
+.footer a {
+    color: white;
+    text-decoration: None;
+}
+
+h4, caption {
+    background-color: darkgray;
+    color: white;
+    font-size: 14px;
+    padding: 5px;
+    font-family: Verdana, Arial, Helevtica;
+    width: 99%;
+}
+
+.login {
+    border: 1px dotted black;
+    border-radius: 20px;
+    width: 400px;
+    height: 80px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    text-align: center;
+}
+#upload {
+    width: 400px;
+    height: 80px;
+    margin: 70px auto;
+    padding: 20px;
+}

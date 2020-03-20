@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<addon>
+  <name>Hyperion Controller Service</name>
+  <addon_id>script.service.hypercon</addon_id>
+  <version>0.0.5</version>
+  <tree>krypton</tree>
+  <summary>Control your Ambilight with different effects via the Hyperion Controller Service</summary>
+  <object>addons/krypton/zip/script.service.hypercon/script.service.hypercon-0.0.5.zip</object>
+  <object_id>1579524753</object_id>
+  <upload>20.01.2020 13:52</upload>
+  <provider>b-jesch</provider>
+  <author>Birger Jesch</author>
+  <downloads>0</downloads>
+</addon>
