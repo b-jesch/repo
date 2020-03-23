@@ -11,7 +11,8 @@ if (!defined('CONTEXT')) {
 
 # Inhalt der View
 
-echo 'Ein Fehler ist aufgetreten: '.$errmsg;
+echo '<h3>Fehler</h3>';
+echo '<p>Ein Fehler ist aufgetreten: '.$errmsg.'</p>';
 
 # Epilog
 include FOOTER;

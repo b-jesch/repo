@@ -27,6 +27,22 @@ function delTree($dir) {
     return rmdir($dir);
 }
 
+# Function calculating numeric version numbers from version strings
+# assume that version is not above 999.999.999 eg myaddon-999.999.999.zip
+# returns numeric value: 3.10.1 ==> 300010001 (300.010.001)
+
+function calculateNumVersion($version) {
+    $subvers = explode('.', $version);
+    $subvers = array_reverse($subvers);
+    $numvers = 0;
+    $multiplier = 1;
+    foreach ($subvers as $element) {
+        $numvers += intval($element) * $multiplier;
+        $multiplier *= 1000;
+    }
+    return $numvers;
+}
+
 function scanFolder($folder, $exceptions) {
     if (is_array(scandir($folder))) {
         return array_diff(scandir($folder), $exceptions);

@@ -32,7 +32,9 @@ if (!defined('CONTEXT')) {
           enctype="multipart/form-data">
 
     <input type="file" class="textfield_form" name="upload" accept="application/zip">
-    <input type="submit" class="button" value="Hochladen">
+    <input type="submit" class="button" value="Hochladen"><br>
+    <input type="checkbox" name="overwrite" id="overwrite" value="overwrite">
+    <label for="overwrite">vorhandene Version überschreiben</label>
     <input type="hidden" name="action" value="upload_p2" />
 
     </form>

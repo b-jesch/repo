@@ -83,7 +83,15 @@ switch ($c_pars['action']) {
             }
             if ($c_pars['upload']['error'] == UPLOAD_ERR_OK) {
                 $addon_name = $c_pars['upload']['name'];
-                list($addon_basename, $addon_version) = explode('-', basename($addon_name, ADDON_EXT), 2);
+
+                # Determine Addonname, Addonversion, be aware for multiple delimiters
+                # and use only the last part for version
+
+                $pieces = explode('-', basename($addon_name, ADDON_EXT));
+
+                $addon_version = array_pop($pieces);
+                $addon_basename = implode($pieces);
+                $addon_numversion = calculateNumVersion($addon_version);
 
                 # handle special folders of Repo Addon
 
@@ -98,7 +106,11 @@ switch ($c_pars['action']) {
                 }
 
                 if (!is_dir(TMPDIR)) mkdir(TMPDIR, 0755, true);
+
                 if (!is_dir($addon_dir)) {
+
+                    # new Addon
+
                     mkdir($addon_dir, 0755, true);
                     $success = move_uploaded_file($c_pars['upload']['tmp_name'], $addon_dir . $addon_name);
                     if ($success) {
@@ -108,15 +120,47 @@ switch ($c_pars['action']) {
                         $addon->create();
                     }
                 } elseif (is_file($addon_dir.$addon_name)) {
-                    $success = move_uploaded_file($c_pars['upload']['tmp_name'], $addon_dir.$addon_name);
-                    if ($success) {
-                        $addon = new Addon($addon_dir.$addon_name, time());
-                        $addon->read();
+
+                    # existing Addon, check overwrite option
+
+                    if (isset($c_pars['overwrite'])) {
+                        $success = move_uploaded_file($c_pars['upload']['tmp_name'], $addon_dir . $addon_name);
+                        if ($success) {
+                            $addon = new Addon($addon_dir . $addon_name, time());
+                            $addon->read();
+                        }
+                    } else {
+                        $errmsg = "Das Überschreiben vorhandener Addonversionen ist nicht zulässig! ";
+                        $errmsg .= "Setzen Sie dazu die entsprechende Option im Upload-Dialog.";
+                        delTree(TMPDIR);
+                        require VIEWS . ERRORPAGE;
+                        break;
                     }
 
                 } else {
 
-                    # move existing addon versions into archive
+                    # update Addon
+
+                    # check for existing files when overwrite option is not set
+
+                    $files = glob($addon_dir.'*.zip');
+                    $errmsg = '';
+                    foreach ($files as $file) {
+                        $version = explode('-',basename($file, ADDON_EXT));
+                        $vn = calculateNumVersion((array_pop($version)));
+                        if ($vn >= $addon_numversion) {
+                            $errmsg = "Die Versionsnummer des hochgeladenen Addons ist älter als die aktuell vorhandene Version. ";
+                            $errmsg .= "Der Upload älterer Versionen ist nicht zulässig ($addon_numversion aka $vn)";
+                            break;
+                        }
+                    }
+                    if (!empty($errmsg)) {
+                        delTree(TMPDIR);
+                        require VIEWS.ERRORPAGE;
+                        break;
+                    }
+
+                    # move existing addon version into archive
 
                     $files = glob($addon_dir . $addon_basename . '*.*');
                     if ($files) {
