@@ -98,8 +98,8 @@ li.dropdown {
 }
 
 .thumb {
-    width: 420px;
-    height: 175px;
+    width: 450px;
+    height: 200px;
     vertical-align: middle;
     text-align: right;
     font-family: Verdana, Arial;
@@ -113,6 +113,11 @@ li.dropdown {
     width: 100%;
     border-spacing: 3px;
     padding: 3px;
+}
+
+.tbn_inner {
+    text-align: left;
+    width: 160px;
 }
 
 #outer {
