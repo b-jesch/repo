@@ -140,17 +140,16 @@ switch ($c_pars['action']) {
                 } else {
 
                     # update Addon
-
                     # check for existing files when overwrite option is not set
 
                     $files = glob($addon_dir.'*.zip');
                     $errmsg = '';
                     foreach ($files as $file) {
                         $version = explode('-',basename($file, ADDON_EXT));
-                        $vn = calculateNumVersion((array_pop($version)));
-                        if ($vn >= $addon_numversion) {
+                        $vn = array_pop($version);
+                        if (calculateNumVersion($vn) >= $addon_numversion) {
                             $errmsg = "Die Versionsnummer des hochgeladenen Addons ist älter als die aktuell vorhandene Version. ";
-                            $errmsg .= "Der Upload älterer Versionen ist nicht zulässig ($addon_numversion aka $vn)";
+                            $errmsg .= "Der Upload älterer Versionen ist nicht zulässig ($addon_version aka $vn)";
                             break;
                         }
                     }

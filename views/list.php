@@ -15,7 +15,7 @@ if (!defined('CONTEXT')) {
 ?>
 <script>
     function fConfirm() {
-        return confirm('Das aktuelle Addon sowie alle Addons im Archiv werden unwiederbringlich gelöscht! Wirklich fortfahren?')
+        return confirm('Die aktuelle Version des Addons wird gelöscht und die vorhergehende Version (sofern vorhanden) wieder hergestellt! Wirklich fortfahren?')
     }
 </script>
 <h3>Addons ab <?php echo $_SESSION['version_name']; ?> und höher</h3>
