@@ -10,17 +10,17 @@
                 <checksum>https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/addons.xml.md5</checksum>
                 <datadir zip="true">https://www.quarantine.hs-mittweida.de/~jesch/repo/addons</datadir>
             </dir>
-            <dir minversion="19.0.0">
+            <dir minversion="18.9.0">
                 <info compressed="true">https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/matrix/addons.xml</info>
                 <checksum>https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/matrix/addons.xml.md5</checksum>
                 <datadir zip="true">https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/matrix/zip/</datadir>
             </dir>
-            <dir minversion="18.0.0">
+            <dir minversion="17.9.0">
                 <info compressed="true">https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/leia/addons.xml</info>
                 <checksum>https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/leia/addons.xml.md5</checksum>
                 <datadir zip="true">https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/leia/zip/</datadir>
             </dir>
-            <dir minversion="17.0.0">
+            <dir minversion="16.9.0">
                 <info compressed="true">https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/krypton/addons.xml</info>
                 <checksum>https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/krypton/addons.xml.md5</checksum>
                 <datadir zip="true">https://www.quarantine.hs-mittweida.de/~jesch/repo/addons/krypton/zip/</datadir>
