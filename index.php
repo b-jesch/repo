@@ -90,7 +90,7 @@ switch ($c_pars['action']) {
                 $pieces = explode('-', basename($addon_name, ADDON_EXT));
 
                 $addon_version = array_pop($pieces);
-                $addon_basename = implode($pieces);
+                $addon_basename = implode('-', $pieces);
                 $addon_numversion = calculateNumVersion($addon_version);
 
                 # handle special folders of Repo Addon
