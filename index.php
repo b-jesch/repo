@@ -258,6 +258,10 @@ switch ($c_pars['action']) {
         }
         require VIEWS.LISTVIEW;
         break;
+    case 'direct_dl':
+        $addon = new Addon($c_pars['f']);
+        $addon->download();
+        break;
     default:
         # Bootstrap
         require VIEWS.LISTVIEW;

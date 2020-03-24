@@ -9,14 +9,15 @@ define('REPOVERSION', '1.2.1');
 define('REPOLOGO', 'css/wbbLogo.png');
 
 # Root/Folders of CMS
+#
+# .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
-# define('ROOT', 'https://www.quarantine.hs-mittweida.de/~jesch/repo/');
 define('ROOT', 'http://localhost/repo/');
 define('CONTROLLER', 'index.php');
 define('VIEWS', 'views/');
 
-define('ADDONFOLDER', 'addons/');       # Root Upload
-define('DATADIR', 'zip/');              # Addons
+define('ADDONFOLDER', 'addons/');       # Rootfolder Upload
+define('DATADIR', 'zip/');              # Addons data folder
 define('TMPDIR', 'temp/');              # temporary files
 define('ARCHIVE', 'archive/');          # Archive folder
 define('ADDON_EXT', '.zip');            # Endung Addon-Objekt im Data-Verzeichnis
