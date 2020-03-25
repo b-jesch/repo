@@ -1,4 +1,7 @@
 <?php
+
+# ob_start();
+
 require ('config.php');
 require (CLASSES.'Addon.php');
 require (FUNCTIONS.'functions.php');

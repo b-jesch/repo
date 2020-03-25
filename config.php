@@ -13,6 +13,9 @@ define('REPOLOGO', 'css/wbbLogo.png');
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
 define('ROOT', 'http://localhost/repo/');
+
+# define('ROOT', 'https://www.quarantine.hs-mittweida.de/~jesch/repo/');
+
 define('CONTROLLER', 'index.php');
 define('VIEWS', 'views/');
 

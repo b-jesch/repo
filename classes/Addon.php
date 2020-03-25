@@ -107,8 +107,15 @@ class Addon {
         $this->readProperties();
         $this->downloads = intval($this->downloads) + 1;
         $this->writeProperties();
+
+        # ob_clean();
+        # flush();
+
         header('Content-Type: application.zip');
         header('Content-Disposition: attachment; filename="'.basename($this->file).'"');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: '.$this->size);
+
         readfile($this->file);
     }
 
