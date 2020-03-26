@@ -25,7 +25,7 @@ define('TMPDIR', 'temp/');              # temporary files
 define('ARCHIVE', 'archive/');          # Archive folder
 define('ADDON_EXT', '.zip');            # Endung Addon-Objekt im Data-Verzeichnis
 define('META_EXT', '.xml');             # Endung Metadaten-Datei
-define('USERS', 'etc/myPassWords');     # Users
+define('USER_DB', 'etc/uPwFile.xml');   # User Management
 
 # Stylesheets
 
@@ -39,6 +39,7 @@ define ('LISTVIEW', 'list.php');        # List view
 define ('IMPRESS', 'impressum.php');    # Impressum
 define ('MODIFYVIEW', 'modify.php');    # Modify View
 define ('LOGINPAGE', 'login.php');      # Login View
+define ('SETUP', 'users.php');          # User Maintenance View
 define ('ERRORPAGE', 'error.php');      # Fehlerseite
 
 # Model
@@ -64,6 +65,7 @@ define('CONTEXT', true);
 
 $kodiversions = array('Kodi 17 (Krypton)', 'Kodi 18 (Leia)', 'Kodi 19 (Matrix)');
 $version_dirs = array('krypton/', 'leia/', 'matrix/');
+$routing = array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2');
 
 # Thumbnails
 

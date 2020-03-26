@@ -26,7 +26,8 @@ if (!defined('CONTEXT')) {
         <li>Die Struktur im Zip muss der Struktur eines Addons folgen.</li>
     </ol>
 
-    <div id="upload">
+    <!--<div id="upload">-->
+    <div class="upload">
     <form name="u" id="u" method="post"
           action="<?php echo ROOT.CONTROLLER; ?>"
           enctype="multipart/form-data">
@@ -34,8 +35,11 @@ if (!defined('CONTEXT')) {
     <input type="file" class="textfield_form" name="upload" accept="application/zip">
     <input type="submit" class="button" value="Hochladen"><br>
     <input type="checkbox" name="overwrite" id="overwrite" value="overwrite">
-    <label for="overwrite">vorhandene Version überschreiben</label>
-    <input type="hidden" name="action" value="upload_p2" />
+    <label for="overwrite">vorhandene Version überschreiben</label><br>
+    <input type="checkbox" name="reset_count" id="reset_count" value="reset_count">
+    <label for="reset_count">Downloadzähler zurücksetzen</label>
+
+    <input type="hidden" name="action" value="<?php crypt('upload_p2'); ?>" />
 
     </form>
     </div>

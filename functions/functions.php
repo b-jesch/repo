@@ -8,6 +8,15 @@ function debug($obj) {
     }
 }
 
+# Formatting for xml trees
+
+function init_domxml() {
+    $domxml = new DOMDocument('1.0', 'UTF-8');
+    $domxml->preserveWhiteSpace = false;
+    $domxml->formatOutput = true;
+    return $domxml;
+}
+
 function getVersion($kv, $kd) {
     $i = 0;
     foreach ($kv as $version) {
@@ -17,6 +26,29 @@ function getVersion($kv, $kd) {
         $i++;
     }
     return "unknown";
+}
+
+function resetSession() {
+    $cookie = session_get_cookie_params();
+    setcookie(session_name(), '', 0, $cookie['path'], $cookie['domain']);
+    $_SESSION['state'] = 0;
+    $_SESSION['user'] = '';
+    session_destroy();
+    if (!headers_sent()) {
+        header('Location: ' . ROOT . CONTROLLER);
+        exit();
+    }
+}
+
+function passwdGen() {
+    $base = '';
+    for ($i = 0; $i < 8; $i++) {
+        do {
+            $val = rand(64,122);
+        } while ($val > 90 and $val < 97);
+        $base .= chr($val);
+    }
+    return $base;
 }
 
 function delTree($dir) {
@@ -44,9 +76,7 @@ function calculateNumVersion($version) {
 }
 
 function scanFolder($folder, $exceptions) {
-    if (is_array(scandir($folder))) {
-        return array_diff(scandir($folder), $exceptions);
-    }
+    if (is_dir($folder) and is_array(scandir($folder))) return array_diff(scandir($folder), $exceptions);
     return false;
 }
 

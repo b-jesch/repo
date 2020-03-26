@@ -103,6 +103,10 @@ class Addon {
         $this->readProperties();
     }
 
+    public function modify() {
+        $this->writeProperties();
+    }
+
     public function download() {
         $this->readProperties();
         $this->downloads = intval($this->downloads) + 1;
@@ -135,11 +139,10 @@ class Addon {
 
             # check if archive folder is empty, delete it
 
-            $archive_content = scanFolder($path.ARCHIVE, array('.', '..'));
-            if (!$archive_content) delTree($path.ARCHIVE);
+            if (!scanFolder($path.ARCHIVE, array('.', '..'))) delTree($path.ARCHIVE);
         }
-        unlink($this->meta);
-        unlink($this->file);
+        if (is_file($this->meta)) unlink($this->meta);
+        if (is_file($this->file)) unlink($this->file);
     }
 
     public function getAttrFromAddonXML() {
@@ -189,13 +192,116 @@ class Addon {
         $xml->addChild('author', htmlspecialchars($this->author));
         $xml->addChild('downloads', $this->downloads);
 
-        # XML nach DOM formatieren
-
-        $dom = new DOMDocument('1.0', 'UTF-8');
-        $dom->preserveWhiteSpace = false;
-        $dom->formatOutput = true;
+        $dom = init_domxml();
         $dom->loadXML($xml->saveXML());
         $dom->save($this->meta);
+    }
+}
+
+class User
+{
+
+    public $indb = false;           # User is in Database
+    public $isadmin = false;        # User has Administrator Rights
+    public $node = NULL;            # XML Node if user with attribute 'login'
+    public $success = false;        # Login succeeded
+    public $username = NULL;        # Username, Loginname
+    public $passwd = NULL;          # Password
+    public $realname = NULL;        # Name in real World
+    public $email = NULL;           # Email-Adress
+    public $last_login = NULL;      # Timestamp of last Login
+
+    function __construct($user='')
+    {
+
+        if (!is_file(USER_DB)) {
+            # $init = '<users><user login="admin"><passwd>$1$9rQmP7mh$4Aewg5ppAb161Rc4Cc45F.</passwd>';
+            $init = '<users><user login="admin"><passwd>'.crypt('admin').'</passwd>';
+            $init.= '<isadmin>true</isadmin></user></users>';
+            $this->users = simplexml_load_string($init);
+        } else {
+            $this->users = simplexml_load_file(USER_DB);
+        }
+        if ($user != '') {
+            foreach ($this->users->children() as $node) {
+                if ($node->attributes()->login == $user) {
+                    $this->indb = true;
+                    $this->username = $user;
+
+                    $this->node = $node;
+
+                    $this->passwd = $node->passwd;
+                    $this->last_login = $node->last_login;
+                    $this->realname = $node->realname;
+                    $this->email = $node->email;
+                    $this->isadmin = ($node->isadmin == 'true') ? true : false;
+                }
+            }
+        }
+    }
+
+    public function getallusers($formatted=true) {
+        $list = [];
+        foreach ($this->users->children() as $node) {
+            if ($formatted) {
+                $list[] = ($node->isadmin == 'true') ? '<b>'.$node->attributes()->login.'</b>' : $node->attributes()->login;
+            } else {
+                $list[] = $node->attributes()->login;
+            }
+        }
+    return $list;
+    }
+
+    public function getadmins() {
+        $list = [];
+        foreach ($this->users->children() as $node) {
+            if ($node->isadmin == 'true' and !empty($node->email)) $list[] = $node->email;
+        }
+        return $list;
+    }
+
+    public function login($pw) {
+
+        if ($this->indb) {
+            if ($this->node->passwd == crypt($pw, $this->node->passwd)) {
+                $this->success = true;
+            }
+        }
+    }
+
+    public function logout() {
+        $this->set_node($this->node, $this->node->last_login, 'last_login', date('d.m.Y H:i'));
+        $this->persist();
+    }
+
+    public function create($username, $passwd) {
+        $user = $this->users->addChild('user');
+        $user->addAttribute('login', $username);
+        $user->addChild('passwd', crypt($passwd));
+        $user->addChild('isadmin', 'false');
+        $this->persist();
+    }
+
+    public function persist() {
+        $dom = init_domxml();
+        $dom->loadXML($this->users->saveXML());
+        $dom->save(USER_DB);
+    }
+
+    public function update() {
+        $this->set_node($this->node, $this->node->passwd, 'passwd', $this->passwd);
+        $this->set_node($this->node, $this->node->realname, 'realname', $this->realname);
+        $this->set_node($this->node, $this->node->email, 'email', $this->email);
+        $this->set_node($this->node, $this->node->isadmin, 'isadmin', ($this->isadmin) ? 'true' : 'false');
+        $this->persist();
+    }
+
+    private function set_node($mother, $child, $childname, $value) {
+        if (isset($child)) {
+            $mother->$childname = $value;
+        } else {
+            $mother->addChild($childname, $value);
+        }
     }
 }
 ?>
