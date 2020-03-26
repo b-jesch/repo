@@ -1,14 +1,24 @@
 <?php
+
+# ob_start();
+
 require ('config.php');
 require (CLASSES.'Addon.php');
 require (FUNCTIONS.'functions.php');
 
-# Session starten
-
-session_start();
+# Handle direct Downloads
 
 $c_pars = array_merge($_POST, $_GET, $_FILES);
 
+if ($c_pars['action'] == 'direct_dl') {
+    $addon = new Addon($c_pars['f']);
+    $addon->download();
+    exit();
+}
+
+# Session starten
+
+session_start();
 if (!$_SESSION['state'] or $_SESSION['state'] == 0) {
     $_SESSION['state'] = 0;
 }
