@@ -3,8 +3,8 @@
 # ob_start();
 
 require ('config.php');
-require (CLASSES.'Addon.php');
 require (FUNCTIONS.'functions.php');
+require (CLASSES.'Addon.php');
 
 # Handle direct Downloads
 
@@ -23,27 +23,40 @@ if (!$_SESSION['state'] or $_SESSION['state'] == 0) {
     $_SESSION['state'] = 0;
 }
 
-if ($c_pars['login'] != '' and $c_pars['passwd'] != '') {
-    $users = file(ROOT.USERS, FILE_IGNORE_NEW_LINES);
-    foreach ($users as $user) {
-        list($username, $passwd) = explode(':', $user);
-        if ($username == $c_pars['login'] and
-            $passwd == crypt($c_pars['passwd'], $passwd)) {
-            $_SESSION['state'] = 1;
-            $_SESSION['user'] = $username;
+# Decrypt encrypted Routes
+
+if (isset($c_pars['action'])) {
+    foreach($routing as $route) {
+        $c = crypt($route, $c_pars['action']);
+        if ($c == $c_pars['action']) {
+            $c_pars['action'] = $route;
             break;
         }
     }
-    if ($_SESSION['state'] == 1) {
-        $c_pars['action'] = 'list';
-    }
 }
+
+if (isset($c_pars['login'])) {
+    if ($c_pars['user'] != '' and $c_pars['passwd'] != '') {
+        $user = new User($c_pars['user']);
+        if ($user->indb) $user->login($c_pars['passwd']);
+        if ($user->success) {
+            $_SESSION['state'] = 1;
+            $_SESSION['user'] = $user->username;
+            $c_pars['action'] = 'list';
+        } else {
+            $c_pars['action'] = 'login';
+        }
+    } else {
+        $c_pars['action'] = 'login';
+    }
+} elseif (isset($c_pars['abort'])) $c_pars['action'] = 'list';
+
 
 # determine Kodi Version, select first if undetermined
 
 if (($c_pars['version'] != '') and (in_array($c_pars['version'], $version_dirs))) {
     $_SESSION['version'] = $c_pars['version'];
-} elseif ($_SESSION['version'] == '') {
+} elseif (empty($_SESSION['version'])) {
     $_SESSION['version'] = $version_dirs[0];
 }
 
@@ -78,12 +91,9 @@ switch ($c_pars['action']) {
         require VIEWS.LOGINPAGE;
         break;
     case 'logout':
-        $cookie = session_get_cookie_params();
-        setcookie(session_name(), '', 0, $cookie['path'], $cookie['domain']);
-        $_SESSION['state'] = 0;
-        $_SESSION['user'] = '';
-        session_destroy();
-        require VIEWS.LISTVIEW;
+        $user = new User($_SESSION['user']);
+        $user->logout();
+        resetSession();
         break;
     case 'upload_p2':
         if ($_SESSION['state'] == 1) {
@@ -116,7 +126,6 @@ switch ($c_pars['action']) {
                 }
 
                 if (!is_dir(TMPDIR)) mkdir(TMPDIR, 0755, true);
-
                 if (!is_dir($addon_dir)) {
 
                     # new Addon
@@ -136,14 +145,17 @@ switch ($c_pars['action']) {
                     if (isset($c_pars['overwrite'])) {
                         $success = move_uploaded_file($c_pars['upload']['tmp_name'], $addon_dir . $addon_name);
                         if ($success) {
-                            $addon = new Addon($addon_dir . $addon_name, time());
+                            $addon = new Addon($addon_dir . $addon_name);
                             $addon->read();
+                            $addon->upload = date('d.m.Y H:i');
+                            if (isset($c_pars['reset_count'])) $addon->downloads = 0;
+                            $addon->modify();
                         }
                     } else {
-                        $errmsg = "Das Überschreiben vorhandener Addonversionen ist nicht zulässig! ";
-                        $errmsg .= "Setzen Sie dazu die entsprechende Option im Upload-Dialog.";
+                        $notice = "Das Überschreiben vorhandener Addonversionen unzulässig! ";
+                        $notice.= "Bitte die entsprechende Option im Upload-Dialog setzen.";
                         delTree(TMPDIR);
-                        require VIEWS . ERRORPAGE;
+                        require VIEWS.UPLOAD;
                         break;
                     }
 
@@ -158,14 +170,14 @@ switch ($c_pars['action']) {
                         $version = explode('-',basename($file, ADDON_EXT));
                         $vn = array_pop($version);
                         if (calculateNumVersion($vn) >= $addon_numversion) {
-                            $errmsg = "Die Versionsnummer des hochgeladenen Addons ist älter als die aktuell vorhandene Version. ";
-                            $errmsg .= "Der Upload älterer Versionen ist nicht zulässig ($addon_version aka $vn)";
+                            $notice = "Die Versionsnummer des hochgeladenen Addons ist älter als die aktuell vorhandene Version. ";
+                            $notice .= "Der Upload älterer Versionen ist nicht zulässig ($addon_version aka $vn)";
                             break;
                         }
                     }
                     if (!empty($errmsg)) {
                         delTree(TMPDIR);
-                        require VIEWS.ERRORPAGE;
+                        require VIEWS.UPLOAD;
                         break;
                     }
 
@@ -186,11 +198,11 @@ switch ($c_pars['action']) {
                 }
 
                 if (!$success) {
-                    $errmsg = "ZIP '<b>$addon_basename</b>' konnte nicht geöffnet werden. Upload ist fehlerhaft und wird gelöscht.";
+                    $notice = "ZIP '<b>$addon_basename</b>' konnte nicht geöffnet werden. Upload ist fehlerhaft und wird gelöscht.";
 
                     delTree(TMPDIR);
                     unlink($addon_dir . $addon_name);
-                    require VIEWS . ERRORPAGE;
+                    require VIEWS.UPLOAD;
                     break;
                 }
 
@@ -208,7 +220,7 @@ switch ($c_pars['action']) {
 
                     # remove temporary folders (created by extraction of addon.xml, ...
 
-                    delTree(TMPDIR);
+                    # delTree(TMPDIR);
 
 
                     # check for item presence (addon.xml, icon.png)
@@ -216,8 +228,8 @@ switch ($c_pars['action']) {
                     $addon->getAttrFromAddonXML();
                     createThumb($addon_dir, $addon_dir . 'icon.png');
                 } else {
-                    $errmsg = "Upload konnte nicht zum Repository hinzugefügt werden";
-                    require VIEWS . ERRORPAGE;
+                    $notice = "Upload konnte nicht zum Repository hinzugefügt werden";
+                    require VIEWS.UPLOAD;
                     break;
                 }
 
@@ -267,6 +279,93 @@ switch ($c_pars['action']) {
             $repo->createMD5();
         }
         require VIEWS.LISTVIEW;
+        break;
+    case 'setup':
+        if ($_SESSION['state'] == 1) {
+            require VIEWS.SETUP;
+        } else {
+            $c_pars['action'] = '';
+        }
+        break;
+    case 'setup_p1':
+        if ($_SESSION['state'] == 1) {
+            $cpw = false;
+            $user = new User($_SESSION['user']);
+            if ($c_pars['newpw'] != "") {
+                if ($c_pars['newpw'] != $c_pars['confirmpw']) {
+                    $notice = "Die Passwörter in den Feldern 'neues Passwort' und 'neues Passwort erneut eingeben' sind unterschiedlich. ";
+                    $notice .= "Ein neues Passwort wird nicht gesetzt!";
+                    require VIEWS.SETUP;
+                    break;
+                }
+                $user->passwd = crypt($c_pars['newpw']);
+                $cpw = true;
+            }
+            $user->realname = $c_pars['realname'];
+            $user->email = $c_pars['email'];
+            $user->update();
+            if ($cpw) resetSession();
+        }
+        require VIEWS.LISTVIEW;
+        break;
+
+    case 'setup_p2':
+        if ($_SESSION['state'] == 1) {
+            if (empty($c_pars['loginname'])) {
+                $notice = 'Es wurde kein Login-Name angegeben.';
+                require VIEWS.SETUP;
+                break;
+            }
+            $user = new User($c_pars['loginname']);
+            if ($user->indb) {
+                $notice = 'Ein Nutzer mit dem Login-Namen \''.$c_pars['loginname'].'\' befindet sich bereits in der Datenbank! ';
+                require VIEWS.SETUP;
+                break;
+            }
+            if (empty($c_pars['passwd'])) {
+                $notice = 'Das Erstellen eines Maintainer-Logins ohne Passwort ist nicht zulässig! ';
+                require VIEWS.SETUP;
+                break;
+            }
+            $user = new User();
+            $user->create($c_pars['loginname'], $c_pars['passwd']);
+            $notice = 'Diese Daten kopieren und per Email an den Nutzer schicken. ';
+            $notice.= 'Username: '.$c_pars['loginname'].' Passwort: '.$c_pars['passwd'];
+        }
+        require VIEWS . LISTVIEW;
+        break;
+    case 'setup_p3':
+        if ($_SESSION['state'] == 1 and !empty($c_pars['users'])) {
+            switch ($c_pars['adm_lounge']) {
+                case 'create_pw':
+                    $user = new User($c_pars['users']);
+                    $user->passwd = passwdGen();
+                    $user->update();
+                    $notice = 'Diese Daten kopieren und per Email an den Nutzer schicken. ';
+                    $notice.= 'Username: '.$c_pars['users'].' Passwort: '.$user->passwd;
+                    break;
+                case 'grant_adm':
+                    $admin = new User($c_pars['users']);
+                    $admin->isadmin = !$admin->isadmin;
+                    $admin->update();
+                    break;
+                case 'delete_user':
+                    $user = new User($c_pars['users']);
+                    if ($user->indb) {
+                        $dom = dom_import_simplexml($user->node);
+                        $dom->parentNode->removeChild($dom);
+                        $user->persist();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            require VIEWS.SETUP;
+            break;
+        } else {
+            $notice = "Es wurde kein Nutzer aus der Maintainerliste ausgewählt. Die gewünschte Aktion kann nicht ausgeführt werden.";
+            require VIEWS.SETUP;
+        }
         break;
     default:
         # Bootstrap

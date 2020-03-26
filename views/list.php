@@ -13,14 +13,11 @@ if (!defined('CONTEXT')) {
     die(__FILE__.' ausserhalb des MVC-Kontextes');
 }
 ?>
-<script>
-    function fConfirm() {
-        return confirm('Die aktuelle Version des Addons wird gelöscht und die vorhergehende Version (sofern vorhanden) wieder hergestellt! Wirklich fortfahren?')
-    }
-</script>
+
 <h3>Addons ab <?php echo $_SESSION['version_name']; ?> und höher</h3>
 <form name="d" id="d" action="<?php echo ROOT.CONTROLLER; ?>" method="post">
 </form>
+
 <?php
 
 $addondirs = scanFolder(ADDONFOLDER.$_SESSION['version'].DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));

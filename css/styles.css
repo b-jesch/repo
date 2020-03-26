@@ -6,6 +6,15 @@
     background-image: linear-gradient(to right,#fff,#336699,#fff);
 }
 
+.banner {
+    height:120px;
+    background-image: url(mainheader.jpg);
+    background-position: left;
+    background-repeat: no-repeat;
+    text-align: right;
+    padding-right: 20px;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -67,34 +76,60 @@ li.dropdown {
     display: block;
 }
 
-.text {
+.text, .alert {
     font-family: Verdana, Arial, Helevtica;
     font-size: 14px;
 }
+.alert {
+    font-size: 12px;
+    font-weight: bold;
+    color: red;
+}
 
-.button, .button_red {
-    background-image:url(button.png);
-    width:80px;
+.alertbox {
+    padding: 15px;
+    background-color: #A11625;
+    font-weight: bold;
+    margin-bottom: 10px;
     color: white;
-    height:20px;
+}
+
+.closebtn {
+    margin-left: 15px;
+    float: right;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.button, .button_red, .toolbox, .select {
+    background-color: #336699;
+    width:110px;
+    color: white;
+    height:30px;
     border:0px;
+    border-radius: 10px;
     font-family:Verdana, Arial, Helvetica;
-    font-size:10px;
+    font-size:12px;
     font-weight:bold;
-    margin: 5px;
+    margin: 8px;
 }
 
 .button_red {
-    background-image: url(button_red.png);
+    background-color: red;
 }
 
-.banner {
-    height:120px;
-    background-image: url(mainheader.jpg);
-    background-position: left;
-    background-repeat: no-repeat;
-    text-align: right;
-    padding-right: 20px;
+.select {
+    padding-left: 5px;
+    width: 200px;
+}
+.toolbox {
+    height: 25px;
+    margin: auto;
+}
+
+input[type='radio'] {
+    padding-bottom: 10px;
+    padding-right: 10px;
 }
 
 .thumb {
@@ -143,12 +178,13 @@ li.dropdown {
 .textfield_form {
     border: 1px solid black;
     width:290px;
-    height:20px;
+    height:16px;
     font-family: Verdana, Arial;
     font-size:12px;
     text-align: left;
     padding: 5px;
     margin-bottom: 5px;
+    margin-right: 10px;
 }
 
 body {
@@ -213,7 +249,7 @@ h4, caption {
     border: 1px dotted black;
     border-radius: 20px;
     width: 400px;
-    height: 90px;
+    height: 100px;
     margin-top: 50px;
     margin-bottom: 50px;
     margin-left: auto;
@@ -221,9 +257,14 @@ h4, caption {
     padding: 30px;
     text-align: center;
 }
-#upload {
-    width: 400px;
-    height: 180px;
-    margin: 70px auto;
+.upload {
+    border: 1px dotted black;
+    border-radius: 20px;
+    width: 450px;
+    height: 80px;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 20px;
 }
