@@ -16,6 +16,8 @@ if ($c_pars['action'] == 'direct_dl') {
     exit();
 }
 
+# debug($c_pars);
+
 # :::BOOTSTRAP:::
 
 # Session starten

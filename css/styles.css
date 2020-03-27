@@ -14,6 +14,34 @@
     text-align: right;
     padding-right: 20px;
 }
+.fileupload {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.fileupload + label {
+    font-family:Verdana, Arial, Helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+    ver
+    color: white;
+    width:150px;
+    height:30px;
+    background-color: #336699;
+    display: inline-block;
+    margin: 8px;
+}
+
+.fileupload:focus + label,
+.fileupload + label:hover {
+    background-color: red;
+}
 
 ul {
     list-style-type: none;
@@ -178,9 +206,9 @@ input[type='radio'] {
 .textfield_form {
     border: 1px solid black;
     width:290px;
-    height:27px;
+    height:20px;
     font-family: Verdana, Arial;
-    font-size:12px;
+    font-size:14px;
     text-align: left;
     padding: 5px;
     margin-bottom: 5px;
@@ -260,8 +288,8 @@ h4, caption {
 .upload {
     border: 1px dotted black;
     border-radius: 20px;
-    width: 450px;
-    height: 80px;
+    width: 350px;
+    height: 140px;
     margin-top: 100px;
     margin-bottom: 50px;
     margin-left: auto;

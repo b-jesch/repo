@@ -32,14 +32,15 @@ if (!defined('CONTEXT')) {
           action="<?php echo ROOT.CONTROLLER; ?>"
           enctype="multipart/form-data">
 
-    <input type="file" class="textfield_form" name="upload" accept="application/zip">
-    <input type="submit" class="button" value="Hochladen"><br>
+    <input type="file" name="upload" id="upload" class="fileupload" accept="application/zip">
+    <label for="upload" class="button" >Addon auswählen</label><br>
     <input type="checkbox" name="overwrite" id="overwrite" value="overwrite">
     <label for="overwrite">vorhandene Version überschreiben</label><br>
     <input type="checkbox" name="reset_count" id="reset_count" value="reset_count">
     <label for="reset_count">Downloadzähler zurücksetzen</label>
-
-    <input type="hidden" name="action" value="<?php crypt('upload_p2'); ?>" />
+        <hr class="spacer">
+    <input type="submit" class="button" value="Hochladen"><br>
+    <input type="hidden" name="action" value="<?php echo crypt('upload_p2'); ?>" />
 
     </form>
     </div>
