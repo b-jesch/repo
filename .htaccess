@@ -1,4 +1,7 @@
+Options -Indexes
+
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^(.+\.zip)$ index.php?action=direct_dl&f=$1 [L]
-RewriteRule \.xml$ - [NC,F]
+RewriteCond %{HTTP_USER_AGENT} !^kodi.*$ [NC]
+RewriteRule \.xml - [NC,F]
