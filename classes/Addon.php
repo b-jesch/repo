@@ -18,6 +18,7 @@ class CreateRepoXML
         $out = '<?xml version="1.0"?>' . PHP_EOL . '<addons>' . PHP_EOL;
         if ($addons) {
             foreach ($addons as $addon) {
+                if (!is_dir($addon)) continue;
                 $content = file($this->repo_sources . $addon . '/addon.xml', FILE_SKIP_EMPTY_LINES);
                 $s = true;
                 foreach ($content as $line) {
@@ -38,6 +39,27 @@ class CreateRepoXML
     }
 
     public function createMasterXML() {
+        if (is_file($this->repo_sources.'addon.xml')) {
+            $out = '<?xml version="1.0"?>' . PHP_EOL . '<addons>' . PHP_EOL;
+            $content = file($this->repo_sources.'addon.xml', FILE_SKIP_EMPTY_LINES);
+            $s = true;
+            foreach ($content as $line) {
+                if (substr($line, 0, 7) != '<addon ' and $s) {
+                    continue;
+                } else {
+                    $s = false;
+                    $out .= '    ' . $line;
+                }
+            }
+        }
+        $out .= '</addons>' . PHP_EOL;
+
+        $handle = fopen($this->repo_folder . '/addons.xml', 'w');
+        fwrite($handle, $out);
+        fclose($handle);
+    }
+
+    public function createAddonXML($dest) {
 
         # Open Template
 
@@ -47,7 +69,7 @@ class CreateRepoXML
             $line = str_replace('$root/', ROOT, $line);
             $out .= $line;
         }
-        $handle = fopen($this->repo_folder . '/addons.xml', 'w');
+        $handle = fopen($dest, 'w');
         fwrite($handle, $out);
         fclose($handle);
     }

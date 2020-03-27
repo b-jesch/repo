@@ -40,26 +40,28 @@ if (isset($c_pars['action'])) {
 # create Master XML and Repo Addon if doesn't exists
 
 if (!is_file(ADDONFOLDER.'addons.xml')) {
-    $repo = new CreateRepoXML(ADDONFOLDER, REPO_TEMPLATES.ADDON_TEMPLATE);
-    $repo->createMasterXML();
-    $repo->createMD5();
 
-    delTree(ADDONFOLDER.REPO_ID);
-    if (!is_dir(TMPDIR.REPO_ID)) mkdir(TMPDIR.REPO_ID, 0775, true);
+    # $repo = new CreateRepoXML(ADDONFOLDER, REPO_TEMPLATES.ADDON_TEMPLATE);
+    # $repo->createMasterXML();
+    # $repo->createMD5();
 
-    copy(ADDONFOLDER.'addons.xml', TMPDIR.REPO_ID.'/addon.xml');
-    $files = scanFolder(ADDONFOLDER.REPO_TEMPLATES, array('.', '..', ADDON_TEMPLATE));
-    foreach($files as $file) copy(ADDONFOLDER.REPO_TEMPLATES.$file, TMPDIR.REPO_ID.'/'.$file);
+    # clear Repo-Addon Folder
+
+    if (is_dir(ADDONFOLDER.REPO_ID)) delTree(ADDONFOLDER.REPO_ID);
+
+    # copy files to Repo-Addon Folder from template folder
 
     if (!is_dir(ADDONFOLDER.REPO_ID)) mkdir(ADDONFOLDER.REPO_ID, 0775, true);
+    $files = scanFolder(ADDONFOLDER.REPO_TEMPLATES, array('.', '..', ADDON_TEMPLATE));
+    foreach($files as $file) copy(ADDONFOLDER.REPO_TEMPLATES.$file, ADDONFOLDER.REPO_ID.'/'.$file);
+    $repo =new CreateRepoXML(ADDONFOLDER.REPO_TEMPLATES, ADDON_TEMPLATE);
+    $repo->createAddonXML(ADDONFOLDER.REPO_ID.'/addon.xml');
 
+    $files = glob(ADDONFOLDER.REPO_ID.'/*');
     $zip = new ZipArchive();
     $zip->open(ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT, ZipArchive::CREATE);
-    foreach(glob(TMPDIR.REPO_ID.'/*') as $file) $zip->addFile($file, REPO_ID.'/'.basename($file));
+    foreach($files as $file) $zip->addFile($file, REPO_ID.'/'.basename($file));
     $zip->close();
-    delTree(TMPDIR);
-
-    copy(ADDONFOLDER.'addons.xml', ADDONFOLDER.REPO_ID.'/addon.xml');
 
     $repo = new Addon(ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT, time());
     $repo->name = REPONAME;
@@ -68,6 +70,10 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
     $repo->provider = 'admin';
     $repo->author = 'admin';
     $repo->create();
+
+    $master = new CreateRepoXML(ADDONFOLDER, REPO_ID.'/');
+    $master->createMasterXML();
+    $master->createMD5();
 }
 
 # :::END OF BOOTSTRAP:::
