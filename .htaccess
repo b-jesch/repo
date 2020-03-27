@@ -1,7 +1,17 @@
 Options -Indexes
 
 RewriteEngine On
+## Rewrite direct Download addon.zip to PHP ##
 RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_METHOD} !^HEAD$
 RewriteRule ^(.+\.zip)$ index.php?action=direct_dl&f=$1 [L]
+
+## allow only kodi to load xml
 RewriteCond %{HTTP_USER_AGENT} !^kodi.*$ [NC]
-RewriteRule \.xml$ - [NC,F]
+RewriteRule \.xml - [NC,F]
+
+## Rewrite icon.png
+RewriteRule (.+zip\/.*?\/).*(\/icon\.png) $1$2 [NC] 
+
+## Rewrite fanart.jpg
+RewriteRule (.+zip\/.*?\/).*(\/fanart\.jpg) $1$2 [NC] 
