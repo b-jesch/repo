@@ -59,6 +59,8 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
     $zip->close();
     delTree(TMPDIR);
 
+    copy(ADDONFOLDER.'addons.xml', ADDONFOLDER.REPO_ID.'/addon.xml');
+
     $repo = new Addon(ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT, time());
     $repo->name = REPONAME;
     $repo->id = REPO_ID;
