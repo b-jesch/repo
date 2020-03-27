@@ -44,7 +44,7 @@ class CreateRepoXML
         $out = '';
         $content = file($this->repo_sources, FILE_SKIP_EMPTY_LINES);
         foreach ($content as $line) {
-            $line = str_replace('$root', ROOT, $line);
+            $line = str_replace('$root/', ROOT, $line);
             $out .= $line;
         }
         $handle = fopen($this->repo_folder . '/addons.xml', 'w');
