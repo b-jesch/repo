@@ -16,6 +16,8 @@ if ($c_pars['action'] == 'direct_dl') {
     exit();
 }
 
+# :::BOOTSTRAP:::
+
 # Session starten
 
 session_start();
@@ -34,6 +36,39 @@ if (isset($c_pars['action'])) {
         }
     }
 }
+
+# create Master XML and Repo Addon if doesn't exists
+
+if (!is_file(ADDONFOLDER.'addons.xml')) {
+    $repo = new CreateRepoXML(ADDONFOLDER, REPO_TEMPLATES.ADDON_TEMPLATE);
+    $repo->createMasterXML();
+    $repo->createMD5();
+
+    delTree(ADDONFOLDER.REPO_ID);
+    if (!is_dir(TMPDIR.REPO_ID)) mkdir(TMPDIR.REPO_ID, 0775, true);
+
+    copy(ADDONFOLDER.'addons.xml', TMPDIR.REPO_ID.'/addon.xml');
+    $files = scanFolder(ADDONFOLDER.REPO_TEMPLATES, array('.', '..', ADDON_TEMPLATE));
+    foreach($files as $file) copy(ADDONFOLDER.REPO_TEMPLATES.$file, TMPDIR.REPO_ID.'/'.$file);
+
+    if (!is_dir(ADDONFOLDER.REPO_ID)) mkdir(ADDONFOLDER.REPO_ID, 0775, true);
+
+    $zip = new ZipArchive();
+    $zip->open(ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT, ZipArchive::CREATE);
+    foreach(glob(TMPDIR.REPO_ID.'/*') as $file) $zip->addFile($file, REPO_ID.'/'.basename($file));
+    $zip->close();
+    delTree(TMPDIR);
+
+    $repo = new Addon(ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT, time());
+    $repo->name = REPONAME;
+    $repo->id = REPO_ID;
+    $repo->version = REPOVERSION;
+    $repo->provider = 'admin';
+    $repo->author = 'admin';
+    $repo->create();
+}
+
+# :::END OF BOOTSTRAP:::
 
 if (isset($c_pars['login'])) {
     if ($c_pars['user'] != '' and $c_pars['passwd'] != '') {
@@ -113,17 +148,10 @@ switch ($c_pars['action']) {
                 $addon_basename = implode('-', $pieces);
                 $addon_numversion = calculateNumVersion($addon_version);
 
-                # handle special folders of Repo Addon
+                $addon_dir = ADDONFOLDER . $_SESSION['version'] . DATADIR . $addon_basename . '/';
+                $summaries = ADDONFOLDER . $_SESSION['version'];
+                $master = false;
 
-                if ($addon_basename == REPO_ID) {
-                    $addon_dir = ADDONFOLDER . REPO_ID . '/';
-                    $summaries = ADDONFOLDER;
-                    $master = true;
-                } else {
-                    $addon_dir = ADDONFOLDER . $_SESSION['version'] . DATADIR . $addon_basename . '/';
-                    $summaries = ADDONFOLDER . $_SESSION['version'];
-                    $master = false;
-                }
 
                 if (!is_dir(TMPDIR)) mkdir(TMPDIR, 0755, true);
                 if (!is_dir($addon_dir)) {
@@ -220,8 +248,7 @@ switch ($c_pars['action']) {
 
                     # remove temporary folders (created by extraction of addon.xml, ...
 
-                    # delTree(TMPDIR);
-
+                    delTree(TMPDIR);
 
                     # check for item presence (addon.xml, icon.png)
 
@@ -232,14 +259,8 @@ switch ($c_pars['action']) {
                     require VIEWS.UPLOAD;
                     break;
                 }
-
-                if ($master) {
-                    $repo = new CreateRepoXML($summaries, REPO_ID);
-                    $repo->createMasterXML();
-                } else {
-                    $repo = new CreateRepoXML($summaries, DATADIR);
-                    $repo->createRepoAddonSummary();
-                }
+                $repo = new CreateRepoXML($summaries, DATADIR);
+                $repo->createRepoXML();
                 $repo->createMD5();
             }
         }
@@ -275,7 +296,7 @@ switch ($c_pars['action']) {
                 }
             }
             $repo = new CreateRepoXML(ADDONFOLDER.$_SESSION['version'], DATADIR);
-            $repo->createRepoAddonSummary();
+            $repo->createRepoXML();
             $repo->createMD5();
         }
         require VIEWS.LISTVIEW;

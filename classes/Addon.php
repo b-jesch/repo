@@ -4,21 +4,21 @@ class CreateRepoXML
 {
 
     public $repo_folder = NULL;                          # Folder for addon.xml in summary
-    public $repo_zips = NULL;                            # Folder of zipped addons
+    public $repo_sources = NULL;                            # Folder of zipped addons
 
-    function __construct($repo_folder, $zips) {
+    function __construct($repo_folder, $sources) {
 
         $this->repo_folder = $repo_folder;
-        $this->repo_zips = $repo_folder . $zips;
+        $this->repo_sources = $repo_folder . $sources;
     }
 
-    function createRepoAddonSummary() {
+    function createRepoXML() {
 
-        $addons = scanFolder($this->repo_zips, array('.', '..'));
+        $addons = scanFolder($this->repo_sources, array('.', '..'));
         $out = '<?xml version="1.0"?>' . PHP_EOL . '<addons>' . PHP_EOL;
         if ($addons) {
             foreach ($addons as $addon) {
-                $content = file($this->repo_zips . $addon . '/addon.xml', FILE_SKIP_EMPTY_LINES);
+                $content = file($this->repo_sources . $addon . '/addon.xml', FILE_SKIP_EMPTY_LINES);
                 $s = true;
                 foreach ($content as $line) {
                     if (substr($line, 0, 7) != '<addon ' and $s) {
@@ -38,18 +38,15 @@ class CreateRepoXML
     }
 
     public function createMasterXML() {
-        $out = '<?xml version="1.0"?>' . PHP_EOL . '<addons>' . PHP_EOL;
-        $content = file($this->repo_zips.'/addon.xml', FILE_SKIP_EMPTY_LINES);
-        $s = true;
+
+        # Open Template
+
+        $out = '';
+        $content = file($this->repo_sources, FILE_SKIP_EMPTY_LINES);
         foreach ($content as $line) {
-            if (substr($line, 0, 7) != '<addon ' and $s) {
-                continue;
-            } else {
-                $s = false;
-                $out .= '    ' . $line;
-            }
+            $line = str_replace('$root', ROOT, $line);
+            $out .= $line;
         }
-        $out .= '</addons>' . PHP_EOL;
         $handle = fopen($this->repo_folder . '/addons.xml', 'w');
         fwrite($handle, $out);
         fclose($handle);

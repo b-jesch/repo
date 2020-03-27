@@ -1,16 +1,14 @@
 <?xml version="1.0"?>
 <addon>
-  <name>SaXBMC Addon Repo</name>
+  <name>saXBMC Addon Repo</name>
   <addon_id>repository.saxbmc</addon_id>
   <version>1.2.1</version>
-  <tree>krypton</tree>
-  <summary>
-            Some useful services and scripts for use within Kodi
-        </summary>
+  <tree/>
+  <summary/>
   <object>addons/repository.saxbmc/repository.saxbmc-1.2.1.zip</object>
-  <object_id>1579681705</object_id>
-  <upload>22.01.2020 09:28</upload>
-  <provider>b-jesch</provider>
-  <author>Birger Jesch</author>
-  <downloads>8</downloads>
+  <object_id>1585306831</object_id>
+  <upload>27.03.2020 12:00</upload>
+  <provider>admin</provider>
+  <author>admin</author>
+  <downloads>0</downloads>
 </addon>

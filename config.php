@@ -3,9 +3,13 @@
 
 define('DEBUG', true);
 
-define('REPONAME', 'saXBMC Repo');
+define('REPONAME', 'saXBMC Addon Repo');
 define('REPO_ID', 'repository.saxbmc');
 define('REPOVERSION', '1.2.1');
+
+define('REPO_TEMPLATES', '__repo_templates/');  # Template Files
+define('ADDON_TEMPLATE', '__addons.xml');       # Addon Template
+
 define('REPOLOGO', 'css/wbbLogo.png');
 
 # Root/Folders of CMS
