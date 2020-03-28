@@ -22,15 +22,10 @@
 <hr class="spacer">
 
 <?php
-if ($notice) {
+if (!empty($notice)) {
     echo "<div class='alertbox' id='alertbox'>".$notice;
-    echo "<span class='closebtn'>";
-    echo "<input type='button' class='toolbox' value='kopieren' onclick='CopyClipboard(\"alertbox\");'>".PHP_EOL;
-    echo "<input type='button' class='toolbox' value='schliessen' onclick='document.getElementById(\"alertbox\").style.display=\"none\";'>";
-    echo "</span></div>";
-    # echo "<span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span></div>";
-    # echo "<input type='button' id='copybtn' value='kopieren' onclick='CopyClipboard(\"alertbox\")'>&times;</span></div>";
-    unset($notice);
+    echo "<span class='closebtn' onclick='document.getElementById(\"alertbox\").style.display=\"none\";'>";
+    echo "&times;</span></div>";
 }
 ?>
 

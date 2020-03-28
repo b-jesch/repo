@@ -196,7 +196,7 @@ switch ($c_pars['action']) {
                 $addon->getAttrFromAddonXML();
 
                 if (empty($addon->tree)) {
-                    $notice = "Die 'addon.xml' im Zip enthält keinen Eintrag zur Kodi-Version (xbmc.python). Das Addon wird nicht gespeichert";
+                    $notice = "Das hochgeladene ZIP ist kein Kodi Addon oder die darin befindliche 'addon.xml' im ZIP ist ungültig (keine Versionsangabe zu xbmc.python).";
                     require VIEWS . UPLOAD;
                     break;
                 }
@@ -334,7 +334,6 @@ switch ($c_pars['action']) {
             if ($c_pars['newpw'] != "") {
                 if ($c_pars['newpw'] != $c_pars['confirmpw']) {
                     $notice = "Die Passwörter in den Feldern 'neues Passwort' und 'neues Passwort erneut eingeben' sind unterschiedlich. ";
-                    $notice .= "Ein neues Passwort wird nicht gesetzt!";
                     require VIEWS.SETUP;
                     break;
                 }

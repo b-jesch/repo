@@ -132,7 +132,7 @@ li.dropdown {
     cursor: pointer;
 }
 
-.button, .button_red, .toolbox, .select {
+.button, .button_red, .select {
     background-color: #336699;
     width:110px;
     color: white;

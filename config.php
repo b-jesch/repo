@@ -33,7 +33,8 @@ define('TMPDIR', 'temp/');              # temporary files
 define('ARCHIVE', 'archive/');          # Archive folder
 define('ADDON_EXT', '.zip');            # Endung Addon-Objekt im Data-Verzeichnis
 define('META_EXT', '.xml');             # Endung Metadaten-Datei
-define('USER_DB', 'etc/uPwFile.xml');   # User Management
+define('ETC', 'etc/');                  # User Management
+define('USER_FILE', 'uPwFile.xml');     # User Data
 
 # Stylesheets
 

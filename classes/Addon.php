@@ -172,6 +172,7 @@ class Addon {
     }
 
     public function getAttrFromAddonXML() {
+        if (!is_file(pathinfo($this->file, PATHINFO_DIRNAME).'/addon.xml')) return false;
         $xml = simplexml_load_file(pathinfo($this->file, PATHINFO_DIRNAME).'/addon.xml');
         if ($xml) {
 
@@ -255,14 +256,14 @@ class User
     function __construct($user='')
     {
 
-        if (!is_file(USER_DB)) {
-            # $init = '<users><user login="admin"><passwd>$1$9rQmP7mh$4Aewg5ppAb161Rc4Cc45F.</passwd>';
+        if (!is_file(ETC.USER_FILE)) {
+            if (!is_dir(ETC)) mkdir(ETC, 0775, true);
             $init = '<users><user login="admin"><passwd>'.crypt('admin').'</passwd>';
             $init.= '<isadmin>true</isadmin></user></users>';
             $this->users = simplexml_load_string($init);
-        } else {
-            $this->users = simplexml_load_file(USER_DB);
+            $this->persist();
         }
+        $this->users = simplexml_load_file(ETC.USER_FILE);
         if ($user != '') {
             foreach ($this->users->children() as $node) {
                 if ($node->attributes()->login == $user) {
@@ -326,7 +327,7 @@ class User
     public function persist() {
         $dom = init_domxml();
         $dom->loadXML($this->users->saveXML());
-        $dom->save(USER_DB);
+        $dom->save(ETC.USER_FILE);
     }
 
     public function update() {
