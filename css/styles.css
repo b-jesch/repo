@@ -36,6 +36,7 @@
     background-color: #336699;
     display: inline-block;
     margin: 8px;
+    border-color: #000000;
 }
 
 .fileupload:focus + label,
@@ -134,7 +135,8 @@ li.dropdown {
     width:110px;
     color: white;
     height:30px;
-    border:0px;
+/*    border:0px;  */
+    border-color: #000000;
     border-radius: 10px;
     font-family:Verdana, Arial, Helvetica;
     font-size:12px;
@@ -142,10 +144,16 @@ li.dropdown {
     margin: 8px;
 }
 
+.button:hover {
+    background-color: #6B8EB0;
+}
 .button_red {
     background-color: red;
 }
 
+.button_red:hover {
+    background-color: #F55858;
+}
 .select {
     padding-left: 5px;
     width: 200px;
@@ -277,8 +285,8 @@ h4, caption {
     border: 1px dotted black;
     border-radius: 20px;
     width: 400px;
-    height: 100px;
-    margin-top: 50px;
+    height: 110px;
+    margin-top: 40px;
     margin-bottom: 50px;
     margin-left: auto;
     margin-right: auto;
