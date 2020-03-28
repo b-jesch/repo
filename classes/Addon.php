@@ -91,6 +91,7 @@ class Addon {
 
     public $file = NULL;                            # Dateiname im Addon-Data-Verzeichnis
     public $object_id = NULL;                       # Objekt-ID
+    public $category = NULL;                        # Addon-Kategorie
     public $name = NULL;                            # Addon-Name
     public $id = NULL;                              # Addon-Id
     public $version = NULL;                         # Addon-Version
@@ -104,14 +105,20 @@ class Addon {
     public $author = NULL;                          # Addon-Autor
     public $downloads = NULL;                       # Anzahl Downloads
 
+    public $addon_types = NULL;
+    public $addon_category = NULL;
+    public $python = NULL;
+    public $version_dirs = NULL;
+
+
     function __construct($file, $id='') {
         $this->file = $file;
         $this->object_id = $id;
         $this->meta = substr($file,0, strlen(ADDON_EXT) * -1).META_EXT;
-        $this->addonxml = pathinfo($file, PATHINFO_DIRNAME).'/addon.xml';
         $this->upload = date('d.m.Y H:i');
         $this->size = filesize($file);
         $this->downloads = 0;
+        $this->category = 'Unknown';
     }
 
     public function create() {
@@ -165,19 +172,32 @@ class Addon {
     }
 
     public function getAttrFromAddonXML() {
-        $xml = simplexml_load_file($this->addonxml);
+        $xml = simplexml_load_file(pathinfo($this->file, PATHINFO_DIRNAME).'/addon.xml');
         if ($xml) {
-            foreach($xml->extension as $extensionpoint) {
-                if ($extensionpoint['point'] == 'xbmc.addon.metadata') $this->summary = $extensionpoint->summary[0];
+
+            # Get short description (summary), Addon-Type
+
+            foreach($xml->extension as $ep) {
+                if ($ep['point'] == 'xbmc.addon.metadata') {
+                    $this->summary = $ep->summary[0];
+                }
+                if (array_search($ep['point'], $this->addon_types)) {
+                    if ($this->category == 'Unknown') $this->category = $this->addon_category[array_search($ep['point'], $this->addon_types)];
+                }
+            }
+
+            # Get Python Version (tree)
+
+            foreach($xml->requires->import as $import) {
+                if ($import['addon'] == 'xbmc.python') $this->tree = $this->version_dirs[array_search($import['version'], $this->python)];
             }
 
             $addon_attributes = iterator_to_array($xml->attributes());
-
             $this->author = $addon_attributes['provider-name'];
             $this->version = $addon_attributes['version'];
             $this->name = $addon_attributes['name'];
             $this->id = $addon_attributes['id'];
-            $this->writeProperties();
+            # $this->writeProperties();
         }
     }
 
@@ -194,6 +214,7 @@ class Addon {
             $this->provider = $xml->provider;
             $this->author = $xml->author;
             $this->downloads = $xml->downloads;
+            $this->category = $xml->category;
         }
     }
 
@@ -202,6 +223,7 @@ class Addon {
         $xml->addChild('name', htmlspecialchars($this->name));
         $xml->addChild('addon_id', $this->id);
         $xml->addChild('version', $this->version);
+        $xml->addChild('category', $this->category);
         $xml->addChild('tree', $this->tree);
         $xml->addChild('summary', htmlspecialchars($this->summary));
         $xml->addChild('object', $this->file);

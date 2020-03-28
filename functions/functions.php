@@ -90,31 +90,33 @@ function convertHRV($value) {
     return sprintf('%01.2f', $value).$units[$i];
 }
 
-function createThumb($path, $icon) {
-    $image = getimagesize($icon);
+function createThumb($storage_path, $source) {
+    if (is_file($source)) {
+        $image = getimagesize($source);
 
-    if ($image[0]/$image[1] >= 1) {
-        $x = TBN_X;
-        $y = TBN_X * $image[1]/$image[0];
-    } else {
-        $y = TBN_Y;
-        $x = TBN_Y * $image[0]/$image[1];
+        if ($image[0]/$image[1] >= 1) {
+            $x = TBN_X;
+            $y = TBN_X * $image[1]/$image[0];
+        } else {
+            $y = TBN_Y;
+            $x = TBN_Y * $image[0]/$image[1];
+        }
+
+        if ($image[2] == IMAGETYPE_GIF) {
+            $ram = imagecreatefromgif($source);
+        } elseif ($image[2] == IMAGETYPE_JPEG) {
+            $ram = imagecreatefromjpeg($source);
+        } elseif ($image[2] == IMAGETYPE_PNG) {
+            $ram = imagecreatefrompng($source);
+        }
+        $ram_tbn = imagecreatetruecolor($x, $y);
+        imagecopyresampled($ram_tbn, $ram, 0, 0, 0,0,
+            $x, $y, $image[0], $image[1]);
+
+        imagejpeg($ram_tbn, $storage_path.'icon.tbn');
+
+        imagedestroy($ram);
+        imagedestroy($ram_tbn);
     }
-
-    if ($image[2] == IMAGETYPE_GIF) {
-        $ram = imagecreatefromgif($icon);
-    } elseif ($image[2] == IMAGETYPE_JPEG) {
-        $ram = imagecreatefromjpeg($icon);
-    } elseif ($image[2] == IMAGETYPE_PNG) {
-        $ram = imagecreatefrompng($icon);
-    }
-    $ram_tbn = imagecreatetruecolor($x, $y);
-    imagecopyresampled($ram_tbn, $ram, 0, 0, 0,0,
-        $x, $y, $image[0], $image[1]);
-
-    imagejpeg($ram_tbn, $path.'icon.tbn');
-
-    imagedestroy($ram);
-    imagedestroy($ram_tbn);
 }
 ?>

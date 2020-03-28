@@ -15,14 +15,15 @@ if (!defined('CONTEXT')) {
 
 # Inhalt der View
 
+$ks = array_shift($kodiversions);
+$ke = array_pop($kodiversions);
 ?>
 
 <h3>Addon-Upload</h3>
 
-    Hier können Addons für die Kodi-Versionen <?php foreach ($kodiversions as $version) {echo $version.', ';} ?> hochgeladen werden. Folgende Richtlinien sind zu beachten:
-    <ol><li class="text">Vor dem Hochladen des Addons ist die richtige Version einzustellen.</li>
-        <li>Der Dateiname des ZIPs hat den Regeln für die Namensgebung von komprimierten Dateien zu folgen: <b>&lt;addonname&gt;-&lt;x.y.z&gt;.zip</b>, wobei &lt;addonname&gt; der Addon-ID sowie &lt;x.y.z&gt; der
-            Addon-Version entsprechen muss.</li>
+    Hier können Addons für die Kodi-Versionen ab <?php echo "$ks bis $ke"; ?> hochgeladen werden. Folgende Richtlinien sind zu beachten:
+    <ol><li>Der Dateiname des ZIPs hat den Regeln für die Namensgebung von komprimierten Dateien zu folgen: <b>&lt;addonname&gt;-&lt;x.y.z&gt;.zip</b>, wobei &lt;addonname&gt; der Addon-ID sowie &lt;x.y.z&gt; der
+            Addon-Version entsprechen sollte.</li>
         <li>Die Struktur im Zip muss der Struktur eines Addons folgen.</li>
     </ol>
 

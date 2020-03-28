@@ -43,10 +43,6 @@ if (isset($c_pars['action'])) {
 
 if (!is_file(ADDONFOLDER.'addons.xml')) {
 
-    # $repo = new CreateRepoXML(ADDONFOLDER, REPO_TEMPLATES.ADDON_TEMPLATE);
-    # $repo->createMasterXML();
-    # $repo->createMD5();
-
     # clear Repo-Addon Folder
 
     if (is_dir(ADDONFOLDER.REPO_ID)) delTree(ADDONFOLDER.REPO_ID);
@@ -78,6 +74,8 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
     $master->createMD5();
 }
 
+if (is_dir(TMPDIR)) delTree(TMPDIR);
+
 # :::END OF BOOTSTRAP:::
 
 if (isset($c_pars['login'])) {
@@ -87,6 +85,7 @@ if (isset($c_pars['login'])) {
         if ($user->success) {
             $_SESSION['state'] = 1;
             $_SESSION['user'] = $user->username;
+            $_SESSION['isadmin'] = $user->isadmin;
             $c_pars['action'] = 'list';
         } else {
             $c_pars['action'] = 'login';
@@ -102,7 +101,7 @@ if (isset($c_pars['login'])) {
 if (($c_pars['version'] != '') and (in_array($c_pars['version'], $version_dirs))) {
     $_SESSION['version'] = $c_pars['version'];
 } elseif (empty($_SESSION['version'])) {
-    $_SESSION['version'] = $version_dirs[0];
+    $_SESSION['version'] = $version_dirs[3]; # Krypton
 }
 
 $i = 0;
@@ -147,6 +146,9 @@ switch ($c_pars['action']) {
                 break;
             }
             if ($c_pars['upload']['error'] == UPLOAD_ERR_OK) {
+
+                # Prerequisites
+
                 $addon_name = $c_pars['upload']['name'];
 
                 # Determine Addonname, Addonversion, be aware for multiple delimiters
@@ -154,128 +156,134 @@ switch ($c_pars['action']) {
 
                 $pieces = explode('-', basename($addon_name, ADDON_EXT));
 
-                $addon_version = array_pop($pieces);
+                if (count($pieces) > 1) {
+                    $addon_version = array_pop($pieces);
+                }
                 $addon_basename = implode('-', $pieces);
-                $addon_numversion = calculateNumVersion($addon_version);
 
-                $addon_dir = ADDONFOLDER . $_SESSION['version'] . DATADIR . $addon_basename . '/';
-                $summaries = ADDONFOLDER . $_SESSION['version'];
-                $master = false;
+                mkdir(TMPDIR, 0755, true);
 
+                # move and unpacking upload to TMPDIR
 
-                if (!is_dir(TMPDIR)) mkdir(TMPDIR, 0755, true);
-                if (!is_dir($addon_dir)) {
-
-                    # new Addon
-
-                    mkdir($addon_dir, 0755, true);
-                    $success = move_uploaded_file($c_pars['upload']['tmp_name'], $addon_dir . $addon_name);
-                    if ($success) {
-                        $addon = new Addon($addon_dir . $addon_name, time());
-                        $addon->tree = substr($_SESSION['version'], 0, -1);
-                        $addon->provider = $_SESSION['user'];
-                        $addon->create();
-                    }
-                } elseif (is_file($addon_dir.$addon_name)) {
-
-                    # existing Addon, check overwrite option
-
-                    if (isset($c_pars['overwrite'])) {
-                        $success = move_uploaded_file($c_pars['upload']['tmp_name'], $addon_dir . $addon_name);
-                        if ($success) {
-                            $addon = new Addon($addon_dir . $addon_name);
-                            $addon->read();
-                            $addon->upload = date('d.m.Y H:i');
-                            if (isset($c_pars['reset_count'])) $addon->downloads = 0;
-                            $addon->modify();
-                        }
-                    } else {
-                        $notice = "Das Überschreiben vorhandener Addonversionen unzulässig! ";
-                        $notice.= "Bitte die entsprechende Option im Upload-Dialog setzen.";
-                        delTree(TMPDIR);
-                        require VIEWS.UPLOAD;
-                        break;
-                    }
-
-                } else {
-
-                    # update Addon
-                    # check for existing files when overwrite option is not set
-
-                    $files = glob($addon_dir.'*.zip');
-                    $errmsg = '';
-                    foreach ($files as $file) {
-                        $version = explode('-',basename($file, ADDON_EXT));
-                        $vn = array_pop($version);
-                        if (calculateNumVersion($vn) >= $addon_numversion) {
-                            $notice = "Die Versionsnummer des hochgeladenen Addons ist älter als die aktuell vorhandene Version. ";
-                            $notice .= "Der Upload älterer Versionen ist nicht zulässig ($addon_version aka $vn)";
-                            break;
-                        }
-                    }
-                    if (!empty($errmsg)) {
-                        delTree(TMPDIR);
-                        require VIEWS.UPLOAD;
-                        break;
-                    }
-
-                    # move existing addon version into archive
-
-                    $files = glob($addon_dir . $addon_basename . '*.*');
-                    if ($files) {
-                        if (!is_dir($addon_dir . ARCHIVE)) mkdir($addon_dir . ARCHIVE, 0755, true);
-                        foreach ($files as $file) rename($file, $addon_dir . ARCHIVE . basename($file));
-                    }
-                    $success = move_uploaded_file($c_pars['upload']['tmp_name'], $addon_dir . $addon_name);
-                    if ($success) {
-                        $addon = new Addon($addon_dir . $addon_name, time());
-                        $addon->tree = substr($_SESSION['version'], 0, -1);
-                        $addon->provider = $_SESSION['user'];
-                        $addon->create();
-                    }
-                }
-
-                if (!$success) {
-                    $notice = "ZIP '<b>$addon_basename</b>' konnte nicht geöffnet werden. Upload ist fehlerhaft und wird gelöscht.";
-
-                    delTree(TMPDIR);
-                    unlink($addon_dir . $addon_name);
-                    require VIEWS.UPLOAD;
-                    break;
-                }
-
+                move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR.$addon_name);
                 $zip = new ZipArchive();
-                $zip->open($addon_dir . $addon_name);
+                $zip->open(TMPDIR.$addon_name);
 
                 if ($zip->status == ZipArchive::ER_OK) {
                     for ($i = 0; $i < $zip->numFiles; $i++) {
                         if (in_array(basename($zip->statIndex($i)['name']), array('addon.xml', 'fanart.jpg', 'icon.png', 'changelog.txt'))) {
                             $zip->extractTo(TMPDIR, $zip->statIndex($i)['name']);
-                            rename(TMPDIR . $zip->statIndex($i)['name'], $addon_dir . basename($zip->statIndex($i)['name']));
+                            rename(TMPDIR . $zip->statIndex($i)['name'], TMPDIR . basename($zip->statIndex($i)['name']));
                         }
                     }
                     $zip->close();
-
-                    # remove temporary folders (created by extraction of addon.xml, ...
-
-                    delTree(TMPDIR);
-
-                    # check for item presence (addon.xml, icon.png)
-
-                    $addon->getAttrFromAddonXML();
-                    createThumb($addon_dir, $addon_dir . 'icon.png');
                 } else {
-                    $notice = "Upload konnte nicht zum Repository hinzugefügt werden";
-                    require VIEWS.UPLOAD;
+                    $notice = 'Die Zip-Datei ist defekt und konnte nicht geöffnet werden! Das Addon wurde nicht gespeichert.';
+                    require VIEWS . UPLOAD;
                     break;
                 }
-                $repo = new CreateRepoXML($summaries, DATADIR);
-                $repo->createRepoXML();
-                $repo->createMD5();
+
+                # create addon object and thumbnail
+
+                $addon = new Addon(TMPDIR.$addon_name, time());
+                $addon->provider = $_SESSION['user'];
+
+                $addon->addon_types = $addon_types;
+                $addon->addon_category = $addon_category;
+                $addon->python = $addon_python;
+                $addon->version_dirs = $version_dirs;
+
+                $addon->getAttrFromAddonXML();
+
+                if (empty($addon->tree)) {
+                    $notice = "Die 'addon.xml' im Zip enthält keinen Eintrag zur Kodi-Version (xbmc.python). Das Addon wird nicht gespeichert";
+                    require VIEWS . UPLOAD;
+                    break;
+                }
+
+                createThumb(TMPDIR, TMPDIR.'icon.png');
+                $addon_dir = ADDONFOLDER . $addon->tree . DATADIR . $addon_basename . '/';
+                $summaries = ADDONFOLDER . $addon->tree;
+
+                if (!is_dir($addon_dir)) {
+
+                    # new Addon
+
+                    mkdir($addon_dir, 0755, true);
+
+                    $addon->file = $addon_dir.$addon_name;
+                    $addon->create();
+
+                    $files = scanFolder(TMPDIR, array('.', '..', $addon_basename));
+                    foreach($files as $file) rename(TMPDIR.$file, $addon_dir.basename($file));
+
+                } elseif (scanFolder($addon_dir, array('.', '..', 'archive'))) {
+
+                    # existing addon files, check overwrite option and user permissions
+                    # get info from current addon objects
+
+                    $files = glob($addon_dir.$addon_basename.'*.zip');
+                    foreach ($files as $c_file) {
+                        $c_addon = new Addon($c_file);
+                        $c_addon->read();
+                        if (calculateNumVersion($c_addon->version) < calculateNumVersion($addon->version)) {
+                            continue;
+
+                        } elseif (calculateNumVersion($c_addon->version) > calculateNumVersion($addon->version)) {
+                            $notice = 'Ein Überschreiben vorhandener Addons mit älteren Addon-Versionen ist nicht zulässig!';
+                            require VIEWS . UPLOAD;
+                            exit();
+
+                        } else {
+
+                            # identical version but possibly different filenames
+
+                            if (isset($c_pars['overwrite']) and $_SESSION['user'] == $c_addon->provider) {
+
+                                $addon->object_id = $c_addon->object_id;
+                                if (!isset($c_pars['reset_count'])) $addon->downloads = $c_addon->downloads;
+
+                                unlink($c_addon->file);
+                                unlink($c_addon->meta);
+                            } else {
+                                $notice = "Die Option 'vorhandene Version überschreiben' ist nicht gesetzt oder der ";
+                                $notice .= "angemeldete Nutzer ist nicht der Maintainer des Addons.";
+                                require VIEWS . UPLOAD;
+                                exit();
+                            }
+                        }
+                    }
+
+                    # Addon update with new filename
+                    # check version and - if success - move existing addon versions into archive
+
+                    # get older addons
+
+                    $archive_files = glob($addon_dir . $addon_basename . '*.*');
+                    if ($archive_files) {
+                        if (!is_dir($addon_dir . ARCHIVE)) mkdir($addon_dir . ARCHIVE, 0755, true);
+                        foreach ($archive_files as $file) rename($file, $addon_dir . ARCHIVE . basename($file));
+                    }
+                    $addon->file = $addon_dir.$addon_name;
+                    $addon->create();
+
+                    # move uploaded addon to destination
+
+                    $files = scanFolder(TMPDIR, array('.', '..', $addon_basename));
+                    foreach($files as $file) rename(TMPDIR.$file, $addon_dir.basename($file));
+                }
             }
+            $repo = new CreateRepoXML($summaries, DATADIR);
+            $repo->createRepoXML();
+            $repo->createMD5();
+
+            $_SESSION['version'] = $addon->tree;
+            header('Location: ' . ROOT . CONTROLLER);
+            exit();
         }
-        require VIEWS . LISTVIEW;
+        require VIEWS.LISTVIEW;
         break;
+
     case 'download':
         $addondirs = scanFolder(ADDONFOLDER.$_SESSION['version'].DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
         if ($addondirs) {
@@ -290,6 +298,7 @@ switch ($c_pars['action']) {
         }
         require VIEWS.LISTVIEW;
         break;
+
     case 'delete':
         if ($_SESSION['state'] == 1) {
             $addondirs = scanFolder(ADDONFOLDER.$_SESSION['version'].DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));

@@ -23,6 +23,10 @@ define('ROOT', 'http://localhost/repo/');
 define('CONTROLLER', 'index.php');
 define('VIEWS', 'views/');
 
+# special action (encrypted path)
+
+$routing = array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2');
+
 define('ADDONFOLDER', 'addons/');       # Rootfolder Upload
 define('DATADIR', 'zip/');              # Addons data folder
 define('TMPDIR', 'temp/');              # temporary files
@@ -60,16 +64,30 @@ define('HEADER', 'header.php');         # Header
 define('FOOTER', 'footer.php');         # Footer
 define('NAVIGATION', 'navi.php');       # Navigation
 
-
 # global MVC-Context
 
 define('CONTEXT', true);
 
-# Arrays
+# Arrays (Kodi specific)
 
-$kodiversions = array('Kodi 17 (Krypton)', 'Kodi 18 (Leia)', 'Kodi 19 (Matrix)');
-$version_dirs = array('krypton/', 'leia/', 'matrix/');
-$routing = array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2');
+$kodiversions = array('Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
+    'Kodi 19 (Matrix)');
+
+$version_dirs = array('helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/');
+
+$addon_types = array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.repository', 'xbmc.service', 'xbmc.metadata.scraper.albuns',
+    'xbmc.metadata.scraper.artists'. 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
+    'xbmc.metadata.scraper.library', 'xbmc.ui.screensaver', 'xbmc.player.musicviz', 'xbmc.python.pluginsource', 'xbmc.python.script',
+    'xbmc.python.weather', 'xbmc.subtitle.module', 'xbmc.python.lyrics', 'xbmc.python.library', 'xbmc.python.module', 'xbmc.addon.video',
+    'xbmc.addon.audio', 'xbmc.addon.image', 'kodi.resource.images', 'kodi.source.languages');
+
+$addon_category = array('Skin', 'Web Interface', 'Repository', 'Service', 'Album Information',
+    'Artist Information', 'Movie Information', 'Muisc Video Information', 'TV Information',
+    'Library', 'Screensaver', 'Visualization', 'Media Plugin', 'Media Script',
+    'Weather', 'Subtitle Service Module', 'Lyrics', 'Python Library', 'python Module', 'Video Addon',
+    'Music Addon', 'Image Addon', 'Image Resource', 'Language Resource');
+
+$addon_python = array('2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0');
 
 # Thumbnails
 
