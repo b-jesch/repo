@@ -3,12 +3,13 @@
   <name>saXBMC Addon Repo</name>
   <addon_id>repository.saxbmc</addon_id>
   <version>1.2.1</version>
+  <category>Unknown</category>
   <tree/>
   <summary/>
   <object>addons/repository.saxbmc/repository.saxbmc-1.2.1.zip</object>
-  <object_id>1585324971</object_id>
-  <upload>27.03.2020 17:02</upload>
-  <provider>admin</provider>
-  <author>admin</author>
+  <object_id>1585484296</object_id>
+  <upload>29.03.2020 14:18</upload>
+  <provider>Kodinerds</provider>
+  <author>Kodinerds</author>
   <downloads>0</downloads>
 </addon>

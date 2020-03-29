@@ -39,7 +39,7 @@ if (isset($c_pars['action'])) {
     }
 }
 
-# create Master XML and Repo Addon if doesn't exists
+# create Master XML and Repo Addon XML if doesn't exists
 
 if (!is_file(ADDONFOLDER.'addons.xml')) {
 
@@ -65,15 +65,28 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
     $repo->name = REPONAME;
     $repo->id = REPO_ID;
     $repo->version = REPOVERSION;
-    $repo->provider = 'admin';
-    $repo->author = 'admin';
+    $repo->provider = PROVIDER;
+    $repo->author = PROVIDER;
     $repo->create();
 
     $master = new CreateRepoXML(ADDONFOLDER, REPO_ID.'/');
     $master->createMasterXML();
     $master->createMD5();
-}
 
+    # create version folder and XML for certain Kodi versions as Kodi looks up at first in these
+    # dependent on Kodi version. Kodi fails if these folders doesn't exist (maybe a bug?)
+
+    foreach ($version_dirs as $version_dir) {
+        if (is_dir(ADDONFOLDER.$version_dir)) {
+            if (is_file(ADDONFOLDER.$version_dir.'addons.xml')) continue;
+        } else {
+            mkdir(ADDONFOLDER.$version_dir, 0775, true);
+            $repo = new CreateRepoXML(ADDONFOLDER.$version_dir, '');
+            $repo->createRepoXML();
+            $repo->createMD5();
+        }
+    }
+}
 if (is_dir(TMPDIR)) delTree(TMPDIR);
 
 # :::END OF BOOTSTRAP:::
@@ -147,7 +160,7 @@ switch ($c_pars['action']) {
             }
             if ($c_pars['upload']['error'] == UPLOAD_ERR_OK) {
 
-                # Prerequisites
+                # :::PREREQUISITES:::
 
                 $addon_name = $c_pars['upload']['name'];
 
@@ -193,10 +206,18 @@ switch ($c_pars['action']) {
                 $addon->python = $addon_python;
                 $addon->version_dirs = $version_dirs;
 
-                $addon->getAttrFromAddonXML();
+                if (is_file(TMPDIR.'addon.xml')) {
+                    $addon->getAttrFromAddonXML();
 
-                if (empty($addon->tree)) {
-                    $notice = "Das hochgeladene ZIP ist kein Kodi Addon oder die darin befindliche 'addon.xml' im ZIP ist ungültig (keine Versionsangabe zu xbmc.python).";
+                    # missing xbmc.python attribute in addon.xml, assign to 'Kryption'
+
+                    if (empty($addon->tree)) {
+                        $addon->tree = $version_dirs[3];
+                        $notice = "Der Upload wird der der Kodiversion 'Krypton' zugeordnet";
+                    }
+
+                } else {
+                    $notice = "Im hochgeladenen ZIP befindet sich keine 'addon.xml'. Der Upload wird verworfen";
                     require VIEWS . UPLOAD;
                     break;
                 }
@@ -204,6 +225,8 @@ switch ($c_pars['action']) {
                 createThumb(TMPDIR, TMPDIR.'icon.png');
                 $addon_dir = ADDONFOLDER . $addon->tree . DATADIR . $addon_basename . '/';
                 $summaries = ADDONFOLDER . $addon->tree;
+
+                # :::END PREREQUISITES:::
 
                 if (!is_dir($addon_dir)) {
 
@@ -273,7 +296,7 @@ switch ($c_pars['action']) {
                     foreach($files as $file) rename(TMPDIR.$file, $addon_dir.basename($file));
                 }
             }
-            $repo = new CreateRepoXML($summaries, DATADIR);
+            $repo = new CreateRepoXML(ADDONFOLDER.$addon->tree, DATADIR);
             $repo->createRepoXML();
             $repo->createMD5();
 

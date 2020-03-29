@@ -18,7 +18,7 @@ class CreateRepoXML
         $out = '<?xml version="1.0"?>' . PHP_EOL . '<addons>' . PHP_EOL;
         if ($addons) {
             foreach ($addons as $addon) {
-                if (!is_dir($addon)) continue;
+                if (!is_dir($this->repo_sources.$addon)) continue;
                 $content = file($this->repo_sources . $addon . '/addon.xml', FILE_SKIP_EMPTY_LINES);
                 $s = true;
                 foreach ($content as $line) {
@@ -66,7 +66,8 @@ class CreateRepoXML
         $out = '';
         $content = file($this->repo_sources, FILE_SKIP_EMPTY_LINES);
         foreach ($content as $line) {
-            $line = str_replace('$root/', ROOT, $line);
+            $inject = array('root/' => ROOT, '$id' => REPO_ID, '$mane' => REPONAME, '$version' => REPOVERSION, '$provider' => PROVIDER);
+            $line = strtr($line, $inject);
             $out .= $line;
         }
         $handle = fopen($dest, 'w');
@@ -198,7 +199,6 @@ class Addon {
             $this->version = $addon_attributes['version'];
             $this->name = $addon_attributes['name'];
             $this->id = $addon_attributes['id'];
-            # $this->writeProperties();
         }
     }
 

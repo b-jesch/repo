@@ -3,9 +3,10 @@
 
 define('DEBUG', true);
 
-define('REPONAME', 'saXBMC Addon Repo');
-define('REPO_ID', 'repository.saxbmc');
+define('REPONAME', 'Kodinerds Addon Repo');
+define('REPO_ID', 'repository.kodinerds');
 define('REPOVERSION', '1.2.1');
+define('PROVIDER', 'Kodinerds');
 
 define('REPO_TEMPLATES', '__repo_templates/');  # Template Files
 define('ADDON_TEMPLATE', '__addons.xml');       # Addon Template
