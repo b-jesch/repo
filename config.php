@@ -72,10 +72,10 @@ define('CONTEXT', true);
 
 # Arrays (Kodi specific)
 
-$kodiversions = array('Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
+$kodiversions = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
     'Kodi 19 (Matrix)');
 
-$version_dirs = array('helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/');
+$version_dirs = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/');
 
 $addon_types = array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.repository', 'xbmc.service', 'xbmc.metadata.scraper.albuns',
     'xbmc.metadata.scraper.artists'. 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
@@ -89,7 +89,7 @@ $addon_category = array('Skin', 'Web Interface', 'Repository', 'Service', 'Album
     'Weather', 'Subtitle Service Module', 'Lyrics', 'Python Library', 'python Module', 'Video Addon',
     'Music Addon', 'Image Addon', 'Image Resource', 'Language Resource');
 
-$addon_python = array('2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0');
+$addon_python = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0');
 
 # Thumbnails
 

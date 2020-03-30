@@ -114,7 +114,7 @@ if (isset($c_pars['login'])) {
 if (($c_pars['version'] != '') and (in_array($c_pars['version'], $version_dirs))) {
     $_SESSION['version'] = $c_pars['version'];
 } elseif (empty($_SESSION['version'])) {
-    $_SESSION['version'] = $version_dirs[3]; # Krypton
+    $_SESSION['version'] = $version_dirs[4]; # Krypton
 }
 
 $i = 0;
@@ -212,7 +212,7 @@ switch ($c_pars['action']) {
                     # missing xbmc.python attribute in addon.xml, assign to 'Kryption'
 
                     if (empty($addon->tree)) {
-                        $addon->tree = $version_dirs[3];
+                        $addon->tree = $version_dirs[4];
                         $notice = "Der Upload wird der der Kodiversion 'Krypton' zugeordnet";
                     }
 

@@ -20,44 +20,56 @@ if (!defined('CONTEXT')) {
 
 <?php
 
+function compare($p1, $p2) {
+    return strcmp($p1->name, $p2->name);
+}
+
 $addondirs = scanFolder(ADDONFOLDER.$_SESSION['version'].DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
+
+$addons = array();
 if ($addondirs) {
+    foreach ($addondirs as $addondir) {
+        if (is_dir(ADDONFOLDER.$_SESSION['version'].DATADIR.$addondir)) {
+            $meta = glob(ADDONFOLDER.$_SESSION['version'].DATADIR.$addondir.'/*.zip');
+            foreach ($meta as $item) {
+                $addon = new Addon($item);
+                $addon->read();
+                $addons[] = $addon;
+            }
+        }
+    }
+    usort($addons, 'compare');
+
     $tc = 0;
     echo '<table id="outer"><tr>';
-    foreach($addondirs as $addondir) {
 
-        $metafiles = glob(ADDONFOLDER.$_SESSION['version'].DATADIR.$addondir.'/*.zip');
-        foreach ($metafiles as $metadata) {
+    foreach($addons as $addon) {
 
-            $addon = new Addon($metadata);
-            $addon->read();
+        if ($tc % CPR == 0 and $tc > 0) echo '</tr><tr>'.PHP_EOL;
+        echo '<td class="thumb">'.PHP_EOL;
+        echo PHP_TAB.'<table class="inner">'.PHP_EOL;
+        echo PHP_TAB.'<tr><td class="header" colspan="3">'.$addon->name.' - '.convertHRV($addon->size).'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'"></td>';
+        echo PHP_TAB.'<tr><td>Addon ID:</td><td>'.$addon->id.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Version:</td><td>'.$addon->version.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Autor:</td><td>'.$addon->author.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Upload am:</td><td>'.$addon->upload.'</td></tr>'.PHP_EOL;
 
-            if ($tc % CPR == 0 and $tc > 0) echo '</tr><tr>'.PHP_EOL;
-            echo '<td class="thumb">'.PHP_EOL;
-            echo PHP_TAB.'<table class="inner">'.PHP_EOL;
-            echo PHP_TAB.'<tr><td class="header" colspan="3">'.$addon->name.' - '.convertHRV($addon->size).'</td></tr>'.PHP_EOL;
-            echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img src="'.ADDONFOLDER.$_SESSION['version'].DATADIR.$addondir.'/icon.tbn'.'" title="'.$addon->summary.'"></td>';
-            echo PHP_TAB.'<tr><td>Addon ID:</td><td>'.$addon->id.'</td></tr>'.PHP_EOL;
-            echo PHP_TAB.'<tr><td>Version:</td><td>'.$addon->version.'</td></tr>'.PHP_EOL;
-            echo PHP_TAB.'<tr><td>Autor:</td><td>'.$addon->author.'</td></tr>'.PHP_EOL;
-            echo PHP_TAB.'<tr><td>Upload am:</td><td>'.$addon->upload.'</td></tr>'.PHP_EOL;
-
-            if ($_SESSION['state'] == 1) {
-                echo PHP_TAB.'<tr><td>durch:</td><td>'.$addon->provider.'</td></tr>'.PHP_EOL;
-                echo PHP_TAB.'<tr><td>Downloads:</td><td>'.$addon->downloads.'</td></tr>'.PHP_EOL;
-            } else {
-                echo PHP_TAB.'<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'.PHP_EOL;
-                echo PHP_TAB.'<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'.PHP_EOL;
-            }
-
-            echo PHP_TAB.'<tr><td colspan="2">';
-            if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
-                echo '<button form="d" name="item" type="submit" class="button_red" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
-            }
-            echo '<button form="d" name="item" type="submit" class="button" value="download='.$addon->object_id.'">downloaden</button></td></tr></table>'.PHP_EOL;
-            echo '</td>'.PHP_EOL.PHP_EOL;
-            $tc++;
+        if ($_SESSION['state'] == 1) {
+            echo PHP_TAB.'<tr><td>durch:</td><td>'.$addon->provider.'</td></tr>'.PHP_EOL;
+            echo PHP_TAB.'<tr><td>Downloads:</td><td>'.$addon->downloads.'</td></tr>'.PHP_EOL;
+        } else {
+            echo PHP_TAB.'<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'.PHP_EOL;
+            echo PHP_TAB.'<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'.PHP_EOL;
         }
+
+        echo PHP_TAB.'<tr><td colspan="2">';
+        if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
+            echo '<button form="d" name="item" type="submit" class="button_red" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
+        }
+        echo '<button form="d" name="item" type="submit" class="button" value="download='.$addon->object_id.'">downloaden</button></td></tr></table>'.PHP_EOL;
+        echo '</td>'.PHP_EOL.PHP_EOL;
+        $tc++;
     }
     echo '</tr></table>';
 }

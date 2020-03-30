@@ -110,6 +110,7 @@ class Addon {
     public $addon_category = NULL;
     public $python = NULL;
     public $version_dirs = NULL;
+    public $thumb = NULL;
 
 
     function __construct($file, $id='') {
@@ -120,6 +121,7 @@ class Addon {
         $this->size = filesize($file);
         $this->downloads = 0;
         $this->category = 'Unknown';
+        $this->thumb = pathinfo($file, PATHINFO_DIRNAME).'/icon.tbn';
     }
 
     public function create() {
