@@ -66,7 +66,7 @@ class CreateRepoXML
         $out = '';
         $content = file($this->repo_sources, FILE_SKIP_EMPTY_LINES);
         foreach ($content as $line) {
-            $inject = array('root/' => ROOT, '$id' => REPO_ID, '$mane' => REPONAME, '$version' => REPOVERSION, '$provider' => PROVIDER);
+            $inject = array('$root/' => ROOT, '$id' => REPO_ID, '$mane' => REPONAME, '$version' => REPOVERSION, '$provider' => PROVIDER);
             $line = strtr($line, $inject);
             $out .= $line;
         }
