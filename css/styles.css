@@ -132,7 +132,7 @@ li.dropdown {
     cursor: pointer;
 }
 
-.button, .button_red, .select {
+.button, .button_red {
     background-color: #336699;
     width:110px;
     color: white;
@@ -158,6 +158,14 @@ li.dropdown {
 .select {
     padding-left: 5px;
     width: 200px;
+    background-color: #336699;
+    color: white;
+    height:30px;
+    border-width: 0px;
+    font-family:Verdana, Arial, Helvetica;
+    font-size:12px;
+    font-weight:bold;
+    margin: 8px;
 }
 .toolbox {
     height: 25px;
@@ -261,7 +269,7 @@ h3 {
     padding-left: 10px;
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-right: 10px;
+    padding-right: 5x;
     font-family: Verdana, Arial, Helevtica;
     font-weight: bolder;
     width: 99%;
