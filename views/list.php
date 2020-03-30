@@ -49,7 +49,8 @@ if ($addondirs) {
         echo '<td class="thumb">'.PHP_EOL;
         echo PHP_TAB.'<table class="inner">'.PHP_EOL;
         echo PHP_TAB.'<tr><td class="header" colspan="3">'.$addon->name.' - '.convertHRV($addon->size).'</td></tr>'.PHP_EOL;
-        echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'"></td>';
+        echo PHP_TAB.'<tr><td rowspan="9" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'"></td>';
+        echo PHP_TAB.'<tr><td>Kategorie:</td><td>'.$addon->category.'</td></tr>'.PHP_EOL;
         echo PHP_TAB.'<tr><td>Addon ID:</td><td>'.$addon->id.'</td></tr>'.PHP_EOL;
         echo PHP_TAB.'<tr><td>Version:</td><td>'.$addon->version.'</td></tr>'.PHP_EOL;
         echo PHP_TAB.'<tr><td>Autor:</td><td>'.$addon->author.'</td></tr>'.PHP_EOL;

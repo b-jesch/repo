@@ -72,21 +72,23 @@ define('CONTEXT', true);
 
 # Arrays (Kodi specific)
 
+define('FALLBACK_TREE', 3);             # Default Tree zur Einordnung von Uploads, Jarvis (siehe Index $version_dirs)
+
 $kodiversions = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
     'Kodi 19 (Matrix)');
 
 $version_dirs = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/');
 
 $addon_types = array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.repository', 'xbmc.service', 'xbmc.metadata.scraper.albuns',
-    'xbmc.metadata.scraper.artists'. 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
+    'xbmc.metadata.scraper.artists', 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
     'xbmc.metadata.scraper.library', 'xbmc.ui.screensaver', 'xbmc.player.musicviz', 'xbmc.python.pluginsource', 'xbmc.python.script',
     'xbmc.python.weather', 'xbmc.subtitle.module', 'xbmc.python.lyrics', 'xbmc.python.library', 'xbmc.python.module', 'xbmc.addon.video',
     'xbmc.addon.audio', 'xbmc.addon.image', 'kodi.resource.images', 'kodi.source.languages');
 
 $addon_category = array('Skin', 'Web Interface', 'Repository', 'Service', 'Album Information',
-    'Artist Information', 'Movie Information', 'Muisc Video Information', 'TV Information',
-    'Library', 'Screensaver', 'Visualization', 'Media Plugin', 'Media Script',
-    'Weather', 'Subtitle Service Module', 'Lyrics', 'Python Library', 'python Module', 'Video Addon',
+    'Artist Information', 'Movie Information', 'Music Video Information', 'TV Information',
+    'Library', 'Screensaver', 'Visualization', 'Plugin', 'Script',
+    'Weather', 'Subtitle Service Module', 'Lyrics', 'Python Library', 'Python Module', 'Video Addon',
     'Music Addon', 'Image Addon', 'Image Resource', 'Language Resource');
 
 $addon_python = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0');

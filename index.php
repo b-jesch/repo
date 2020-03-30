@@ -114,7 +114,7 @@ if (isset($c_pars['login'])) {
 if (($c_pars['version'] != '') and (in_array($c_pars['version'], $version_dirs))) {
     $_SESSION['version'] = $c_pars['version'];
 } elseif (empty($_SESSION['version'])) {
-    $_SESSION['version'] = $version_dirs[4]; # Krypton
+    $_SESSION['version'] = $version_dirs[FALLBACK_TREE]; # Krypton
 }
 
 $i = 0;
@@ -209,11 +209,11 @@ switch ($c_pars['action']) {
                 if (is_file(TMPDIR.'addon.xml')) {
                     $addon->getAttrFromAddonXML();
 
-                    # missing xbmc.python attribute in addon.xml, assign to 'Kryption'
+                    # missing xbmc.python attribute in addon.xml, assign to FALLBACK_TREE
 
                     if (empty($addon->tree)) {
-                        $addon->tree = $version_dirs[4];
-                        $notice = "Der Upload wird der der Kodiversion 'Krypton' zugeordnet";
+                        $addon->tree = $version_dirs[FALLBACK_TREE];
+                        $notice = "Der Upload wird der der Kodiversion '".$kodiversions[FALLBACK_TREE]."' zugeordnet";
                     }
 
                 } else {
