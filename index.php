@@ -73,6 +73,7 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
     $master->createMasterXML();
     $master->createMD5();
 
+
     # create version folder and XML for certain Kodi versions as Kodi looks up at first in these
     # dependent on Kodi version. Kodi fails if these folders doesn't exist (maybe a bug?)
 
