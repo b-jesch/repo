@@ -33,8 +33,11 @@ $ke = array_pop($kodiversions);
           action="<?php echo ROOT.CONTROLLER; ?>"
           enctype="multipart/form-data">
 
-    <input type="file" name="upload" id="upload" class="fileupload" accept="application/zip">
-    <label for="upload" class="button" >Addon auswählen</label><br>
+    <input type="file" name="upload" id="upload" class="fileupload" accept="application/zip"
+           onchange="window.u.upload_info.value = this.value.replace('C:\\fakepath\\', '');">
+    <label for="upload" class="button" >Addon auswählen</label>
+        <input type="text" class="textfield_form" name="upload_info">
+        <br>
     <input type="checkbox" name="overwrite" id="overwrite" value="overwrite">
     <label for="overwrite">vorhandene Version überschreiben</label><br>
     <input type="checkbox" name="reset_count" id="reset_count" value="reset_count">
