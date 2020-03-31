@@ -114,7 +114,7 @@ if (isset($c_pars['login'])) {
 if (($c_pars['version'] != '') and (in_array($c_pars['version'], $version_dirs))) {
     $_SESSION['version'] = $c_pars['version'];
 } elseif (empty($_SESSION['version'])) {
-    $_SESSION['version'] = $version_dirs[FALLBACK_TREE]; # Krypton
+    $_SESSION['version'] = $version_dirs[DEFAULT_TREE]; # Krypton
 }
 
 $i = 0;

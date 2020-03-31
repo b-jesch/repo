@@ -73,6 +73,7 @@ define('CONTEXT', true);
 # Arrays (Kodi specific)
 
 define('FALLBACK_TREE', 3);             # Default Tree zur Einordnung von Uploads, Jarvis (siehe Index $version_dirs)
+define('DEFAULT_TREE', 4);              # Default Tree zur Anzeige im CMS
 
 $kodiversions = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
     'Kodi 19 (Matrix)');
