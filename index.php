@@ -199,7 +199,7 @@ switch ($c_pars['action']) {
                 # create addon object and thumbnail
 
                 $addon = new Addon(TMPDIR.$addon_name, time());
-                $addon->provider = $_SESSION['user'];
+                $addon->provider = ($_SESSION['isadmin']) ? $c_pars['provider'] : $_SESSION['user'];
 
                 $addon->addon_types = $addon_types;
                 $addon->addon_category = $addon_category;

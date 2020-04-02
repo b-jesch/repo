@@ -17,6 +17,8 @@ if (!defined('CONTEXT')) {
 
 $ks = array_shift($kodiversions);
 $ke = array_pop($kodiversions);
+
+$users = new User();
 ?>
 
 <h3>Addon-Upload</h3>
@@ -33,16 +35,31 @@ $ke = array_pop($kodiversions);
           action="<?php echo ROOT.CONTROLLER; ?>"
           enctype="multipart/form-data">
 
-    <input type="file" name="upload" id="upload" class="fileupload" accept="application/zip"
-           onchange="window.u.upload_info.value = this.value.replace('C:\\fakepath\\', '');">
-    <label for="upload" class="button" >Addon auswählen</label>
+
         <input type="text" class="textfield_form" name="upload_info">
+        <input type="file" name="upload" id="upload" class="fileupload" accept="application/zip"
+               onchange="window.u.upload_info.value = this.value.replace('C:\\fakepath\\', '');">
+        <label for="upload" class="button" >Addon auswählen</label>
         <br>
     <input type="checkbox" name="overwrite" id="overwrite" value="overwrite">
     <label for="overwrite">vorhandene Version überschreiben</label><br>
     <input type="checkbox" name="reset_count" id="reset_count" value="reset_count">
-    <label for="reset_count">Downloadzähler zurücksetzen</label>
-        <hr class="spacer">
+    <label for="reset_count">Downloadzähler zurücksetzen</label><br>
+
+
+    <?php
+    if ($_SESSION['isadmin']) {
+        echo '<hr class="spacer">';
+        echo '<label for="userlist">Maintainer auswählen: </label>';
+        echo '<select class="select" name="provider" id="userlist">';
+        $usr_list = $users->getallusers(false);
+        foreach($usr_list as $usr) {
+            echo ($usr != $_SESSION['user']) ? "<option value='$usr'>$usr</option>" : "<option selected value='$usr'>$usr</option>";
+        }
+        echo '</select>';
+    }
+    ?>
+    <hr class="spacer">
     <input type="submit" class="button" value="Hochladen"><br>
     <input type="hidden" name="action" value="<?php echo crypt('upload_p2'); ?>" />
 

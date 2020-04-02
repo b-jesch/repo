@@ -56,7 +56,7 @@ $user = new User($_SESSION['user']);
         <div class="setup">
             <form name="admin_b" id="admin_b" action="<?php echo ROOT . CONTROLLER; ?>" method="post">
                 <input type="hidden" name="action" value="<?php echo crypt('setup_p3'); ?>">
-                <select class="select" name="users" id="userlist" onchange="document.admin.admin_lounge.value='create_pw';">
+                <select class="select" name="users" id="userlist">
                     <option value="" selected>--Maintainer--</option>
                     <?php
                     $usr_list = $users->getallusers(false);
