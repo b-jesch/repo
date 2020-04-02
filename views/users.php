@@ -12,7 +12,6 @@ if (!defined('CONTEXT')) {
 # Inhalt der View
 $users = new User();
 echo 'Registrierte Maintainer (davon mit <b>Administrationsrechten)</b>: '.implode(', ', $users->getallusers(true));
-$user = new User($_SESSION['user']);
 
 ?>
 <h4>Maintainer-Bereich</h4>
@@ -37,7 +36,7 @@ $user = new User($_SESSION['user']);
     </form>
 </div>
 <?php
-    if ($user->isadmin) {
+    if ($_SESSION['isadmin']) {
         ?>
         <!-- ADMIN LOUNGE -->
         <h4>Admin-Bereich - Maintainer hinzufügen</h4>
