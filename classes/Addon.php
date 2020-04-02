@@ -183,9 +183,11 @@ class Addon {
 
             foreach($xml->extension as $ep) {
                 if ($ep['point'] == 'xbmc.addon.metadata') {
-                    $this->summary = $ep->summary[0];
+                    $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
                 }
-                if (array_search($ep['point'], $this->addon_types)) {
+                if (array_search($ep['point'], $this->addon_types) === false) {
+                    continue;
+                } else {
                     if ($this->category == 'Unknown') $this->category = $this->addon_category[array_search($ep['point'], $this->addon_types)];
                 }
             }
@@ -199,7 +201,7 @@ class Addon {
             $addon_attributes = iterator_to_array($xml->attributes());
             $this->author = $addon_attributes['provider-name'];
             $this->version = $addon_attributes['version'];
-            $this->name = $addon_attributes['name'];
+            $this->name = preg_replace('#\[[^\]]+\]#', '', $addon_attributes['name']);
             $this->id = $addon_attributes['id'];
         }
     }
