@@ -261,7 +261,8 @@ switch ($c_pars['action']) {
 
                             # identical version but possibly different filenames
 
-                            if (isset($c_pars['overwrite']) and $_SESSION['user'] == $c_addon->provider) {
+                            if (isset($c_pars['overwrite']) and ($_SESSION['user'] == $c_addon->provider or
+                                    $_SESSION['isadmin'])) {
 
                                 $addon->object_id = $c_addon->object_id;
                                 if (!isset($c_pars['reset_count'])) $addon->downloads = $c_addon->downloads;
