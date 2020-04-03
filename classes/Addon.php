@@ -190,7 +190,7 @@ class Addon {
                 } else {
                     if ($this->category == 'Unknown') {
                         $this->category = $this->addon_category[array_search($ep['point'], $this->addon_types)];
-                        if (!empty($ep->provides)) $this->category .= ' ('.$ep->provides.')';
+                        if (!empty($ep->provides)) $this->category .= ' ('.ucwords($ep->provides).')';
                     }
                 }
             }
