@@ -49,19 +49,19 @@ if ($addondirs) {
         echo '<td class="item">' .PHP_EOL;
         echo PHP_TAB.'<table class="inner">'.PHP_EOL;
         echo PHP_TAB.'<tr><td class="header" colspan="3">'.$addon->name.' - '.convertHRV($addon->size).'</td></tr>'.PHP_EOL;
-        echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'"></td>';
-        echo PHP_TAB.'<tr><td>Kategorie:</td><td>'.$addon->category.'</td></tr>'.PHP_EOL;
-        echo PHP_TAB.'<tr><td>Addon ID:</td><td>'.$addon->id.'</td></tr>'.PHP_EOL;
-        echo PHP_TAB.'<tr><td>Version:</td><td>'.$addon->version.'</td></tr>'.PHP_EOL;
-        echo PHP_TAB.'<tr><td>Autor:</td><td>'.$addon->author.'</td></tr>'.PHP_EOL;
-        echo PHP_TAB.'<tr><td>Upload am:</td><td>'.$addon->upload.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'" width="'.TBN_X.'" height="'.TBN_Y.'"></td>';
+        echo PHP_TAB.'<tr><td>Kategorie:</td><td class="data">'.$addon->category.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Addon ID:</td><td class="data">'.$addon->id.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Version:</td><td class="data">'.$addon->version.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Autor:</td><td class="data">'.$addon->author.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Upload am:</td><td class="data">'.$addon->upload.'</td></tr>'.PHP_EOL;
 
         if ($_SESSION['state'] == 1) {
-            echo PHP_TAB.'<tr><td>durch:</td><td>'.$addon->provider.'</td></tr>'.PHP_EOL;
-            echo PHP_TAB.'<tr><td>Downloads:</td><td>'.$addon->downloads.'</td></tr>'.PHP_EOL;
+            echo PHP_TAB.'<tr><td>durch:</td><td class="data">'.$addon->provider.'</td></tr>'.PHP_EOL;
+            echo PHP_TAB.'<tr><td>Downloads:</td><td class="data">'.$addon->downloads.'</td></tr>'.PHP_EOL;
         } else {
-            echo PHP_TAB.'<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'.PHP_EOL;
-            echo PHP_TAB.'<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'.PHP_EOL;
+            echo PHP_TAB.'<tr><td>&nbsp;</td><td class="data">&nbsp;</td></tr>'.PHP_EOL;
+            echo PHP_TAB.'<tr><td>&nbsp;</td><td class="data">&nbsp;</td></tr>'.PHP_EOL;
         }
 
         echo PHP_TAB.'<tr><td colspan="3">';

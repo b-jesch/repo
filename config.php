@@ -96,8 +96,8 @@ $addon_python = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0'
 
 # Thumbnails
 
-define ('TBN_X', 150);                  # Breite
-define ('TBN_Y', 150);                  # Höhe
+define ('TBN_X', 130);                  # Breite
+define ('TBN_Y', 130);                  # Höhe
 define ('CPR', 3);                      # Cells per Row
 
 define ('PHP_TAB', chr(9));
