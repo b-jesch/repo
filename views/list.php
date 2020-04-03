@@ -46,10 +46,10 @@ if ($addondirs) {
     foreach($addons as $addon) {
 
         if ($tc % CPR == 0 and $tc > 0) echo '</tr><tr>'.PHP_EOL;
-        echo '<td class="thumb">'.PHP_EOL;
+        echo '<td class="item">' .PHP_EOL;
         echo PHP_TAB.'<table class="inner">'.PHP_EOL;
         echo PHP_TAB.'<tr><td class="header" colspan="3">'.$addon->name.' - '.convertHRV($addon->size).'</td></tr>'.PHP_EOL;
-        echo PHP_TAB.'<tr><td rowspan="9" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'"></td>';
+        echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'"></td>';
         echo PHP_TAB.'<tr><td>Kategorie:</td><td>'.$addon->category.'</td></tr>'.PHP_EOL;
         echo PHP_TAB.'<tr><td>Addon ID:</td><td>'.$addon->id.'</td></tr>'.PHP_EOL;
         echo PHP_TAB.'<tr><td>Version:</td><td>'.$addon->version.'</td></tr>'.PHP_EOL;
@@ -64,7 +64,7 @@ if ($addondirs) {
             echo PHP_TAB.'<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'.PHP_EOL;
         }
 
-        echo PHP_TAB.'<tr><td colspan="2">';
+        echo PHP_TAB.'<tr><td colspan="3">';
         if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
             echo '<button form="d" name="item" type="submit" class="button_red" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
         }
