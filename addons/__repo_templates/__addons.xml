@@ -3,7 +3,7 @@
     <requires>
         <import addon="xbmc.addon" version="12.0.0"/>
     </requires>
-    <extension point="xbmc.addon.repository" name="SaXBMC Addon Repo">
+    <extension point="xbmc.addon.repository" name="$name">
         <dir>
             <info compressed="true">$root/addons/addons.xml</info>
             <checksum>$root/addons/addons.xml.md5</checksum>
