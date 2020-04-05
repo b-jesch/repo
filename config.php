@@ -5,7 +5,7 @@ define('DEBUG', true);
 
 define('REPONAME', 'Kodinerds Addon Repo');
 define('REPO_ID', 'repository.kodinerds');
-define('REPOVERSION', '1.2.1');
+define('REPOVERSION', '7.0.0');
 define('PROVIDER', 'Kodinerds');
 
 define('REPO_TEMPLATES', '__repo_templates/');  # Template Files
@@ -17,9 +17,7 @@ define('REPOLOGO', 'css/wbbLogo.png');
 #
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
-define('ROOT', 'http://localhost/repo/');
-
-# define('ROOT', 'https://www.quarantine.hs-mittweida.de/~jesch/repo/');
+define('ROOT', 'https://repo.kodinerds.net/repo/');
 
 define('CONTROLLER', 'index.php');
 define('VIEWS', 'views/');
