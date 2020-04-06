@@ -43,6 +43,10 @@
     background-color: red;
 }
 
+ol {
+    list-style-type: disc;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -265,7 +269,7 @@ h2 {
 h3 {
     background-color: #336699;
     color: white;
-    font-size: 18px;
+    font-size: 16px;
     padding: 5px;
     font-family: Verdana, Arial, Helevtica;
     width: 99%;

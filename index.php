@@ -137,6 +137,9 @@ switch ($c_pars['action']) {
     case 'impress':
         require VIEWS.IMPRESS;
         break;
+    case 'dsvgo':
+        require VIEWS.DSVGO;
+        break;
     case 'upload':
         if ($_SESSION['state'] == 1) {
             require VIEWS.UPLOAD;
