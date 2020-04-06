@@ -134,10 +134,10 @@ li.dropdown {
 
 .button, .button_red, .select {
     background-color: #336699;
-    width:110px;
+    width:100px;
     color: white;
-    height:30px;
-    border-radius: 10px;
+    height:28px;
+    border-radius: 8px;
     border-width: 0px;
     font-family:Verdana, Arial, Helvetica;
     font-size:12px;

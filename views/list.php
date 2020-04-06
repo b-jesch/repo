@@ -54,7 +54,7 @@ if ($addondirs) {
         echo PHP_TAB.'<tr><td>Addon ID:</td><td class="data">'.$addon->id.'</td></tr>'.PHP_EOL;
         echo PHP_TAB.'<tr><td>Version:</td><td class="data">'.$addon->version.'</td></tr>'.PHP_EOL;
         echo PHP_TAB.'<tr><td>Autor:</td><td class="data">'.$addon->author.'</td></tr>'.PHP_EOL;
-        echo PHP_TAB.'<tr><td>Upload am:</td><td class="data">'.$addon->upload.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Upload:</td><td class="data">'.$addon->upload.'</td></tr>'.PHP_EOL;
 
         if ($_SESSION['state'] == 1) {
             echo PHP_TAB.'<tr><td>durch:</td><td class="data">'.$addon->provider.'</td></tr>'.PHP_EOL;
