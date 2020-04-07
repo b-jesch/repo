@@ -8,17 +8,16 @@
 </head>
 <body>
 <hr class="spacer">
-<div class="banner">
-    <div class="banner_txt">
+
+<div class="banner" onclick="document.location.href='https://maerz.media';"></div>
+<div class="banner_txt">
         <h1><?php echo REPONAME.' '.REPOVERSION; ?></h1>
-        <h2><?php echo 'Tree: '.substr($_SESSION['version'], 0, -1); ?></h2>
-        <h2><?php
+        <h2><?php echo 'Tree: '.substr($_SESSION['version'], 0, -1);
         if ($_SESSION['state'] == 1) {
-            echo "logged in as: ".$_SESSION['user'];
+            echo ", logged in as: ".$_SESSION['user'];
         }
         ?></h2>
     </div>
-</div>
 <hr class="spacer">
 
 <?php

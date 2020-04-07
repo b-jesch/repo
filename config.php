@@ -11,7 +11,7 @@ define('PROVIDER', 'Kodinerds');
 define('REPO_TEMPLATES', '__repo_templates/');  # Template Files
 define('ADDON_TEMPLATE', '__addons.xml');       # Addon Template
 
-define('REPOLOGO', 'css/wbbLogo.png');
+define('REPOLOGO', 'css/9LWeq_c5_1920.jpg');
 
 # Root/Folders of CMS
 #

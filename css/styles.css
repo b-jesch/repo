@@ -3,16 +3,33 @@
     color:#336699;
     height:2px;
     border: 0;
-    background-image: linear-gradient(to right,#fff,#336699,#fff);
+    background-image: linear-gradient(to right,#eee,#336699,#eee);
 }
 
 .banner {
-    height:120px;
-    background-image: url(mainheader.jpg);
+    /*height:120px; */
+    background-image: url(9LWeq_c5_1920.jpg);
+    float: left;
+    width: 75%;
+    height: 120px;
     background-position: left;
     background-repeat: no-repeat;
+    background-size: contain;
+    background-color: black;
+    cursor: pointer;
+}
+
+.banner_txt {
+    background-color: black;
+    float: end;
+    height: 110px;
     text-align: right;
-    padding-right: 20px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+body {
+    background-color: #eee;
 }
 .fileupload {
     width: 0.1px;
@@ -177,6 +194,7 @@ input[type='radio'] {
 }
 
 .item {
+    background-color: white;
     width: 380px;
     height: 200px;
     vertical-align: middle;
@@ -250,17 +268,17 @@ body {
 }
 
 h1 {
-    color: #6b6b6b;
-    font-size: 24px;
+    color: #969696;
+    font-size: 18px;
     font-family: Verdana, Arial;
     padding: 2px;
     margin: 2px;
 }
 
 h2 {
-    color: #6b6b6b;
+    color: #969696;
     font-family: Verdana, Arial;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: normal;
     padding: 2px;
     margin: 2px;
