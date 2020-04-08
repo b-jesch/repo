@@ -49,7 +49,8 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
 
     # copy files to Repo-Addon Folder from template folder
 
-    if (!is_dir(ADDONFOLDER.REPO_ID)) mkdir(ADDONFOLDER.REPO_ID, 0775, true);
+    mkdir(ADDONFOLDER.REPO_ID, 0775, true);
+
     $files = scanFolder(ADDONFOLDER.REPO_TEMPLATES, array('.', '..', ADDON_TEMPLATE));
     foreach($files as $file) copy(ADDONFOLDER.REPO_TEMPLATES.$file, ADDONFOLDER.REPO_ID.'/'.$file);
     $repo =new CreateRepoXML(ADDONFOLDER.REPO_TEMPLATES, ADDON_TEMPLATE);
@@ -92,7 +93,7 @@ if (is_dir(TMPDIR)) delTree(TMPDIR);
 # :::END OF BOOTSTRAP:::
 
 if (isset($c_pars['login'])) {
-    if ($c_pars['user'] != '' and $c_pars['passwd'] != '') {
+    if (!empty($c_pars['user']) and !empty($c_pars['passwd'])) {
         $user = new User($c_pars['user']);
         if ($user->indb) $user->login($c_pars['passwd']);
         if ($user->success) {
@@ -147,14 +148,21 @@ switch ($c_pars['action']) {
             require VIEWS.LISTVIEW;
         }
         break;
+
     case 'login':
         require VIEWS.LOGINPAGE;
         break;
+
     case 'logout':
-        $user = new User($_SESSION['user']);
-        $user->logout();
-        resetSession();
+        if ($_SESSION['state'] == 1) {
+            $user = new User($_SESSION['user']);
+            $user->logout();
+            resetSession();
+        }
+        # if it's impossible to send headers use listview instead
+        require VIEWS.LISTVIEW;
         break;
+
     case 'upload_p2':
         if ($_SESSION['state'] == 1) {
             if ($c_pars['upload']['error'] == UPLOAD_ERR_NO_FILE) {
@@ -347,6 +355,7 @@ switch ($c_pars['action']) {
         }
         require VIEWS.LISTVIEW;
         break;
+
     case 'setup':
         if ($_SESSION['state'] == 1) {
             require VIEWS.SETUP;
@@ -354,6 +363,7 @@ switch ($c_pars['action']) {
             $c_pars['action'] = '';
         }
         break;
+
     case 'setup_p1':
         if ($_SESSION['state'] == 1) {
             $cpw = false;
@@ -400,6 +410,7 @@ switch ($c_pars['action']) {
         }
         require VIEWS . LISTVIEW;
         break;
+
     case 'setup_p3':
         if ($_SESSION['state'] == 1 and !empty($c_pars['users'])) {
             switch ($c_pars['adm_lounge']) {
@@ -433,6 +444,7 @@ switch ($c_pars['action']) {
             require VIEWS.SETUP;
         }
         break;
+
     default:
         # Bootstrap
         require VIEWS.LISTVIEW;

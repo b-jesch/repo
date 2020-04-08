@@ -14,7 +14,7 @@
         <h1><?php echo REPONAME.' '.REPOVERSION; ?></h1>
         <h2><?php echo 'Tree: '.substr($_SESSION['version'], 0, -1);
         if ($_SESSION['state'] == 1) {
-            echo ", logged in as: ".$_SESSION['user'];
+            echo "<br>logged in as: ".$_SESSION['user'];
         }
         ?></h2>
     </div>

@@ -11,7 +11,8 @@ if (!defined('CONTEXT')) {
 
 # Inhalt der View
 $users = new User();
-echo 'Registrierte Maintainer (davon mit <b>Administrationsrechten)</b>: '.implode(', ', $users->getallusers(true));
+echo 'Registrierte Maintainer (davon mit <b>Administrationsrechten</b>): '.implode(', ', $users->getallusers(true));
+$user = new User($_SESSION['user']);
 
 ?>
 <h4>Maintainer-Bereich</h4>
