@@ -173,26 +173,15 @@ switch ($c_pars['action']) {
 
                 # :::PREREQUISITES:::
 
-                $addon_name = $c_pars['upload']['name'];
-
-                # Determine Addonname, Addonversion, be aware for multiple delimiters
-                # and use only the last part for version
-
-                $pieces = explode('-', basename($addon_name, ADDON_EXT));
-
-                if (count($pieces) > 1) {
-                    $addon_version = array_pop($pieces);
-                }
-                $addon_basename = implode('-', $pieces);
-
+                $upload = $c_pars['upload']['name'];
                 mkdir(TMPDIR, 0755, true);
 
-                # move and unpacking upload to TMPDIR, copy dault icon to TMPDIR
+                # move and unpacking upload to TMPDIR, copy default icon to TMPDIR
 
                 copy(ADDONFOLDER.REPO_TEMPLATES.DEFAULT_ADDON_ICON, TMPDIR.'icon.png');
-                move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR.$addon_name);
+                move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR.$upload);
                 $zip = new ZipArchive();
-                $zip->open(TMPDIR.$addon_name);
+                $zip->open(TMPDIR.$upload);
 
                 if ($zip->status == ZipArchive::ER_OK) {
                     for ($i = 0; $i < $zip->numFiles; $i++) {
@@ -210,7 +199,7 @@ switch ($c_pars['action']) {
 
                 # create addon object and thumbnail
 
-                $addon = new Addon(TMPDIR.$addon_name, time());
+                $addon = new Addon(TMPDIR.$upload, time());
                 $addon->provider = ($_SESSION['isadmin']) ? $c_pars['provider'] : $_SESSION['user'];
 
                 $addon->addon_types = $addon_types;
@@ -235,7 +224,7 @@ switch ($c_pars['action']) {
                 }
 
                 createThumb(TMPDIR, TMPDIR.'icon.png');
-                $addon_dir = ADDONFOLDER . $addon->tree . DATADIR . $addon_basename . '/';
+                $addon_dir = ADDONFOLDER . $addon->tree . DATADIR . $addon->id . '/';
                 $summaries = ADDONFOLDER . $addon->tree;
 
                 # :::END PREREQUISITES:::
@@ -246,10 +235,10 @@ switch ($c_pars['action']) {
 
                     mkdir($addon_dir, 0755, true);
 
-                    $addon->file = $addon_dir.$addon_name;
+                    $addon->file = $addon_dir.$upload;
                     $addon->create();
 
-                    $files = scanFolder(TMPDIR, array('.', '..', $addon_basename));
+                    $files = scanFolder(TMPDIR, array('.', '..', $addon->id));
                     foreach($files as $file) rename(TMPDIR.$file, $addon_dir.basename($file));
 
                 } elseif (scanFolder($addon_dir, array('.', '..', 'archive'))) {
@@ -257,7 +246,7 @@ switch ($c_pars['action']) {
                     # existing addon files, check overwrite option and user permissions
                     # get info from current addon objects
 
-                    $files = glob($addon_dir.$addon_basename.'*.zip');
+                    $files = glob($addon_dir.$addon->id.'*.zip');
                     foreach ($files as $c_file) {
                         $c_addon = new Addon($c_file);
                         $c_addon->read();
@@ -295,17 +284,17 @@ switch ($c_pars['action']) {
 
                     # get older addons
 
-                    $archive_files = glob($addon_dir . $addon_basename . '*.*');
+                    $archive_files = glob($addon_dir . $addon->id . '*.*');
                     if ($archive_files) {
                         if (!is_dir($addon_dir . ARCHIVE)) mkdir($addon_dir . ARCHIVE, 0755, true);
                         foreach ($archive_files as $file) rename($file, $addon_dir . ARCHIVE . basename($file));
                     }
-                    $addon->file = $addon_dir.$addon_name;
+                    $addon->file = $addon_dir.$upload;
                     $addon->create();
 
                     # move uploaded addon to destination
 
-                    $files = scanFolder(TMPDIR, array('.', '..', $addon_basename));
+                    $files = scanFolder(TMPDIR, array('.', '..', $addon->id));
                     foreach($files as $file) rename(TMPDIR.$file, $addon_dir.basename($file));
                 }
             }
