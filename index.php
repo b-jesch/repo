@@ -187,8 +187,9 @@ switch ($c_pars['action']) {
 
                 mkdir(TMPDIR, 0755, true);
 
-                # move and unpacking upload to TMPDIR
+                # move and unpacking upload to TMPDIR, copy dault icon to TMPDIR
 
+                copy(ADDONFOLDER.REPO_TEMPLATES.DEFAULT_ADDON_ICON, TMPDIR.'icon.png');
                 move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR.$addon_name);
                 $zip = new ZipArchive();
                 $zip->open(TMPDIR.$addon_name);
