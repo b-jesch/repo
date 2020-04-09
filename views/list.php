@@ -69,7 +69,7 @@ if (!empty($c_pars['user'])) {
         }
     }
 } else {
-    echo '<h3>Addons ab ' . $_SESSION['version_name'] . 'und höher</h3>';
+    echo '<h3>Addons ab ' . $_SESSION['version_name'] . ' und höher</h3>';
     $v_dirs = scanFolder(ADDONFOLDER.$_SESSION['version'].DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
     if ($v_dirs) {
         foreach($v_dirs as $v) {
