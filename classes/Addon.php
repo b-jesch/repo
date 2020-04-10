@@ -125,15 +125,12 @@ class Addon {
     }
 
     public function create() {
+        $this->meta = substr($this->file,0, strlen(ADDON_EXT) * -1).META_EXT;
         $this->writeProperties();
     }
 
     public function read() {
         $this->readProperties();
-    }
-
-    public function modify() {
-        $this->writeProperties();
     }
 
     public function download() {

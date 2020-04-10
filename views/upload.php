@@ -24,8 +24,9 @@ $users = new User();
 <h3>Addon-Upload</h3>
 
     Hier können Addons für die Kodi-Versionen ab <?php echo "$ks bis $ke"; ?> hochgeladen werden. Folgende Richtlinien sind zu beachten:
-    <ol><li>Der Dateiname des ZIPs hat den Regeln für die Namensgebung von komprimierten Dateien zu folgen, z.B. <b>&lt;addonname&gt;-&lt;x.y.z&gt;.zip</b>, wobei &lt;addonname&gt; der Addon-ID sowie &lt;x.y.z&gt; der
-            Addon-Version entsprechen sollte. Abweichende Benennungen, z.B. nach PEP 440, sind ebenfalls zulässing und ab Matrix erwünscht.</li>
+    <ol><li>Der Dateiname des ZIPs soll den Regeln für die Namensgebung von komprimierten Kodi-Addons zu folgen, z.B. <b>&lt;addonname&gt;-&lt;x.y.z&gt;.zip</b>, wobei &lt;addonname&gt; der Addon-ID sowie &lt;x.y.z&gt; der
+            Addon-Version - wie sie auch in der addon.xml notiert sind - entsprechen muss. Abweichende Versionierungen, z.B. nach PEP 440, sind zulässing und ab Matrix erwünscht.</li>
+        <li>Entspricht die Namensgebung der hochgeladenen Datei nicht den Konventionen für ein Kodi-Addon, wird es intern umbenannt. </li>
         <li>Die Struktur im Zip muss der Struktur eines Addons folgen.</li>
     </ol>
 

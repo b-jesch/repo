@@ -228,6 +228,13 @@ switch ($c_pars['action']) {
                 $addon_dir = ADDONFOLDER . $addon->tree . DATADIR . $addon->id . '/';
                 $summaries = ADDONFOLDER . $addon->tree;
 
+                # (Re)name upload properly to addonId-addonVersion.zip
+
+                if ($upload != $addon->id.'-'.$addon->version.ADDON_EXT) {
+                    rename(TMPDIR.$upload, TMPDIR.$addon->id.'-'.$addon->version.ADDON_EXT);
+                    $upload = $addon->id.'-'.$addon->version.ADDON_EXT;
+                    $addon->file = $upload;
+                }
                 # :::END PREREQUISITES:::
 
                 if (!is_dir($addon_dir)) {
