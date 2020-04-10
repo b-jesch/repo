@@ -11,7 +11,8 @@ require (CLASSES.'Addon.php');
 $c_pars = array_merge($_POST, $_GET, $_FILES);
 
 if ($c_pars['action'] == 'direct_dl') {
-    $addon = new Addon($c_pars['f']);
+    $file = pathinfo($c_pars['f'], PATHINFO_DIRNAME).'/'.urlencode(basename($c_pars['f']));
+    $addon = new Addon($file);
     $addon->download();
     exit();
 }
