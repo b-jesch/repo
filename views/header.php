@@ -21,10 +21,11 @@
 <hr class="spacer">
 
 <?php
-if (!empty($notice)) {
-    echo "<div class='alertbox' id='alertbox'>".$notice;
+if (!empty($_SESSION['notice'])) {
+    echo "<div class='alertbox' id='alertbox'>".$_SESSION['notice'];
     echo "<span class='closebtn' onclick='document.getElementById(\"alertbox\").style.display=\"none\";'>";
     echo "&times;</span></div>";
+    unset($_SESSION['notice']);
 }
 ?>
 
