@@ -19,6 +19,12 @@
     cursor: pointer;
 }
 
+.nav {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
 .banner_txt {
     background-color: black;
     float: end;

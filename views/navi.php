@@ -1,3 +1,4 @@
+<div class="nav">
 <ul>
     <li><a href="<?php echo ROOT.CONTROLLER.'?action=list'; ?>" title="Repository Start Page">Home</a></li>
     <li class="dropdown">
@@ -25,4 +26,5 @@
         }
     ?>
 </ul>
+</div>
 <hr class="spacer">
