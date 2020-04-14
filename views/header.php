@@ -8,7 +8,7 @@
 </head>
 <body>
 <hr class="spacer">
-
+<div>
 <div class="banner" onclick="document.location.href='https://maerz.media';"></div>
 <div class="banner_txt">
         <h1><?php echo REPONAME.' '.REPOVERSION; ?></h1>
@@ -18,6 +18,7 @@
         }
         ?></h2>
     </div>
+</div>
 <hr class="spacer">
 
 <?php
