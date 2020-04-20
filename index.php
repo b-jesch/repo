@@ -211,11 +211,18 @@ switch ($c_pars['action']) {
                 if (is_file(TMPDIR.'addon.xml')) {
                     $addon->getAttrFromAddonXML();
 
-                    # missing xbmc.python attribute in addon.xml, assign to FALLBACK_TREE
+                    # missing xbmc.python attribute in addon.xml, search for tree in addon name, else
+                    # assign to FALLBACK_TREE anywhere
 
                     if (empty($addon->tree)) {
-                        $addon->tree = $version_dirs[FALLBACK_TREE];
-                        $_SESSION['notice'] = "Der Upload wird der der Kodiversion '".$kodiversions[FALLBACK_TREE]."' zugeordnet";
+                        foreach ($version_dirs as $vdir) {
+                            if (strpos($addon->version, substr($vdir, 0, -1))) {
+                                $addon->tree = $vdir;
+                                break;
+                            }
+                        }
+                        if (empty($addon->tree)) $addon->tree = $version_dirs[FALLBACK_TREE];
+                        $_SESSION['notice'] = "Der Upload wird der der Kodiversion '".$addon->tree."' zugeordnet";
                     }
 
                 } else {

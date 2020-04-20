@@ -53,4 +53,8 @@
         <disclaimer/>
         <platform>all</platform>
     </extension>
+    <assets>
+        <icon>icon.png</icon>
+        <fanart>fanart.jpg</fanart>
+    </assets>
 </addon>
