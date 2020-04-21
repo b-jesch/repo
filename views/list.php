@@ -51,7 +51,7 @@ function createItemView($column, $addon) {
     if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
         echo '<button form="d" name="item" type="submit" class="button_red" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
     }
-    echo '<button form="d" name="item" type="submit" class="button" value="download='.$addon->object_id.'">downloaden</button></td></tr></table>'.PHP_EOL;
+    echo '<button form="d" name="item" type="submit" class="button" title="Download '.basename($addon->file).'" value="download='.$addon->object_id.'">downloaden</button></td></tr></table>'.PHP_EOL;
     echo '</td>'.PHP_EOL.PHP_EOL;
 }
 
