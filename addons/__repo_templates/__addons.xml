@@ -52,9 +52,9 @@
         <description lang="de">Dies ist das offizielle Repository der deutschen Kodi-Community 'Kodinerds', das unter www.kodinerds.net zu finden ist. Die meisten der hier gehosteten Addons werden von den Mitgliedern der Community aktiv entwickelt und unterstützt. Viel Spaß!</description>
         <disclaimer/>
         <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
     </extension>
-    <assets>
-        <icon>icon.png</icon>
-        <fanart>fanart.jpg</fanart>
-    </assets>
 </addon>

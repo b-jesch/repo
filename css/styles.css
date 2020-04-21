@@ -66,8 +66,9 @@ body {
     background-color: red;
 }
 
-ol {
+ol li {
     list-style-type: disc;
+    line-height: 1.3em;
 }
 
 ul {

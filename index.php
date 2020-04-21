@@ -179,21 +179,26 @@ switch ($c_pars['action']) {
 
                 # move and unpacking upload to TMPDIR, copy default icon to TMPDIR
 
-                copy(ADDONFOLDER.REPO_TEMPLATES.DEFAULT_ADDON_ICON, TMPDIR.'icon.png');
                 move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR.$upload);
                 $zip = new ZipArchive();
                 $zip->open(TMPDIR.$upload);
 
                 if ($zip->status == ZipArchive::ER_OK) {
                     for ($i = 0; $i < $zip->numFiles; $i++) {
-                        if (in_array(basename($zip->statIndex($i)['name']), array('addon.xml', 'fanart.jpg', 'icon.png', 'changelog.txt'))) {
+                        if (in_array(basename($zip->statIndex($i)['name']), array('addon.xml', 'fanart.jpg', 'icon.png', 'icon.jpg', 'changelog.txt'))) {
                             $zip->extractTo(TMPDIR, $zip->statIndex($i)['name']);
                             rename(TMPDIR . $zip->statIndex($i)['name'], TMPDIR . basename($zip->statIndex($i)['name']));
                         }
                     }
                     $zip->close();
+
+                    $icon = TMPDIR.'icon.png';
+                    if (is_file(TMPDIR.'icon.jpg')) $icon = TMPDIR.'icon.jpg';
+                    elseif (!is_file(TMPDIR.'icon.png')) {
+                        copy(ADDONFOLDER.REPO_TEMPLATES.DEFAULT_ADDON_ICON, TMPDIR.'icon.png');
+                    }
                 } else {
-                    $_SESSION['notice'] = 'Die Zip-Datei ist defekt und konnte nicht geöffnet werden! Das Addon wurde nicht gespeichert.';
+                    $_SESSION['notice'] .= 'Die Zip-Datei ist defekt und konnte nicht geöffnet werden! Das Addon wurde nicht gespeichert.';
                     require VIEWS . UPLOAD;
                     break;
                 }
@@ -222,16 +227,16 @@ switch ($c_pars['action']) {
                             }
                         }
                         if (empty($addon->tree)) $addon->tree = $version_dirs[FALLBACK_TREE];
-                        $_SESSION['notice'] = "Der Upload wird der der Kodiversion '".$addon->tree."' zugeordnet";
+                        $_SESSION['notice'] .= "Der Upload wird der der Kodiversion '".$addon->tree."' zugeordnet";
                     }
 
                 } else {
-                    $_SESSION['notice'] = "Im hochgeladenen ZIP befindet sich keine 'addon.xml'. Der Upload wird verworfen";
+                    $_SESSION['notice'] .= "Im hochgeladenen ZIP befindet sich keine 'addon.xml'. Der Upload wird verworfen";
                     require VIEWS . UPLOAD;
                     break;
                 }
 
-                createThumb(TMPDIR, TMPDIR.'icon.png');
+                createThumb(TMPDIR, $icon);
                 $addon_dir = ADDONFOLDER . $addon->tree . DATADIR . $addon->id . '/';
                 $summaries = ADDONFOLDER . $addon->tree;
 
@@ -241,7 +246,7 @@ switch ($c_pars['action']) {
                     rename(TMPDIR.$upload, TMPDIR.$addon->id.'-'.$addon->version.ADDON_EXT);
                     $upload = $addon->id.'-'.$addon->version.ADDON_EXT;
                     $addon->file = $upload;
-                    $_SESSION['notice'] = "Die hochgeladene Datei entspricht nicht den Namensregeln für Kodi Addons und wurde in '$upload' umbenannt";
+                    $_SESSION['notice'] .= "Die hochgeladene Datei entspricht nicht den Namensregeln für Kodi Addons und wurde in '$upload' umbenannt";
                 }
 
                 # :::END PREREQUISITES:::
@@ -271,7 +276,7 @@ switch ($c_pars['action']) {
                             continue;
 
                         } elseif (calculateNumVersion($c_addon->version) > calculateNumVersion($addon->version)) {
-                            $_SESSION['notice'] = 'Ein Überschreiben vorhandener Addons mit älteren Addon-Versionen ist nicht zulässig!';
+                            $_SESSION['notice'] .= 'Ein Überschreiben vorhandener Addons mit älteren Addon-Versionen ist nicht zulässig!';
                             require VIEWS . UPLOAD;
                             exit();
 
