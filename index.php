@@ -227,7 +227,7 @@ switch ($c_pars['action']) {
                             }
                         }
                         if (empty($addon->tree)) $addon->tree = $version_dirs[FALLBACK_TREE];
-                        $_SESSION['notice'] .= "Der Upload wird der der Kodiversion '".$addon->tree."' zugeordnet";
+                        $_SESSION['notice'] .= "Der Upload wird der der Kodiversion '". ucwords(substr($addon->tree, 0, -1)) ."' zugeordnet";
                     }
 
                 } else {

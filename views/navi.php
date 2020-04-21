@@ -14,7 +14,7 @@
         </div>
     </li>
     <li><a href="<?php echo ROOT.ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT; ?>"
-           title="Download and install the <?php echo REPONAME; ?> Addon to receive automatic Updates from this Repo">Download Repo Addon</a></li>
+           title="Download and install the '<?php echo REPONAME; ?>' Addon to receive automatic Updates from this Repo">Download Repo Addon</a></li>
     <?php
         if ($_SESSION['state'] == 1) {
             echo "<li><a href=\"".ROOT.CONTROLLER.'?action=list&user='.$_SESSION['user']."\" title='My Addons'>Meine Addons</a></li>".PHP_EOL;

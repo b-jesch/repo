@@ -65,10 +65,8 @@ body {
 .fileupload + label:hover {
     background-color: red;
 }
-
-ol li {
-    list-style-type: disc;
-    line-height: 1.3em;
+.textrow {
+    vertical-align: top;
 }
 
 ul {
