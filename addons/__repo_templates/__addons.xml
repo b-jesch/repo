@@ -47,9 +47,9 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en">Addon repository of the Kodinerds Community</summary>
-        <description lang="en">The 'Nerdsrepo' is the Repository of the german Kodi Community 'Kodinerds' which resides at www.kodinerds.net. Most of the hosted Addons here are active developed and supported by the members of the Community. Nerdsrepo is an unofficial Repository of the Kodi Media Center Software</description>
+        <description lang="en">The 'Nerdsrepo' is the Repository of the german Kodi Community 'Kodinerds' (www.kodinerds.net). Most of the hosted Addons here are active developed and supported by the members of the Community. Nerdsrepo is an unofficial Repository of the Kodi Media Center Software</description>
         <summary lang="de">Addon Repository der Kodinerds Community</summary>
-        <description lang="de">Das 'Nerdsrepo' ist das Addon Repository der deutschen Kodi-Community 'Kodinerds', das unter www.kodinerds.net zu finden ist. Die meisten der hier im Nerdsrepo gehosteten Addons werden von den Mitgliedern der Community aktiv entwickelt und unterstützt. Das Nerdsrepo ist ein unoffizielles Repository der Kodi Media Center Software.</description>
+        <description lang="de">Das 'Nerdsrepo' ist das Addon Repository der deutschen Kodi-Community 'Kodinerds' (www.kodinerds.net). Die meisten der hier im Nerdsrepo gehosteten Addons werden von den Mitgliedern der Community aktiv entwickelt und unterstützt. Das Nerdsrepo ist ein unoffizielles Repository der Kodi Media Center Software.</description>
         <disclaimer/>
         <platform>all</platform>
         <assets>

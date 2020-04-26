@@ -17,11 +17,9 @@ if ($c_pars['action'] == 'direct_dl') {
     exit();
 }
 
-# debug($c_pars);
-
 # :::BOOTSTRAP:::
 
-# Session starten
+# start session
 
 session_start();
 if (!$_SESSION['state'] or $_SESSION['state'] == 0) {
@@ -325,21 +323,26 @@ switch ($c_pars['action']) {
             $repo->createMD5();
 
             $_SESSION['version'] = $addon->tree;
-            header('Location: ' . ROOT . CONTROLLER);
+            header('Location: ' . ROOT . CONTROLLER.'?user='.$_SESSION['user']);
             exit();
         }
         require VIEWS.LISTVIEW;
         break;
 
     case 'download':
-        $addondirs = scanFolder(ADDONFOLDER.$_SESSION['version'].DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
-        if ($addondirs) {
-            foreach ($addondirs as $addondir) {
-                $metafiles = glob(ADDONFOLDER.$_SESSION['version'].DATADIR.$addondir.'/*.zip');
-                foreach ($metafiles as $metadata) {
-                    $addon = new Addon($metadata);
-                    $addon->read();
-                    if ($addon->object_id != '' and $c_pars['item'] == $addon->object_id) $addon->download();
+        foreach ($version_dirs as $version_dir) {
+            $addondirs = scanFolder(ADDONFOLDER.$version_dir.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
+            if ($addondirs) {
+                foreach ($addondirs as $addondir) {
+                    $metafiles = glob(ADDONFOLDER.$version_dir.DATADIR.$addondir.'/*.zip');
+                    foreach ($metafiles as $metadata) {
+                        $addon = new Addon($metadata);
+                        $addon->read();
+                        if ($addon->object_id != '' and $c_pars['item'] == $addon->object_id) {
+                            $addon->download();
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -348,22 +351,29 @@ switch ($c_pars['action']) {
 
     case 'delete':
         if ($_SESSION['state'] == 1) {
-            $addondirs = scanFolder(ADDONFOLDER.$_SESSION['version'].DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
-            if ($addondirs) {
-                foreach ($addondirs as $addondir) {
-                    $metafiles = glob(ADDONFOLDER.$_SESSION['version'].DATADIR.$addondir.'/*.zip');
-                    foreach ($metafiles as $metadata) {
-                        $addon = new Addon($metadata);
-                        $addon->read();
-                        if ($addon->object_id != '' and $c_pars['item'] == $addon->object_id) {
-                            $addon->delete();
+            foreach ($version_dirs as $version_dir) {
+                $addondirs = scanFolder(ADDONFOLDER.$version_dir.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
+                if ($addondirs) {
+                    foreach ($addondirs as $addondir) {
+                        $metafiles = glob(ADDONFOLDER.$version_dir.DATADIR.$addondir.'/*.zip');
+                        foreach ($metafiles as $metadata) {
+                            $addon = new Addon($metadata);
+                            $addon->read();
+                            if ($addon->object_id != '' and $c_pars['item'] == $addon->object_id) {
+                                $modified_tree = $version_dir;
+                                $addon->delete();
+                                break;
+                            }
                         }
                     }
                 }
             }
-            $repo = new CreateRepoXML(ADDONFOLDER.$_SESSION['version'], DATADIR);
-            $repo->createRepoXML();
-            $repo->createMD5();
+            if (!empty($modified_tree)) {
+                $repo = new CreateRepoXML(ADDONFOLDER.$_SESSION['version'], DATADIR);
+                $repo->createRepoXML();
+                $repo->createMD5();
+            }
+            $c_pars['user'] = $_SESSION['user'];
         }
         require VIEWS.LISTVIEW;
         break;
