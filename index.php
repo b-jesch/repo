@@ -383,6 +383,8 @@ switch ($c_pars['action']) {
             require VIEWS.SETUP;
         } else {
             $c_pars['action'] = '';
+            $_SESSION['notice'] = "Die aktuelle Session ist abgelaufen. Bitte erneut anmelden.";
+            require VIEWS.LISTVIEW;
         }
         break;
 

@@ -18,8 +18,8 @@ define('REPOLOGO', 'css/9LWeq_c5_1920.jpg');
 #
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
-define('ROOT', 'https://repo.kodinerds.net/repo/');
-# define('ROOT', 'http://localhost/repo/');
+# define('ROOT', 'https://repo.kodinerds.net/repo/');
+define('ROOT', 'http://localhost/repo/');
 
 define('CONTROLLER', 'index.php');
 define('VIEWS', 'views/');
