@@ -104,7 +104,8 @@ class Addon {
     public $upload = NULL;                          # Uploaddatum
     public $provider = NULL;                        # Addon-Maintainer/Uploader (Provider)
     public $author = NULL;                          # Addon-Autor
-    public $downloads = NULL;                       # Anzahl Downloads
+    public $downloads = NULL;                       # Anzahl Downloads aktuelle Version
+    public $downloads_total = NULL;                 # Anzahl Downloads über alle Versionen im Tree
 
     public $addon_types = NULL;
     public $addon_category = NULL;
@@ -136,6 +137,7 @@ class Addon {
     public function download() {
         $this->readProperties();
         $this->downloads = intval($this->downloads) + 1;
+        $this->downloads_total = intval($this->downloads_total) + 1;
         $this->writeProperties();
 
         # ob_clean();
@@ -219,6 +221,8 @@ class Addon {
             $this->provider = $xml->provider;
             $this->author = $xml->author;
             $this->downloads = $xml->downloads;
+            $this->downloads_total = $xml->downloads_total;
+            if (empty($this->downloads_total)) $this->downloads_total = $this->downloads;
             $this->category = $xml->category;
         }
     }
@@ -237,6 +241,7 @@ class Addon {
         $xml->addChild('provider', htmlspecialchars($this->provider));
         $xml->addChild('author', htmlspecialchars($this->author));
         $xml->addChild('downloads', $this->downloads);
+        $xml->addChild('downloads_total', $this->downloads_total);
 
         $dom = init_domxml();
         $dom->loadXML($xml->saveXML());

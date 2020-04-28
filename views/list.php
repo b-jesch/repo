@@ -41,7 +41,7 @@ function createItemView($column, $addon) {
 
     if ($_SESSION['state'] == 1) {
         echo PHP_TAB.'<tr><td>durch:</td><td class="data">'.$addon->provider.'</td></tr>'.PHP_EOL;
-        echo PHP_TAB.'<tr><td>Downloads:</td><td class="data">'.$addon->downloads.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Downloads:</td><td class="data">'.$addon->downloads.' (total: '. $addon->downloads_total .')</td></tr>'.PHP_EOL;
     } else {
         echo PHP_TAB.'<tr><td>&nbsp;</td><td class="data">&nbsp;</td></tr>'.PHP_EOL;
         echo PHP_TAB.'<tr><td>&nbsp;</td><td class="data">&nbsp;</td></tr>'.PHP_EOL;

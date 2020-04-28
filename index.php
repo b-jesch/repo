@@ -256,6 +256,7 @@ switch ($c_pars['action']) {
                     mkdir($addon_dir, 0755, true);
 
                     $addon->file = $addon_dir.$upload;
+                    $addon->downloads_total = 0;
                     $addon->create();
 
                     $files = scanFolder(TMPDIR, array('.', '..', $addon->id));
@@ -269,11 +270,11 @@ switch ($c_pars['action']) {
                     # get info from current addon objects
 
                     $files = glob($addon_dir.$addon->id.'*.zip');
-                    $c_downloads = 0;
                     foreach ($files as $c_file) {
                         $c_addon = new Addon($c_file);
                         $c_addon->read();
-                        $c_downloads = $c_addon->downloads;
+                        $dl_current = $c_addon->downloads;
+                        $dl_total = $c_addon->downloads_total;
                         if (calculateNumVersion($c_addon->version) < calculateNumVersion($addon->version)) {
                             continue;
 
@@ -290,6 +291,7 @@ switch ($c_pars['action']) {
                                     $_SESSION['isadmin'])) {
 
                                 $addon->object_id = $c_addon->object_id;
+                                if (!isset($c_pars['reset_count'])) $addon->downloads = $dl_current;
 
                                 unlink($c_addon->file);
                                 unlink($c_addon->meta);
@@ -313,7 +315,7 @@ switch ($c_pars['action']) {
                         foreach ($archive_files as $file) rename($file, $addon_dir . ARCHIVE . basename($file));
                     }
                     $addon->file = $addon_dir.$upload;
-                    if (!isset($c_pars['reset_count'])) $addon->downloads = $c_downloads;
+                    $addon->downloads_total = $dl_total;
                     $addon->create();
 
                     # move uploaded addon to destination
