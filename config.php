@@ -70,6 +70,7 @@ define('NAVIGATION', 'navi.php');       # Navigation
 # global MVC-Context
 
 define('CONTEXT', true);
+define('LASTMODIFIED', date('y.m.d', filemtime(__FILE__)));
 
 # Arrays (Kodi specific)
 

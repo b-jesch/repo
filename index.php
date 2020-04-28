@@ -259,7 +259,9 @@ switch ($c_pars['action']) {
                     $addon->create();
 
                     $files = scanFolder(TMPDIR, array('.', '..', $addon->id));
-                    foreach($files as $file) rename(TMPDIR.$file, $addon_dir.basename($file));
+                    foreach($files as $file) {
+                        if (is_file(TMPDIR.$file)) rename(TMPDIR . $file, $addon_dir . basename($file));
+                    }
 
                 } elseif (scanFolder($addon_dir, array('.', '..', 'archive'))) {
 
@@ -267,9 +269,11 @@ switch ($c_pars['action']) {
                     # get info from current addon objects
 
                     $files = glob($addon_dir.$addon->id.'*.zip');
+                    $c_downloads = 0;
                     foreach ($files as $c_file) {
                         $c_addon = new Addon($c_file);
                         $c_addon->read();
+                        $c_downloads = $c_addon->downloads;
                         if (calculateNumVersion($c_addon->version) < calculateNumVersion($addon->version)) {
                             continue;
 
@@ -286,7 +290,6 @@ switch ($c_pars['action']) {
                                     $_SESSION['isadmin'])) {
 
                                 $addon->object_id = $c_addon->object_id;
-                                if (!isset($c_pars['reset_count'])) $addon->downloads = $c_addon->downloads;
 
                                 unlink($c_addon->file);
                                 unlink($c_addon->meta);
@@ -310,12 +313,15 @@ switch ($c_pars['action']) {
                         foreach ($archive_files as $file) rename($file, $addon_dir . ARCHIVE . basename($file));
                     }
                     $addon->file = $addon_dir.$upload;
+                    if (!isset($c_pars['reset_count'])) $addon->downloads = $c_downloads;
                     $addon->create();
 
                     # move uploaded addon to destination
 
                     $files = scanFolder(TMPDIR, array('.', '..', $addon->id));
-                    foreach($files as $file) rename(TMPDIR.$file, $addon_dir.basename($file));
+                    foreach($files as $file) {
+                        if (is_file(TMPDIR.$file)) rename(TMPDIR . $file, $addon_dir . basename($file));
+                    }
                 }
             }
             $repo = new CreateRepoXML(ADDONFOLDER.$addon->tree, DATADIR);

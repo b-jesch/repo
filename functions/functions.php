@@ -63,9 +63,9 @@ function delTree($dir) {
 # assume that version is not above 999.999.999 eg myaddon-999.999.999.zip
 # returns numeric value: 3.10.1 ==> 300010001 (300.010.001)
 
-function calculateNumVersion($version) {
-    $subvers = explode('.', $version);
-    $subvers = array_reverse($subvers);
+function calculateNumVersion($name) {
+    preg_match_all('/[0-9.]+/m', $name, $version, PREG_SET_ORDER, 0);
+    $subvers = array_reverse(explode('.', $version[0][0]));
     $numvers = 0;
     $multiplier = 1;
     foreach ($subvers as $element) {

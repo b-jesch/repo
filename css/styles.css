@@ -301,14 +301,13 @@ h3 {
 .footer {
     background-color: #336699;
     color: white;
-    font-size: 16px;
-    padding-left: 10px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-right: 5px;
+    width: 99%;
+    font-size: 14px;
+    float: left;
+    padding: 10px 7px;
+    margin: 3px;
     font-family: Verdana, Arial, Helevtica;
     font-weight: bolder;
-    width: 99%;
 }
 
 .footer a {
