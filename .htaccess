@@ -8,6 +8,7 @@ RewriteRule ^(.+\.zip)$ index.php?action=direct_dl&f=$1 [L]
 
 ## allow only kodi to load xml
 RewriteCond %{HTTP_USER_AGENT} !^kodi.*$ [NC]
+RewriteCond %{HTTP_USER_AGENT} !^xbmc.*$ [NC]
 RewriteRule \.xml - [NC,F]
 
 ## Rewrite icon.png
