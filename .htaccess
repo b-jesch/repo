@@ -21,3 +21,6 @@ RewriteRule (.+zip\/.*?\/).*(\/fanart\.jpg) $1$2 [NC]
 <FilesMatch "config.php">
 	Require all denied
 </FilesMatch>
+
+ErrorDocument 404 https://repo.rolapp.de?action=404
+ErrorDocument 403 https://repo.rolapp.de?action=403
