@@ -477,6 +477,16 @@ switch ($c_pars['action']) {
         }
         break;
 
+    case '404':
+        $errmsg = "Die von Dir aufgerufene Seite existiert nicht!";
+        require VIEWS.ERRORPAGE;
+        break;
+
+    case '403':
+        $errmsg = "Das was Du vorhast ist hier nicht erlaubt!";
+        require VIEWS.ERRORPAGE;
+        break;
+
     default:
         # Bootstrap
         require VIEWS.LISTVIEW;
