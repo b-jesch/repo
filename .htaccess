@@ -17,3 +17,7 @@ RewriteRule (.+zip\/.*?\/).*(\/icon\.png) $1$2 [NC]
 
 ## Rewrite fanart.jpg
 RewriteRule (.+zip\/.*?\/).*(\/fanart\.jpg) $1$2 [NC] 
+
+<FilesMatch "config.php">
+	Require all denied
+</FilesMatch>
