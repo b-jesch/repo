@@ -483,7 +483,7 @@ switch ($c_pars['action']) {
         break;
 
     case '403':
-        $errmsg = "Das was Du vorhast ist hier nicht erlaubt!";
+        $errmsg = "Das was Du vor hast, ist hier nicht erlaubt!";
         require VIEWS.ERRORPAGE;
         break;
 
