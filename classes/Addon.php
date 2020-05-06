@@ -251,7 +251,7 @@ class Addon {
 
 class User
 {
-
+    public $database = NULL;        # User Database File
     public $indb = false;           # User is in Database
     public $isadmin = false;        # User has Administrator Rights
     public $node = NULL;            # XML Node if user with attribute 'login'
@@ -264,15 +264,17 @@ class User
 
     function __construct($user='')
     {
-
-        if (!is_file(ETC.USER_FILE)) {
-            if (!is_dir(ETC)) mkdir(ETC, 0775, true);
+        if (!scanFolder(ETC.USERDATA, array('.', '..'))) {
+            if (!is_dir(ETC.USERDATA)) mkdir(ETC.USERDATA, 0775, true);
+            $this->database = passwdGen().META_EXT;
             $init = '<users><user login="admin"><passwd>'.crypt('admin').'</passwd>';
             $init.= '<isadmin>true</isadmin></user></users>';
             $this->users = simplexml_load_string($init);
             $this->persist();
+        } else {
+            $this->database = scanFolder(ETC.USERDATA, array('.', '..'))[0];
         }
-        $this->users = simplexml_load_file(ETC.USER_FILE);
+        $this->users = simplexml_load_file(ETC.USERDATA.$this->database);
         if ($user != '') {
             foreach ($this->users->children() as $node) {
                 if ($node->attributes()->login == $user) {
@@ -336,7 +338,7 @@ class User
     public function persist() {
         $dom = init_domxml();
         $dom->loadXML($this->users->saveXML());
-        $dom->save(ETC.USER_FILE);
+        $dom->save(ETC.USERDATA.$this->database);
     }
 
     public function update() {
@@ -348,10 +350,12 @@ class User
     }
 
     private function set_node($mother, $child, $childname, $value) {
-        if (isset($child)) {
-            $mother->$childname = $value;
-        } else {
-            $mother->addChild($childname, $value);
+        if (isset($mother)) {
+            if (isset($child)) {
+                $mother->$childname = $value;
+            } else {
+                $mother->addChild($childname, $value);
+            }
         }
     }
 }

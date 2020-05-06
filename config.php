@@ -18,8 +18,8 @@ define('REPOLOGO', 'css/9LWeq_c5_1920.jpg');
 #
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
-define('ROOT', 'https://repo.kodinerds.net/');
-# define('ROOT', 'http://localhost/repo/');
+# define('ROOT', 'https://repo.kodinerds.net/');
+define('ROOT', 'http://localhost/repo/');
 
 define('CONTROLLER', 'index.php');
 define('VIEWS', 'views/');
@@ -34,8 +34,8 @@ define('TMPDIR', 'temp/');              # temporary files
 define('ARCHIVE', 'archive/');          # Archive folder
 define('ADDON_EXT', '.zip');            # Endung Addon-Objekt im Data-Verzeichnis
 define('META_EXT', '.xml');             # Endung Metadaten-Datei
-define('ETC', 'etc/');                  # User Management
-define('USER_FILE', 'uPwFile.xml');     # User Data
+define('ETC', 'etc/');                  # Verschiedenes
+define('USERDATA', 'userdata/');        # Nutzerdaten
 
 # Stylesheets
 
