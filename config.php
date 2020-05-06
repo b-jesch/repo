@@ -47,7 +47,7 @@ define ('DEFAULTPAGE', 'login.php');    # Bootstrap
 define ('UPLOAD', 'upload.php');        # Upload
 define ('LISTVIEW', 'list.php');        # List view
 define ('IMPRESS', 'impressum.php');    # Impressum
-define ('DSVGO', 'dsvgo.php');          # DSVGO
+define ('DSGVO', 'dsgvo.php');          # DSVGO
 define ('MODIFYVIEW', 'modify.php');    # Modify View
 define ('LOGINPAGE', 'login.php');      # Login View
 define ('SETUP', 'users.php');          # User Maintenance View

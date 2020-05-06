@@ -317,14 +317,15 @@ class User
 
         if ($this->indb) {
             if ($this->node->passwd == crypt($pw, $this->node->passwd)) {
+                $this->set_node($this->node, $this->node->last_login, 'last_login', date('d.m.Y H:i'));
+                $this->persist();
                 $this->success = true;
             }
         }
     }
 
     public function logout() {
-        $this->set_node($this->node, $this->node->last_login, 'last_login', date('d.m.Y H:i'));
-        $this->persist();
+
     }
 
     public function create($username, $passwd) {
