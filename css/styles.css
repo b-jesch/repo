@@ -165,9 +165,9 @@ li.dropdown {
     width:100px;
     color: white;
     height:28px;
-    border-radius: 8px;
-    border-width: 0px;
-    font-family:Verdana, Arial, Helvetica;
+    border-radius: 10px;
+    border-width: 0;
+    font-family: Verdana, Arial, Helvetica, serif;
     font-size:12px;
 
     font-weight:bold;
@@ -341,6 +341,7 @@ h4, caption {
     margin-right: auto;
     padding: 30px;
     text-align: center;
+    background-color: #F9F9F9;
 }
 .upload {
     border: 1px dotted black;
@@ -352,6 +353,7 @@ h4, caption {
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
+    background-color: #F9F9F9;
 }
 .setup {
     border: 1px dotted black;
@@ -359,5 +361,6 @@ h4, caption {
     width: 800px;
     margin: auto;
     padding: 30px;
+    background-color: #F9F9F9;
 }
 
