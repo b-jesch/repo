@@ -12,7 +12,9 @@ if (!defined('CONTEXT')) {
 # Inhalt der View
 
 echo '<h3>Fehler</h3>';
-echo '<p>Ein Fehler ist aufgetreten: '.$errmsg.'</p>';
+echo "<div class='alertbox' id='alertbox'>".$errmsg;
+echo "</div>";
+unset ($errmsg);
 
 # Epilog
 include FOOTER;
