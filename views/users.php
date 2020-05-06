@@ -44,8 +44,8 @@ $user = new User($_SESSION['user']);
         <div class="setup">
             <form name="admin_a" id="admin_a" action="<?php echo ROOT . CONTROLLER; ?>" method="post">
                 <input type="hidden" name="action" value="<?php echo crypt('setup_p2'); ?>">
-                <input type="text" class="textfield_form" name="loginname" id="loginname" value="">
-                <label for="loginname">Login-Name</label><br>
+                <input type="text" class="textfield_form" name="m_loginname" id="m_loginname" value="">
+                <label for="m_loginname">Login-Name</label><br>
                 <input type="text" class="textfield_form" name="passwd" id="passwd" value="<?php echo passwdGen(); ?>">
                 <label for="passwd">generiertes Passwort</label><br>
                 <input type="submit" class="button_red" value="anwenden"><br>
@@ -67,12 +67,12 @@ $user = new User($_SESSION['user']);
                 </select>
                 <label for="userlist">Maintainer auswählen</label><br>
                 <hr class="spacer">
-                <input type="radio" name="adm_lounge" id="adm_lounge" value="create_pw" checked>
-                <label class="radio" for="adm_lounge">neues Passwort generieren</label><br>
-                <input type="radio" name="adm_lounge" id="adm_lounge" value="grant_adm">
-                <label class="radio" for="adm_lounge">Administrations-Status setzen/löschen</label><br>
-                <input type="radio" name="adm_lounge" id="adm_lounge" value="delete_user">
-                <label class="radio" for="adm_lounge">Maintainer löschen</label><br>
+                <label class="radio" for="adm_lounge_1">
+                    <input type="radio" name="adm_lounge" id="adm_lounge_1" value="create_pw" checked>neues Passwort generieren</label><br>
+                <label class="radio" for="adm_lounge_2">
+                    <input type="radio" name="adm_lounge" id="adm_lounge_2" value="grant_adm">Administrations-Status setzen/löschen</label><br>
+                <label class="radio" for="adm_lounge_3">
+                    <input type="radio" name="adm_lounge" id="adm_lounge_3" value="delete_user">Maintainer löschen</label><br>
                 <input type="submit" class="button_red" value="anwenden"><br>
             </form>
         </div>

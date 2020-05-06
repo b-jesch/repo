@@ -419,14 +419,14 @@ switch ($c_pars['action']) {
 
     case 'setup_p2':
         if ($_SESSION['state'] == 1) {
-            if (empty($c_pars['loginname'])) {
+            if (empty($c_pars['m_loginname'])) {
                 $_SESSION['notice'] = 'Es wurde kein Login-Name angegeben. ';
                 require VIEWS.SETUP;
                 break;
             }
-            $user = new User($c_pars['loginname']);
+            $user = new User($c_pars['m_loginname']);
             if ($user->indb) {
-                $_SESSION['notice'] = 'Ein Nutzer mit dem Login-Namen \''.$c_pars['loginname'].'\' befindet sich bereits in der Datenbank! ';
+                $_SESSION['notice'] = 'Ein Nutzer mit dem Login-Namen \''.$c_pars['m_loginname'].'\' befindet sich bereits in der Datenbank! ';
                 require VIEWS.SETUP;
                 break;
             }
@@ -436,9 +436,9 @@ switch ($c_pars['action']) {
                 break;
             }
             $user = new User();
-            $user->create($c_pars['loginname'], $c_pars['passwd']);
+            $user->create($c_pars['m_loginname'], $c_pars['passwd']);
             $_SESSION['notice'] = 'Diese Daten kopieren und per Email an den Nutzer schicken. ';
-            $_SESSION['notice'].= 'Username: '.$c_pars['loginname'].' Passwort: '.$c_pars['passwd'];
+            $_SESSION['notice'].= 'Username: '.$c_pars['m_loginname'].' Passwort: '.$c_pars['passwd'];
         }
         require VIEWS . LISTVIEW;
         break;
