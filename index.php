@@ -156,7 +156,6 @@ switch ($c_pars['action']) {
         if ($_SESSION['state'] == 1) {
             $user = new User($_SESSION['user']);
             $user->logout();
-            resetSession();
         }
         # if it's impossible to send headers use listview instead
         require VIEWS.LISTVIEW;

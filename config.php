@@ -15,6 +15,7 @@ define('DEFAULT_ADDON_ICON', 'default.png');    # default Icon, if icon.png in a
 define('REPOLOGO', 'css/9LWeq_c5_1920.jpg');
 
 # Root/Folders of CMS
+# see also start.php in views folder
 #
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
@@ -24,7 +25,7 @@ define('ROOT', 'https://repo.kodinerds.net/');
 define('CONTROLLER', 'index.php');
 define('VIEWS', 'views/');
 
-# special action (encrypted path)
+# special actions (encrypted path) shown in hidden formular inputs
 
 $routing = array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2');
 

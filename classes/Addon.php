@@ -325,7 +325,7 @@ class User
     }
 
     public function logout() {
-
+        resetSession();
     }
 
     public function create($username, $passwd) {

@@ -1,17 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jesch
- * Date: 06.11.2018
- * Time: 09:10
- */
 # Prolog
+if (!defined('CONTEXT')) {
+    # be aware to configure path to minimal config (start.php) properly
+    # inside start.php must defined at least a root path (ROOT) of the CMS
+    require 'views/start.php';
+    header('Location: '.ROOT);
+    exit();
+}
 include HEADER;
 include NAVIGATION;
-
-if (!defined('CONTEXT')) {
-    die(__FILE__.' ausserhalb des MVC-Kontextes');
-}
 
 # Inhalt der View
 

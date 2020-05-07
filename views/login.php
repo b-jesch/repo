@@ -1,11 +1,10 @@
 <?php
-
 # Prolog
-
 if (!defined('CONTEXT')) {
-    die(__FILE__.' ausserhalb des MVC-Kontextes');
+    require 'start.php';
+    header('Location: '.ROOT);
+    exit();
 }
-
 include HEADER;
 include NAVIGATION;
 
