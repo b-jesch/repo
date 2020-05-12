@@ -290,7 +290,7 @@ switch ($c_pars['action']) {
                                     $_SESSION['isadmin'])) {
 
                                 $addon->object_id = $c_addon->object_id;
-                                if (!isset($c_pars['reset_count'])) $addon->downloads = $dl_current;
+                                $addon->downloads = $dl_current;
 
                                 unlink($c_addon->file);
                                 unlink($c_addon->meta);

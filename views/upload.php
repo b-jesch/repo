@@ -44,9 +44,6 @@ $users = new User();
         <br>
     <input type="checkbox" name="overwrite" id="overwrite" value="overwrite">
     <label for="overwrite">vorhandene Version überschreiben</label><br>
-    <input type="checkbox" name="reset_count" id="reset_count" value="reset_count">
-    <label for="reset_count">Downloadzähler zurücksetzen</label><br>
-
 
     <?php
     if ($_SESSION['isadmin']) {
