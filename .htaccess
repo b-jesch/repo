@@ -23,4 +23,4 @@ RewriteRule (.+zip\/.*?\/).*(\/fanart\.jpg) $1$2 [NC]
 </FilesMatch>
 
 ErrorDocument 404 https://repo.kodinerds.net?action=404
-ErrorDocument 403 https://repo.kodinerds.net?action=403
+ErrorDocument 403 https://repo.kodinerds.net?action=404
