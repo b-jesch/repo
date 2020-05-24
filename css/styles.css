@@ -39,8 +39,8 @@ body {
 }
 
 .fileupload {
-    width: 0.1px;
-    height: 0.1px;
+    width: 1px;
+    height: 1px;
     opacity: 0;
     overflow: hidden;
     position: absolute;
@@ -48,7 +48,7 @@ body {
 }
 
 .fileupload + label {
-    font-family:Verdana, Arial, Helvetica;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: bold;
     text-align: center;
@@ -70,7 +70,7 @@ body {
     vertical-align: top;
 }
 
-ul {
+nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -89,7 +89,7 @@ li a, .dropbtn {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-family: Verdana, Arial, Helevtica;
+    font-family: Verdana, Arial, Helevtica, sans-serif;
     font-weight: bold;
 }
 
@@ -111,7 +111,7 @@ li.dropdown {
     position: absolute;
     background-color: #EEEEEE;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
 }
 
@@ -132,7 +132,7 @@ li.dropdown {
 }
 
 .text, .alert {
-    font-family: Verdana, Arial, Helevtica;
+    font-family: Verdana, Arial, Helevtica, sans-serif;
     font-size: 14px;
 }
 .alert {
@@ -144,10 +144,7 @@ li.dropdown {
 .alertbox {
     height: 20px;
     width: 98%;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 1%;
-    padding-right: 1%;
+    padding: 15px 1%;
     background-color: #A11625;
     font-weight: bold;
     margin-bottom: 10px;
@@ -167,7 +164,7 @@ li.dropdown {
     height:28px;
     border-radius: 10px;
     border-width: 0;
-    font-family: Verdana, Arial, Helvetica, serif;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size:12px;
 
     font-weight:bold;
@@ -184,11 +181,12 @@ li.dropdown {
 .button_red:hover {
     background-color: #A10000;
 }
+
 .select {
     padding-left: 5px;
     width: 200px;
     background-color: #336699;
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .toolbox {
@@ -206,10 +204,10 @@ input[type='radio'] {
     height: 200px;
     vertical-align: middle;
     text-align: right;
-    font-family: Verdana, Arial;
+    font-family: Verdana, Arial, sans-serif;
     font-size: 12px;
     border: 1px dotted #336699;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 3px;
     margin: 3px;
 }
@@ -251,7 +249,7 @@ input[type='radio'] {
 .desc_form {
     text-align: right;
     vertical-align: middle;
-    font-family: Verdana, Arial;
+    font-family: Verdana, Arial, sans-serif;
     font-size:12px;
     width: 110px;
     padding: 5px;
@@ -261,7 +259,7 @@ input[type='radio'] {
     border: 1px solid black;
     width:290px;
     height:20px;
-    font-family: Verdana, Arial;
+    font-family: Verdana, Arial, sans-serif;
     font-size:14px;
     text-align: left;
     padding: 5px;
@@ -270,21 +268,21 @@ input[type='radio'] {
 }
 
 body {
-    font-family: Verdana, Arial, Helevtica;
+    font-family: Verdana, Arial, Helevtica, sans-serif;
     font-size: 14px;
 }
 
 h1 {
     color: #969696;
     font-size: 18px;
-    font-family: Verdana, Arial;
+    font-family: Verdana, Arial, sans-serif;
     padding: 2px;
     margin: 2px;
 }
 
 h2 {
     color: #969696;
-    font-family: Verdana, Arial;
+    font-family: Verdana, Arial, sans-serif;
     font-size: 14px;
     font-weight: normal;
     padding: 2px;
@@ -298,7 +296,7 @@ h3 {
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 1%;
-    font-family: Verdana, Arial, Helevtica;
+    font-family: Verdana, Arial, Helevtica, sans-serif;
     width: 99%;
 }
 
@@ -308,11 +306,8 @@ h3 {
     width: 98%;
     font-size: 14px;
     float: left;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 1%;
-    padding-right: 1%;
-    font-family: Verdana, Arial, Helevtica;
+    padding: 10px 1%;
+    font-family: Verdana, Arial, Helevtica, sans-serif;
     font-weight: bolder;
 }
 
@@ -326,7 +321,7 @@ h4, caption {
     color: white;
     font-size: 14px;
     padding: 5px;
-    font-family: Verdana, Arial, Helevtica;
+    font-family: Verdana, Arial, Helevtica, sans-serif;
     width: 99%;
 }
 
@@ -335,10 +330,7 @@ h4, caption {
     border-radius: 20px;
     width: 400px;
     height: 110px;
-    margin-top: 40px;
-    margin-bottom: 50px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 40px auto;
     padding: 30px;
     text-align: center;
     background-color: #F9F9F9;
@@ -348,10 +340,7 @@ h4, caption {
     border-radius: 20px;
     width: 490px;
     height: 210px;
-    margin-top: 100px;
-    margin-bottom: 50px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 50px auto;
     padding: 20px;
     background-color: #F9F9F9;
 }
@@ -363,4 +352,3 @@ h4, caption {
     padding: 30px;
     background-color: #F9F9F9;
 }
-

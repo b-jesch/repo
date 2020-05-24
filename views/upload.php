@@ -24,11 +24,13 @@ $users = new User();
                 <b>&lt;addonname&gt;-&lt;x.y.z&gt;.zip</b>, wobei &lt;addonname&gt; der Addon-ID sowie &lt;x.y.z&gt; der Addon-Version - wie sie
                 auch in der addon.xml notiert sind - entsprechen muss. Abweichende Versionierungen, z.B. nach PEP 440, sind
                 zulässing und ab Matrix erwünscht.</td></tr>
-        <tr class="textrow"><td>-</td><td>Entspricht die Namensgebung der hochgeladenen Datei nicht den Konventionen für ein Kodi-Addon, wird es
+        <tr class="textrow"><td>-</td><td>Entspricht die Namensgebung der hochgeladenen Datei nicht den Angaben der im Zip enthaltenen addon.xml, wird es
                 den Vorgaben seitens Kodi entsprechend umbenannt. Das ermöglicht z.B. den Upload direkt von Git (z.B. 'meinAddon-Master.zip').
                 Jedoch ist vorher zu überprüfen, ob Benennung und Struktur der Ordner im Zip den Vorgaben entspricht.</td></tr>
         <tr class="textrow"><td>-</td><td>Die Struktur im Zip muss der Struktur eines Addons folgen. Nicht benötigte oder versteckte
                 Dateien und/oder Ordner sollten entfernt werden (.git, .gitignore, .idea usw.).</td></tr>
+        <tr class="textrow"><td>-</td><td>Der Upload von Addons, die das Konsumieren von illegal/widerrechtlich erworbenen oder bereitgestellten Content ermöglichen,
+                ist nicht erlaubt. Es gelten die Verhaltensregeln der Kodinerds Community.</td></tr>
     </table>
 
     <!--<div id="upload">-->
