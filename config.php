@@ -13,6 +13,7 @@ define('ADDON_TEMPLATE', '__addons.xml');       # Addon Template
 define('DEFAULT_ADDON_ICON', 'default.png');    # default Icon, if icon.png in addon.zip is missing
 
 define('REPOLOGO', 'css/9LWeq_c5_1920.jpg');
+define('FLAG_BROKEN', 'css/broken.png');
 
 # Root/Folders of CMS
 # see also start.php in views folder

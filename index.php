@@ -233,7 +233,7 @@ switch ($c_pars['action']) {
                     break;
                 }
 
-                createThumb(TMPDIR, $icon);
+                createThumb(TMPDIR, $icon, $addon->status);
                 $addon_dir = ADDONFOLDER . $addon->tree . DATADIR . $addon->id . '/';
                 $summaries = ADDONFOLDER . $addon->tree;
 

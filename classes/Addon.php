@@ -106,6 +106,7 @@ class Addon {
     public $author = NULL;                          # Addon-Autor
     public $downloads = NULL;                       # Anzahl Downloads aktuelle Version
     public $downloads_total = NULL;                 # Anzahl Downloads über alle Versionen im Tree
+    public $status = NULL;                          # Status des Addons (z.B. "broken")
 
     public $addon_types = NULL;
     public $addon_category = NULL;
@@ -183,6 +184,7 @@ class Addon {
             foreach($xml->extension as $ep) {
                 if ($ep['point'] == 'xbmc.addon.metadata') {
                     $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
+                    if ($ep->broken) $this->status = 'broken';
                 }
                 if (array_search($ep['point'], $this->addon_types) === false) {
                     continue;
@@ -220,6 +222,7 @@ class Addon {
             $this->upload = $xml->upload;
             $this->provider = $xml->provider;
             $this->author = $xml->author;
+            $this->status = $xml->status;
             $this->downloads = $xml->downloads;
             $this->downloads_total = $xml->downloads_total;
             if (empty($this->downloads_total)) $this->downloads_total = $this->downloads;
@@ -240,6 +243,7 @@ class Addon {
         $xml->addChild('upload', $this->upload);
         $xml->addChild('provider', htmlspecialchars($this->provider));
         $xml->addChild('author', htmlspecialchars($this->author));
+        $xml->addChild('status', $this->status);
         $xml->addChild('downloads', $this->downloads);
         $xml->addChild('downloads_total', $this->downloads_total);
 

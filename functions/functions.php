@@ -92,7 +92,7 @@ function convertHRV($value) {
     return sprintf('%01.2f', $value).$units[$i];
 }
 
-function createThumb($storage_path, $source) {
+function createThumb($storage_path, $source, $status) {
     if (is_file($source)) {
         $image = getimagesize($source);
 
@@ -114,6 +114,13 @@ function createThumb($storage_path, $source) {
         $ram_tbn = imagecreatetruecolor($x, $y);
         imagecopyresampled($ram_tbn, $ram, 0, 0, 0,0,
             $x, $y, $image[0], $image[1]);
+
+        if ($status == 'broken') {
+            $flag_image = imagecreatefrompng(FLAG_BROKEN);
+            $flag_properties = getimagesize(FLAG_BROKEN);
+            imagecopyresampled($ram_tbn, $flag_image,$x - $flag_properties[0],0,0,0,
+                $flag_properties[0], $flag_properties[1], $flag_properties[0], $flag_properties[1]);
+        }
 
         imagejpeg($ram_tbn, $storage_path.'icon.tbn');
 
