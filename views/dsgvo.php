@@ -37,15 +37,15 @@ include NAVIGATION;
 
 <h4>Server-Log-Dateien</h4>
     <p>In Server-Log-Dateien erhebt und speichert der Provider der Website automatisch Informationen, die Ihr Browser automatisch an uns übermittelt. Dies sind:</p>
-<table class="texttable">
-    <tr class="textrow"><td>-</td><td>Besuchte Seite auf unserer Domain</td></tr>
-    <tr class="textrow"><td>-</td><td>Datum und Uhrzeit der Serveranfrage</td></tr>
-    <tr class="textrow"><td>-</td><td>Browsertyp und Browserversion</td></tr>
-    <tr class="textrow"><td>-</td><td>Verwendetes Betriebssystem</td></tr>
-    <tr class="textrow"><td>-</td><td>Referrer URL</td></tr>
-    <tr class="textrow"><td>-</td><td>Hostname des zugreifenden Rechners</td></tr>
-    <tr class="textrow"><td>-</td><td>IP-Adresse</td></tr>
-</table>
+<ul>
+    <li>Besuchte Seite auf unserer Domain</li>
+    <li>Datum und Uhrzeit der Serveranfrage</li>
+    <li>Browsertyp und Browserversion</li>
+    <li>Verwendetes Betriebssystem</li>
+    <li>Referrer URL</li>
+    <li>Hostname des zugreifenden Rechners</li>
+    <li>IP-Adresse</li>
+</ul>
 <p>Es findet keine Zusammenführung dieser Daten mit anderen Datenquellen statt. Grundlage der Datenverarbeitung bildet Art. 6 Abs. 1 lit. b DSGVO, der die Verarbeitung von Daten zur Erfüllung eines Vertrags oder vorvertraglicher Maßnahmen gestattet.</p>
 
 <h4>Registrierung auf dieser Website</h4>
