@@ -10,6 +10,7 @@ RewriteRule ^(.+\.zip)$ index.php?action=direct_dl&f=$1 [L]
 RewriteCond %{HTTP_USER_AGENT} !^kodi.*$ [NC]
 RewriteCond %{HTTP_USER_AGENT} !^xbmc.*$ [NC]
 Rewritecond %{HTTP_USER_AGENT} !^.*Kodi_Fork.*$ [NC]
+RewriteCond %{REQUEST_URI} !^.*addons\.xml [NC]
 RewriteRule \.xml - [NC,F]
 
 ## Rewrite icon.png
@@ -22,5 +23,5 @@ RewriteRule (.+zip\/.*?\/).*(\/fanart\.jpg) $1$2 [NC]
 	Require all denied
 </FilesMatch>
 
-ErrorDocument 404 https://repo.kodinerds.net?action=404
-ErrorDocument 403 https://repo.kodinerds.net?action=404
+ErrorDocument 404 /index.php?action=404
+ErrorDocument 403 /index.php?action=404
