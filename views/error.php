@@ -5,6 +5,9 @@ if (!defined('CONTEXT')) {
     header('Location: '.ROOT);
     exit();
 }
+
+header("HTTP/1.0 404 Not Found");
+
 include HEADER;
 include NAVIGATION;
 
