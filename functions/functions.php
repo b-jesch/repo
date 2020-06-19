@@ -61,16 +61,18 @@ function delTree($dir) {
 
 # Function calculating numeric version numbers from version strings
 # assume that version is not above 999.999.999 eg myaddon-999.999.999.zip
-# returns numeric value: 3.10.1 ==> 300010001 (300.010.001)
+# returns numeric value: 3.10.1 ==> 3010001000 (3.010.001.000) or
+#                        4.1    ==> 4001000000 (4.001.000.000)
 
-function calculateNumVersion($name) {
-    preg_match_all('/[0-9.]+/m', $name, $version, PREG_SET_ORDER, 0);
-    $subvers = array_reverse(explode('.', $version[0][0]));
+function calculateNumVersion($versionstring) {
+    preg_match_all('/[0-9.]+/m', $versionstring, $version, PREG_SET_ORDER, 0);
+
+    $subversions = explode('.', $version[0][0]);
     $numvers = 0;
-    $multiplier = 1;
-    foreach ($subvers as $element) {
-        $numvers += intval($element) * $multiplier;
-        $multiplier *= 1000;
+    $multiplier = 1000000000;
+    foreach ($subversions as $subvers) {
+        $numvers += intval($subvers) * $multiplier;
+        $multiplier /= 1000;
     }
     return $numvers;
 }
