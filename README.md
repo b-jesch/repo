@@ -18,7 +18,11 @@ Your repository addon will be named like the settings in config.php
 Modify/change the images and the ```addon.xml``` in the ```addons/__repo_templates``` folder. Deleting the 
 ```addon.xml``` and the ```addon.md5``` files will create new addon.xml/md5 files on next call.
 
-Deleting the content in etc/ will create a new user list and a user with administrator access: admin/admin
-After first login create a new user, change the administrator status to admin for this user and logout. Login 
-with the new user account and delete the admin entry, as the account is known and therefore a security hole.
+Deleting the content in ```etc/``` will create a new user list and a user with administrator access:
+
+        Login:  admin
+        Passwd: admin
+
+**After first login create a new user, change the administrator status to admin for this user and logout. Login 
+with the new user account and delete the admin entry, as the account is known and therefore a security hole.**
 
