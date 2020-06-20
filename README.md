@@ -16,13 +16,21 @@ Your repository addon will be named like the settings in config.php
     define('PROVIDER', 'Kodinerds');
 
 Modify/change the images and the ```addon.xml``` in the ```addons/__repo_templates``` folder. Deleting the 
-```addon.xml``` and the ```addon.md5``` files will create new addon.xml/md5 files on next call.
+```addon.xml``` and the ```addon.md5``` files will create new addon.xml/md5 files including the ones within the version subfolders on next call.
 
-Deleting the content in ```etc/``` will create a new user list and a user with administrator access:
+Deleting the content in ```etc/userdata/``` will create a new user database within a user with administrator access:
 
         Login:  admin
         Passwd: admin
 
-**After first login create a new user, change the administrator status to admin for this user and logout. Login 
-with the new user account and delete the admin entry, as the account is known and therefore a security hole.**
+**After first login with the credentials above create a new user, change the administrator status to admin for this user and logout. Login with the new user account and delete the admin entry, as the account is known on a plain installation and therefore a security breach.**
 
+<h2>Backup</h2>
+
+It is sufficient to back up the following folders/files:
+
+- ```addons/``` folder (repositories and addons)
+- ```etc/userdata/``` folder (user management)
+- ```config.php``` (main configuration)
+
+To restore your backup simply copy the folders/files to their destinations within the CMS
