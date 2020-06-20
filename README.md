@@ -8,7 +8,7 @@ After that you can browse to the root of the repository. All necessary folders w
     define('ROOT', 'https://repo.kodinerds.net/');
     # define('ROOT', 'http://localhost/repo/');
 
-Your repository addon will be named like the settimgs in config.php
+Your repository addon will be named like the settings in config.php
 
     define('REPONAME', 'Kodinerds Addon Repo');
     define('REPO_ID', 'repository.kodinerds');
@@ -16,6 +16,6 @@ Your repository addon will be named like the settimgs in config.php
     define('PROVIDER', 'Kodinerds');
 
 Deleting the content in /etc will create a new user list and a user with administrator access: admin/admin
-After first login create a user, change the adminitrator status to admin and logout. Login with the new user account
-and delete the admin entry, as the account is known and therefore a security hole.
+After first login create a user, change the administrator status to admin for this user and logout. Login 
+with the new user account and delete the admin entry, as the account is known and therefore a security hole.
 
