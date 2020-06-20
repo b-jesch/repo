@@ -1,4 +1,4 @@
-<h1>Repository framework for Kodi Repositories with Web Interface.</h2>
+<h1>Repository framework for Kodi Repositories with Web Interface.</h1>
 
 <h2>Important</h2>
 
@@ -8,7 +8,7 @@ After that you can browse to the root of the repository. All necessary folders w
     define('ROOT', 'https://repo.kodinerds.net/');
     # define('ROOT', 'http://localhost/repo/');
 
-Your repository addon will be named like the settings in config.php
+Your repository addon will be named like the settings in the config.php
 
     define('REPONAME', 'Kodinerds Addon Repo');
     define('REPO_ID', 'repository.kodinerds');
