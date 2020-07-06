@@ -166,7 +166,6 @@ nav .dropdown:hover .dropdown-content {
     border-width: 0;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size:12px;
-
     font-weight:bold;
     margin: 8px;
 }
@@ -339,8 +338,8 @@ h4, caption {
     border: 1px dotted black;
     border-radius: 20px;
     width: 490px;
-    height: 170px;
-    margin: auto;
+    /* height: 170px; */
+    margin: 20px auto;
     padding: 20px;
     background-color: #F9F9F9;
 }
