@@ -9,6 +9,7 @@
 
 .banner {
     /*height:120px; */
+    margin-bottom: 5px;
     background-image: url(9LWeq_c5_1920.jpg);
     float: left;
     width: 100%;
@@ -142,16 +143,22 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .alertbox {
-    height: 20px;
+    height: 35px;
+    display: table;
     width: 98%;
-    padding: 15px 1%;
+    padding: 5px 1%;
     background-color: #A11625;
     font-weight: bold;
     margin-bottom: 10px;
     color: white;
 }
+.alertbox_text {
+    display: table-cell;
+    vertical-align: middle;
+}
 
 .closebtn {
+    font-size: 1.7em;
     margin-left: 15px;
     float: right;
     cursor: pointer;

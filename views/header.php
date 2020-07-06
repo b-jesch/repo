@@ -27,9 +27,10 @@
 
 <?php
 if (!empty($_SESSION['notice'])) {
-    echo "<div class='alertbox' id='alertbox'>".$_SESSION['notice'];
-    echo "<span class='closebtn' onclick='document.getElementById(\"alertbox\").style.display=\"none\";'>";
-    echo "&times;</span></div>";
+    echo "<div class='alertbox' id='alertbox'>";
+    echo "<div class='alertbox_text'>".$_SESSION['notice']."</div>";
+    echo "<div class='closebtn' onclick='document.getElementById(\"alertbox\").style.display=\"none\";'>";
+    echo "&times;</div></div>";
     unset($_SESSION['notice']);
 }
 ?>
