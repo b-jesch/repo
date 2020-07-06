@@ -12,13 +12,12 @@ include NAVIGATION;
 <h4>Allgemeiner Hinweis und Pflichtinformationen</h4>
 <h4>Benennung der verantwortlichen Stelle</h4>
 
-<p>Birger Jesch<br>
-    Goethestr. 11<br>
-    09648 Mittweida</p>
+<p>siehe Impressum<br>
+Link zum Impressum: <?php echo ROOT."?action=impress"; ?></p>
 
 <h4>Kontakt</h4>
-<p>Telefon: +49 (0) 3727 58 1616<br>
-    E-Mail: birger.jesch@gmail.com</p>
+<p>siehe Impressum<br>
+Link zum Impressum: <?php echo ROOT."?action=impress"; ?></p>
 
 <h4>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h4>
 <p>Nur mit Ihrer ausdrücklichen Einwilligung sind einige Vorgänge der Datenverarbeitung möglich. Ein Widerruf Ihrer bereits erteilten Einwilligung ist jederzeit möglich. Für den Widerruf genügt eine formlose Mitteilung per E-Mail. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>

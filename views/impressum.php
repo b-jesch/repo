@@ -11,13 +11,14 @@ include NAVIGATION;
 <h3>Impressum</h3>
 <h4>Angaben gemäß § 5 TMG</h4>
 
-<p>Birger Jesch<br>
-Goethestr. 11<br>
-09648 Mittweida</p>
+<p>Peter Shawn<br>
+c/o Werneburg Internet Marketing und Publikations-Service<br>
+Philipp-Kühner-Straße 2<br>
+99817 Eisenach</p>
 
 <h4>Kontakt</h4>
-<p>Telefon: +49 (0) 3727 58 1616<br>
-E-Mail: birger.jesch@gmail.com</p>
+<p>Telefon: 029435128997<br>
+E-Mail: freaksworth@gmail.com</p>
 
 <h4>Haftung für Inhalte</h4>
 <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den
