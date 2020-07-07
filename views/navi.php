@@ -17,10 +17,6 @@
         <li><a href="<?php echo ROOT.ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT; ?>"
                title="Download and install the '<?php echo REPONAME; ?>' Addon to receive automatic Updates of all Addons from this Repo">Download Repo Addon</a></li>
         <?php
-            function compare_username($p1, $p2) {
-                return strcmp($p1->username, $p2->username);
-            }
-
             if ($_SESSION['state'] == 1) {
                 if ($_SESSION['isadmin']) {
                     $users = new User();
