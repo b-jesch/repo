@@ -4,7 +4,7 @@ class CreateRepoXML
 {
 
     public $repo_folder = NULL;                          # Folder for addon.xml in summary
-    public $repo_sources = NULL;                            # Folder of zipped addons
+    public $repo_sources = NULL;                         # Folder of zipped addons
 
     function __construct($repo_folder, $sources) {
 
@@ -306,7 +306,9 @@ class User
                 $list[] = $node->attributes()->login;
             }
         }
-    return $list;
+        asort($list, SORT_NATURAL | SORT_FLAG_CASE);
+        return $list;
+
     }
 
     public function getadmins() {
@@ -314,6 +316,7 @@ class User
         foreach ($this->users->children() as $node) {
             if ($node->isadmin == 'true' and !empty($node->email)) $list[] = $node->email;
         }
+        asort($list, SORT_NATURAL | SORT_FLAG_CASE);
         return $list;
     }
 
@@ -354,12 +357,12 @@ class User
         $this->persist();
     }
 
-    private function set_node($mother, $child, $childname, $value) {
-        if (isset($mother)) {
+    private function set_node($parent, $child, $child_name, $value) {
+        if (isset($parent)) {
             if (isset($child)) {
-                $mother->$childname = $value;
+                $parent->$child_name = $value;
             } else {
-                $mother->addChild($childname, $value);
+                $parent->addChild($child_name, $value);
             }
         }
     }
