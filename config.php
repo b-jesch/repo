@@ -20,8 +20,8 @@ define('FLAG_BROKEN', 'css/broken.png');
 #
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
-define('ROOT', 'https://repo.kodinerds.net/');
-# define('ROOT', 'http://localhost/repo/');
+# define('ROOT', 'https://repo.kodinerds.net/');
+define('ROOT', 'http://localhost/repo/');
 
 define('CONTROLLER', 'index.php');
 define('VIEWS', 'views/');

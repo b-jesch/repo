@@ -300,15 +300,22 @@ class User
     public function getallusers($formatted=true) {
         $list = [];
         foreach ($this->users->children() as $node) {
-            if ($formatted) {
-                $list[] = ($node->isadmin == 'true') ? '<b>'.$node->attributes()->login.'</b>' : $node->attributes()->login;
-            } else {
-                $list[] = $node->attributes()->login;
-            }
+            $list[] = $node->attributes()->login;
         }
         asort($list, SORT_NATURAL | SORT_FLAG_CASE);
-        return $list;
 
+        if ($formatted) {
+            $sorted_list = [];
+            foreach ($list as $user) {
+                foreach ($this->users->children() as $node) {
+                    if ($user == $node->attributes()->login) {
+                        $sorted_list[] = ($node->isadmin == 'true') ? '<b>' . $user . '</b>' : $user;
+                    }
+                }
+            }
+            return $sorted_list;
+        }
+        return $list;
     }
 
     public function getadmins() {
