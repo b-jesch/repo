@@ -124,10 +124,39 @@ function createThumb($storage_path, $source, $status) {
                 $flag_properties[0], $flag_properties[1], $flag_properties[0], $flag_properties[1]);
         }
 
-        imagejpeg($ram_tbn, $storage_path.'icon.tbn');
+        imagejpeg($ram_tbn, $storage_path.'icon.tbn', 90);
 
         imagedestroy($ram);
         imagedestroy($ram_tbn);
     }
 }
+
+function createItemView($column, $addon) {
+    if ($column % CPR == 0 and $column > 0) echo '</tr><tr>'.PHP_EOL;
+    echo '<td class="item">' .PHP_EOL;
+    echo PHP_TAB.'<table class="inner">'.PHP_EOL;
+    echo PHP_TAB.'<tr><td class="header" colspan="3">'.$addon->name.' - '.convertHRV($addon->size).'</td></tr>'.PHP_EOL;
+    echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'" width="'.TBN_X.'" height="'.TBN_Y.'"></td>';
+    echo PHP_TAB.'<tr><td>Kategorie:</td><td class="data">'.$addon->category.'</td></tr>'.PHP_EOL;
+    echo PHP_TAB.'<tr><td>Addon ID:</td><td class="data">'.$addon->id.'</td></tr>'.PHP_EOL;
+    echo PHP_TAB.'<tr><td>Version:</td><td class="data">'.$addon->version.' ('.ucwords(substr($addon->tree, 0, -1)).')</td></tr>'.PHP_EOL;
+    echo PHP_TAB.'<tr><td>Autor:</td><td class="data">'.$addon->author.'</td></tr>'.PHP_EOL;
+    echo PHP_TAB.'<tr><td>Upload:</td><td class="data">'.$addon->upload.'</td></tr>'.PHP_EOL;
+
+    if ($_SESSION['state'] == 1) {
+        echo PHP_TAB.'<tr><td>durch:</td><td class="data">'.$addon->provider.'</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>Downloads:</td><td class="data">'.$addon->downloads.' (total: '. $addon->downloads_total .')</td></tr>'.PHP_EOL;
+    } else {
+        echo PHP_TAB.'<tr><td>&nbsp;</td><td class="data">&nbsp;</td></tr>'.PHP_EOL;
+        echo PHP_TAB.'<tr><td>&nbsp;</td><td class="data">&nbsp;</td></tr>'.PHP_EOL;
+    }
+
+    echo PHP_TAB.'<tr><td colspan="3">';
+    if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
+        echo '<button form="d" name="item" type="submit" class="button_red" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
+    }
+    echo '<button form="d" name="item" type="submit" class="button" title="Download '.basename($addon->file).'" value="download='.$addon->object_id.'">downloaden</button></td></tr></table>'.PHP_EOL;
+    echo '</td>'.PHP_EOL.PHP_EOL;
+}
+
 ?>

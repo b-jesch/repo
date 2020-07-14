@@ -134,6 +134,9 @@ switch ($c_pars['action']) {
     case 'list':
         require VIEWS.LISTVIEW;
         break;
+    case 'last':
+        require VIEWS.LASTVIEW;
+        break;
     case 'impress':
         require VIEWS.IMPRESS;
         break;

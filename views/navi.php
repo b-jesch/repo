@@ -14,6 +14,7 @@
                 ?>
             </div>
         </li>
+        <li><a href="<?php echo ROOT.CONTROLLER.'?action=last'; ?>" title="Last uploaded Addons">last Addons</a></li>
         <li><a href="<?php echo ROOT.ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT; ?>"
                title="Download and install the '<?php echo REPONAME; ?>' Addon to receive automatic Updates of all Addons from this Repo">Download Repo Addon</a></li>
         <?php

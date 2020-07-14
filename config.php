@@ -48,6 +48,7 @@ define('CSS', 'css/styles.css');
 define ('DEFAULTPAGE', 'login.php');    # Bootstrap
 define ('UPLOAD', 'upload.php');        # Upload
 define ('LISTVIEW', 'list.php');        # List view
+define ('LASTVIEW', 'last.php');        # Last uploaded Items
 define ('IMPRESS', 'impressum.php');    # Impressum
 define ('DSGVO', 'dsgvo.php');          # DSVGO
 define ('MODIFYVIEW', 'modify.php');    # Modify View
