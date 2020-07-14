@@ -24,7 +24,7 @@ $addons = array();
 $addondirs = array();
 
 
-echo '<h3>Letzte Uploads</h3>';
+echo '<h3>Letzte Uploads und Addon-Updates</h3>';
 foreach ($version_dirs as $version) {
     $v_dirs = scanFolder(ADDONFOLDER.$version.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
     if ($v_dirs) {
