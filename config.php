@@ -104,6 +104,6 @@ $addon_python = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0'
 define ('TBN_X', 130);                  # Breite
 define ('TBN_Y', 130);                  # Höhe
 define ('CPR', 3);                      # Cells per Row
-
+define ('MAX_ITEMS', 15);               # max Items in List/Last Views
 define ('PHP_TAB', chr(9));
 ?>

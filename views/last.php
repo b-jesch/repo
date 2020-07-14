@@ -54,7 +54,7 @@ foreach($addons as $addon) {
     # if (!empty($c_pars['user']) and $c_pars['user'] != $addon->provider) continue;
     createItemView($tc, $addon);
     $tc++;
-    if ($tc > 11) break;
+    if ($tc >= MAX_ITEMS) break;
 }
 echo '</tr></table>';
 
