@@ -214,20 +214,24 @@ switch ($c_pars['action']) {
                 $addon->version_dirs = $version_dirs;
 
                 if (is_file(TMPDIR.'addon.xml')) {
-                    $addon->getAttrFromAddonXML();
+                    if ($addon->getAttrFromAddonXML()) {
+                        # missing xbmc.python attribute in addon.xml, search for tree in addon name, else
+                        # assign to FALLBACK_TREE anywhere
 
-                    # missing xbmc.python attribute in addon.xml, search for tree in addon name, else
-                    # assign to FALLBACK_TREE anywhere
-
-                    if (empty($addon->tree)) {
-                        foreach ($version_dirs as $vdir) {
-                            if (strpos($addon->version, substr($vdir, 0, -1))) {
-                                $addon->tree = $vdir;
-                                break;
+                        if (empty($addon->tree)) {
+                            foreach ($version_dirs as $vdir) {
+                                if (strpos($addon->version, substr($vdir, 0, -1))) {
+                                    $addon->tree = $vdir;
+                                    break;
+                                }
                             }
+                            if (empty($addon->tree)) $addon->tree = $version_dirs[FALLBACK_TREE];
+                            $_SESSION['notice'] .= "Der Upload wird der der Kodiversion '". ucwords(substr($addon->tree, 0, -1)) ."' zugeordnet. ";
                         }
-                        if (empty($addon->tree)) $addon->tree = $version_dirs[FALLBACK_TREE];
-                        $_SESSION['notice'] .= "Der Upload wird der der Kodiversion '". ucwords(substr($addon->tree, 0, -1)) ."' zugeordnet. ";
+                    } else {
+                        $_SESSION['notice'] .= "Die 'addon.xml im hochgeladenen ZIP ist defekt. Der Upload wird verworfen. ";
+                        require VIEWS . UPLOAD;
+                        break;
                     }
 
                 } else {

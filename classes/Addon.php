@@ -176,38 +176,42 @@ class Addon {
 
     public function getAttrFromAddonXML() {
         if (!is_file(pathinfo($this->file, PATHINFO_DIRNAME).'/addon.xml')) return false;
+
         $xml = simplexml_load_file(pathinfo($this->file, PATHINFO_DIRNAME).'/addon.xml');
-        if ($xml) {
+        if (!$xml) return false;
 
-            # Get short description (summary), Addon-Type
+        # Get short description (summary), Addon-Type
 
-            foreach($xml->extension as $ep) {
-                if ($ep['point'] == 'xbmc.addon.metadata') {
-                    $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
-                    if ($ep->broken) $this->status = 'broken';
-                }
-                if (array_search($ep['point'], $this->addon_types) === false) {
-                    continue;
-                } else {
-                    if ($this->category == 'Unknown') {
-                        $this->category = $this->addon_category[array_search($ep['point'], $this->addon_types)];
-                        if (!empty($ep->provides)) $this->category .= ' ('.ucwords($ep->provides).')';
-                    }
+        foreach($xml->extension as $ep) {
+            if ($ep['point'] == 'xbmc.addon.metadata') {
+                # remove BB code
+                $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
+                if ($ep->broken) $this->status = 'broken';
+            }
+            if (array_search($ep['point'], $this->addon_types) === false) {
+                continue;
+            } else {
+                if ($this->category == 'Unknown') {
+                    $this->category = $this->addon_category[array_search($ep['point'], $this->addon_types)];
+                    if (!empty($ep->provides)) $this->category .= ' ('.ucwords($ep->provides).')';
                 }
             }
-
-            # Get Python Version (tree)
-
-            foreach($xml->requires->import as $import) {
-                if ($import['addon'] == 'xbmc.python') $this->tree = $this->version_dirs[array_search($import['version'], $this->python)];
-            }
-
-            $addon_attributes = iterator_to_array($xml->attributes());
-            $this->author = $addon_attributes['provider-name'];
-            $this->version = $addon_attributes['version'];
-            $this->name = preg_replace('#\[[^\]]+\]#', '', $addon_attributes['name']);
-            $this->id = $addon_attributes['id'];
         }
+
+        # Get Python Version (tree)
+
+        foreach($xml->requires->import as $import) {
+            if ($import['addon'] == 'xbmc.python') $this->tree = $this->version_dirs[array_search($import['version'], $this->python)];
+        }
+
+        $addon_attributes = iterator_to_array($xml->attributes());
+        $this->author = $addon_attributes['provider-name'];
+        $this->version = $addon_attributes['version'];
+        # remove BB code
+        $this->name = preg_replace('#\[[^\]]+\]#', '', $addon_attributes['name']);
+        $this->id = $addon_attributes['id'];
+
+        return true;
     }
 
     private function readProperties() {
