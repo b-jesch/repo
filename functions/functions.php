@@ -65,9 +65,14 @@ function delTree($dir) {
 #                        4.1    ==> 4001000000 (4.001.000.000)
 
 function calculateNumVersion($versionstring) {
-    preg_match_all('/[0-9.]+/m', $versionstring, $version, PREG_SET_ORDER, 0);
+    preg_match_all('/[0-9]{1,3}/m', $versionstring, $version, PREG_SET_ORDER, 0);
 
-    $subversions = explode('.', $version[0][0]);
+    $vs = '';
+    foreach ($version as $sv) {
+        $vs .= $sv[0].'.';
+    }
+
+    $subversions = explode('.', $vs);
     $numvers = 0;
     $multiplier = 1000000000;
     foreach ($subversions as $subvers) {
