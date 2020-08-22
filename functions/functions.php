@@ -149,20 +149,20 @@ function createItemView($column, $addon) {
     echo '<form name="d'.$column.'" id="d'.$column.'" action="'.ROOT.CONTROLLER.'" method="post">'.PHP_EOL;
     if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
         echo '<button form="d'.$column.'" name="item" type="submit" class="button_red" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
-    } else {
-
-        $archive = $addon->getArchiveFiles();
-        if ($archive) {
-            echo '<select form="d'.$column.'" name="item" class="select" type="small" title="ältere Versionen aus dem Archiv downloaden" ';
-            echo 'onchange="document.getElementById(\'d'.$column.'\').submit()">'.PHP_EOL;
-            echo '<option value="" selected>* Archiv *</option>'.PHP_EOL;
-            foreach ($archive as $file) {
-                echo '<option value="download='.$file.'">'.basename($file).'</option>'.PHP_EOL;
-            }
-            echo '</select>'.PHP_EOL;
-        }
     }
-    echo '<button form="d'.$column.'" name="item" type="submit" class="button" title="Download '.basename($addon->file).' (aktuelle Version)" value="download='.$addon->file.'">downloaden</button></td></tr></table>'.PHP_EOL;
+
+    $archive = $addon->getArchiveFiles();
+    if ($archive) {
+        echo '<select form="d'.$column.'" name="item" class="select" type="small" title="ältere Versionen aus dem Archiv downloaden" ';
+        echo 'onchange="document.getElementById(\'d'.$column.'\').submit()">'.PHP_EOL;
+        echo '<option value="" selected>* Archiv *</option>'.PHP_EOL;
+        foreach ($archive as $file) {
+            echo '<option value="download='.$file.'">'.basename($file).'</option>'.PHP_EOL;
+        }
+        echo '</select>'.PHP_EOL;
+    }
+
+    echo '<button form="d'.$column.'" name="item" type="submit" class="button" title="Download '.basename($addon->file).' (aktuelle Version)" value="download='.$addon->file.'">Download</button></td></tr></table>'.PHP_EOL;
     echo '</form>'.PHP_EOL;
     echo '</td>'.PHP_EOL.PHP_EOL;
 }
