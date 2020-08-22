@@ -7,12 +7,6 @@ if (!defined('CONTEXT')) {
 }
 include HEADER;
 include NAVIGATION;
-?>
-
-<form name="d" id="d" action="<?php echo ROOT.CONTROLLER; ?>" method="post">
-</form>
-
-<?php
 
 function compare_names($p1, $p2) {
     return strcmp($p1->name, $p2->name);

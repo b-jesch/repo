@@ -56,7 +56,7 @@ $user = new User($_SESSION['user']);
             <form name="admin_b" id="admin_b" action="<?php echo ROOT . CONTROLLER; ?>" method="post">
                 <input type="hidden" name="action" value="<?php echo crypt('setup_p3'); ?>">
                 <select class="select" name="users" id="userlist">
-                    <option value="" selected>--Maintainer--</option>
+                    <option value="" selected>* Maintainer *</option>
                     <?php
                     $usr_list = $users->getallusers(false);
                     foreach($usr_list as $usr) {

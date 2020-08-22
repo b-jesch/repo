@@ -10,6 +10,8 @@ require (CLASSES.'Addon.php');
 
 $c_pars = array_merge($_POST, $_GET, $_FILES);
 
+debug($c_pars);
+
 if ($c_pars['action'] == 'direct_dl') {
     $file = pathinfo($c_pars['f'], PATHINFO_DIRNAME).'/'.urlencode(basename($c_pars['f']));
     $addon = new Addon($file);
@@ -344,22 +346,8 @@ switch ($c_pars['action']) {
         break;
 
     case 'download':
-        foreach ($version_dirs as $version_dir) {
-            $addondirs = scanFolder(ADDONFOLDER.$version_dir.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
-            if ($addondirs) {
-                foreach ($addondirs as $addondir) {
-                    $metafiles = glob(ADDONFOLDER.$version_dir.DATADIR.$addondir.'/*.zip');
-                    foreach ($metafiles as $metadata) {
-                        $addon = new Addon($metadata);
-                        $addon->read();
-                        if ($addon->object_id != '' and $c_pars['item'] == $addon->object_id) {
-                            $addon->download();
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        $addon = new Addon($c_pars['item']);
+        $addon->download();
         require VIEWS.LISTVIEW;
         break;
 

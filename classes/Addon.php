@@ -174,6 +174,17 @@ class Addon {
         if (is_file($this->file)) unlink($this->file);
     }
 
+    public function getArchiveFiles() {
+        $path = pathinfo($this->file, PATHINFO_DIRNAME).'/';
+        $archive_content = scanFolder($path.ARCHIVE, array('.', '..'));
+        if (!$archive_content) return false;
+        foreach ($archive_content as $file) {
+            if (pathinfo($file, PATHINFO_EXTENSION) != 'zip') continue;
+            $archive[] = $path.ARCHIVE.$file;
+        }
+        return $archive;
+    }
+
     public function getAttrFromAddonXML() {
         if (!is_file(pathinfo($this->file, PATHINFO_DIRNAME).'/addon.xml')) return false;
 
