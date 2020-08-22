@@ -148,7 +148,7 @@ function createItemView($column, $addon) {
     echo PHP_TAB.'<tr><td colspan="3">'.PHP_EOL;
     echo '<form name="d'.$column.'" id="d'.$column.'" action="'.ROOT.CONTROLLER.'" method="post">'.PHP_EOL;
     if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
-        echo '<button form="d'.$column.'" name="item" type="submit" class="button_red" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
+        echo '<button form="d'.$column.'" name="item" type="submit" class="button_red" title="letzte Version löschen" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
     }
 
     $archive = $addon->getArchiveFiles();
