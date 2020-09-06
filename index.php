@@ -129,7 +129,9 @@ $_SESSION['version_name'] = $kodiversions[$i];
 # Main Controller
 
 if (isset($c_pars['item'])) {
-    list($c_pars['action'], $c_pars['item']) = explode('=', $c_pars['item']);
+    foreach($c_pars['item'] as $element) {
+        if ($element != '') list($c_pars['action'], $c_pars['item']) = explode('=', $element);
+    }
 }
 
 switch ($c_pars['action']) {
