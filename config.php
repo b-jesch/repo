@@ -20,6 +20,7 @@ define('FLAG_BROKEN', 'css/broken.png');
 #
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
+define('SCRIPT_ROOT', dirname(__FILE__));
 define('ROOT', 'https://repo.kodinerds.net/');
 # define('ROOT', 'http://localhost/repo/');
 
@@ -33,6 +34,8 @@ $routing = array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2');
 define('ADDONFOLDER', 'addons/');       # Rootfolder Upload
 define('DATADIR', 'zip/');              # Addons data folder
 define('TMPDIR', 'temp/');              # temporary files
+define('FLOOD_DB', 'flood/database');   # Antiflood database
+define('FLOOD_LOCKDIR', 'flood/lock/'); # Antiflood locked files
 define('ARCHIVE', 'archive/');          # Archive folder
 define('ADDON_EXT', '.zip');            # Endung Addon-Objekt im Data-Verzeichnis
 define('META_EXT', '.xml');             # Endung Metadaten-Datei
@@ -74,6 +77,12 @@ define('NAVIGATION', 'navi.php');       # Navigation
 
 define('CONTEXT', true);
 define('LASTMODIFIED', date('y.m.d', filemtime(__FILE__)));
+
+# Antiflood Parameters
+
+define('FLOOD_MAX_REQ', 5);             # max allowed page requests for an user (IP)
+define('FLOOD_REQ_TIMEOUT', 2);         # time interval to start counting page requests
+define('FLOOD_BAN_TIME', 60);           # time to punish the user from CMS
 
 # Arrays (Kodi specific)
 

@@ -6,13 +6,58 @@ require ('config.php');
 require (FUNCTIONS.'functions.php');
 require (CLASSES.'Addon.php');
 
-# Handle direct Downloads
+# Antiflood section
+
+$user_ip = $_SERVER['REMOTE_ADDR'];
+$flood_lockfile = FLOOD_LOCKDIR.md5($user_ip);
+$flood_entries = array();
+
+if (!file_exists(FLOOD_LOCKDIR)) mkdir(FLOOD_LOCKDIR, $mode=0755, $recursive=true);
+
+if (file_exists($flood_lockfile)) {
+    if (time() - filemtime($flood_lockfile) > FLOOD_BAN_TIME) {
+        unlink($flood_lockfile);
+    } else {
+        touch($flood_lockfile);
+        header("HTTP/1.0 429 Too Many Requests", true, 429);
+        exit();
+    }
+}
 
 $c_pars = array_merge($_POST, $_GET, $_FILES);
-
 debug($c_pars);
 
+# Handle direct Downloads
+
 if ($c_pars['action'] == 'direct_dl') {
+
+    # count flood requests
+
+    if (file_exists(FLOOD_DB)) {
+        $fh = fopen(FLOOD_DB, 'r');
+        $flood_entries = array_merge($flood_entries, unserialize(fread($fh, filesize(FLOOD_DB))));
+        fclose($fh);
+    }
+    if (isset($flood_entries[$user_ip])) {
+        if (time() - $flood_entries[$user_ip]['timestamp'] < FLOOD_REQ_TIMEOUT) {
+            $flood_entries[$user_ip]['count']++;
+        } else {
+            $flood_entries[$user_ip]['count'] = 1;
+        }
+    } else {
+        $flood_entries[$user_ip]['count'] = 1;
+    }
+    $flood_entries[$user_ip]['timestamp'] = time();
+    if ($flood_entries[$user_ip]['count'] >= FLOOD_MAX_REQ) touch($flood_lockfile);
+
+# write updated flood array
+
+    $fh = fopen(FLOOD_DB, 'w');
+    fwrite($fh, serialize($flood_entries));
+    fclose($fh);
+
+    # Manage direct downloads
+
     $file = pathinfo($c_pars['f'], PATHINFO_DIRNAME).'/'.urlencode(basename($c_pars['f']));
     $addon = new Addon($file);
     $addon->download();
