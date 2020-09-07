@@ -38,16 +38,19 @@ if ($c_pars['action'] == 'direct_dl') {
         fclose($fh);
     }
     if (isset($flood_entries[$user_ip])) {
-        if (time() - $flood_entries[$user_ip]['timestamp'] < FLOOD_REQ_TIMEOUT) {
-            $flood_entries[$user_ip]['count']++;
+        # Request same file multiple times within FLOOD_REQ_TIMEOUT ?
+        if ((time() - $flood_entries[$user_ip]['t'] < FLOOD_REQ_TIMEOUT) and ($flood_entries[$user_ip]['f'] == basename($c_pars['f']))) {
+            $flood_entries[$user_ip]['c']++;
         } else {
-            $flood_entries[$user_ip]['count'] = 1;
+            $flood_entries[$user_ip]['c'] = 1;
+            $flood_entries[$user_ip]['f'] = basename($c_pars['f']);
         }
     } else {
-        $flood_entries[$user_ip]['count'] = 1;
+        $flood_entries[$user_ip]['c'] = 1;
+        $flood_entries[$user_ip]['f'] = basename($c_pars['f']);
     }
-    $flood_entries[$user_ip]['timestamp'] = time();
-    if ($flood_entries[$user_ip]['count'] >= FLOOD_MAX_REQ) touch($flood_lockfile);
+    $flood_entries[$user_ip]['t'] = time();
+    if ($flood_entries[$user_ip]['c'] >= FLOOD_MAX_REQ) touch($flood_lockfile);
 
 # write updated flood array
 
