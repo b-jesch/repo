@@ -35,12 +35,18 @@ define('ADDONFOLDER', 'addons/');       # Rootfolder Upload
 define('DATADIR', 'zip/');              # Addons data folder
 define('TMPDIR', 'temp/');              # temporary files
 define('FLOOD_DB', 'flood/database');   # Antiflood database
-define('FLOOD_LOCKDIR', 'flood/lock/'); # Antiflood locked files
+define('FLOOD_LOCKDIR', 'flood/lock/'); # Antiflood locked folder
 define('ARCHIVE', 'archive/');          # Archive folder
 define('ADDON_EXT', '.zip');            # Endung Addon-Objekt im Data-Verzeichnis
 define('META_EXT', '.xml');             # Endung Metadaten-Datei
 define('ETC', 'etc/');                  # Verschiedenes
 define('USERDATA', 'userdata/');        # Nutzerdaten
+
+# Antiflood Parameters
+
+define('FLOOD_MAX_REQ', 5);             # max allowed page requests for an user (IP)
+define('FLOOD_REQ_TIMEOUT', 3);         # time interval to start counting page requests
+define('FLOOD_BAN_TIME', 120);          # time to punish the user from CMS
 
 # Stylesheets
 
@@ -77,12 +83,6 @@ define('NAVIGATION', 'navi.php');       # Navigation
 
 define('CONTEXT', true);
 define('LASTMODIFIED', date('y.m.d', filemtime(__FILE__)));
-
-# Antiflood Parameters
-
-define('FLOOD_MAX_REQ', 5);             # max allowed page requests for an user (IP)
-define('FLOOD_REQ_TIMEOUT', 2);         # time interval to start counting page requests
-define('FLOOD_BAN_TIME', 60);           # time to punish the user from CMS
 
 # Arrays (Kodi specific)
 

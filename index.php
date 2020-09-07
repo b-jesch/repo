@@ -18,7 +18,6 @@ if (file_exists($flood_lockfile)) {
     if (time() - filemtime($flood_lockfile) > FLOOD_BAN_TIME) {
         unlink($flood_lockfile);
     } else {
-        touch($flood_lockfile);
         header("HTTP/1.0 429 Too Many Requests", true, 429);
         exit();
     }
