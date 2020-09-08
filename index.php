@@ -37,7 +37,7 @@ if ($c_pars['action'] == 'direct_dl') {
         # prevent downloading the same file multiple times within FLOOD_REQ_TIMEOUT,
         # allow downloading different files (multiple addon updates from same IP)
 
-        if ((time() - $flood_entries[$user_ip]['t'] < FLOOD_REQ_TIMEOUT) and ($flood_entries[$user_ip]['f'] == basename($c_pars['f']))) {
+        if ((time() - $flood_entries[$user_ip]['t'] < FLOOD_REQ_TIMEOUT) or ($flood_entries[$user_ip]['f'] == basename($c_pars['f']))) {
             $flood_entries[$user_ip]['c']++;
         } else {
             $flood_entries[$user_ip]['c'] = 1;
@@ -55,7 +55,10 @@ if ($c_pars['action'] == 'direct_dl') {
     fclose($fh);
 
     if ($flood_entries[$user_ip]['c'] >= FLOOD_MAX_REQ) {
-        touch($flood_lockfile);
+        $fh = fopen($flood_lockfile, 'w');
+        fwrite($fh, serialize($flood_entries[$user_ip]));
+        fclose($fh);
+
         header("HTTP/1.0 429 Too Many Requests", true, 429);
         exit();
     }
