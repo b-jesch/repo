@@ -37,7 +37,7 @@ if ($c_pars['action'] == 'direct_dl') {
         # prevent downloading the same file multiple times within FLOOD_REQ_TIMEOUT,
         # allow downloading different files (multiple addon updates from same IP)
 
-        if ((time() - $flood_entries[$user_ip]['t'] < FLOOD_REQ_TIMEOUT) or ($flood_entries[$user_ip]['f'] == basename($c_pars['f']))) {
+        if ((time() - $flood_entries[$user_ip]['t'] < FLOOD_REQ_TIMEOUT) and ($flood_entries[$user_ip]['f'] == basename($c_pars['f']))) {
             $flood_entries[$user_ip]['c']++;
         } else {
             $flood_entries[$user_ip]['c'] = 1;
