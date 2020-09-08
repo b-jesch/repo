@@ -44,9 +44,9 @@ define('USERDATA', 'userdata/');        # Nutzerdaten
 
 # Antiflood Parameters
 
-define('FLOOD_MAX_REQ', 5);             # max allowed page requests for an user (IP)
+define('FLOOD_MAX_REQ', 10);            # max allowed page requests for an IP
 define('FLOOD_REQ_TIMEOUT', 3);         # time interval to start counting page requests
-define('FLOOD_BAN_TIME', 120);          # time to punish the user from CMS
+define('FLOOD_BAN_TIME', 120);          # lock delay, after this time without page requests lock file will be removed on next request
 
 # Stylesheets
 
