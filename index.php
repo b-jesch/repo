@@ -21,43 +21,41 @@ if ($c_pars['action'] == 'direct_dl') {
 
     if (!file_exists(FLOOD_LOCKDIR)) mkdir(FLOOD_LOCKDIR, $mode=0755, $recursive=true);
 
-    if (file_exists($flood_lockfile)) {
-        if (time() - filemtime($flood_lockfile) > FLOOD_BAN_TIME) {
-            unlink($flood_lockfile);
-        }
+    if (file_exists($flood_lockfile) and (time() - filemtime($flood_lockfile) > FLOOD_BAN_TIME)) {
+        unlink($flood_lockfile);
+    }
 
-    } else {
+    # count flood requests
 
-        # count flood requests
+    if (file_exists(FLOOD_DB)) {
+        $fh = fopen(FLOOD_DB, 'r');
+        $flood_entries = array_merge($flood_entries, unserialize(fread($fh, filesize(FLOOD_DB))));
+        fclose($fh);
+    }
+    if (isset($flood_entries[$user_ip])) {
 
-        if (file_exists(FLOOD_DB)) {
-            $fh = fopen(FLOOD_DB, 'r');
-            $flood_entries = array_merge($flood_entries, unserialize(fread($fh, filesize(FLOOD_DB))));
-            fclose($fh);
-        }
-        if (isset($flood_entries[$user_ip])) {
+        # prevent downloading the same file multiple times within FLOOD_REQ_TIMEOUT,
+        # allow downloading different files (multiple addon updates from same IP)
 
-            # prevent downloading the same file multiple times within FLOOD_REQ_TIMEOUT,
-            # allow downloading different files (multiple addon updates from same IP)
-
-            if ((time() - $flood_entries[$user_ip]['t'] < FLOOD_REQ_TIMEOUT) and ($flood_entries[$user_ip]['f'] == basename($c_pars['f']))) {
-                $flood_entries[$user_ip]['c']++;
-            } else {
-                $flood_entries[$user_ip]['c'] = 1;
-            }
+        if ((time() - $flood_entries[$user_ip]['t'] < FLOOD_REQ_TIMEOUT) or ($flood_entries[$user_ip]['f'] == basename($c_pars['f']))) {
+            $flood_entries[$user_ip]['c']++;
         } else {
             $flood_entries[$user_ip]['c'] = 1;
         }
-        $flood_entries[$user_ip]['f'] = basename($c_pars['f']);
-        $flood_entries[$user_ip]['t'] = time();
-        if ($flood_entries[$user_ip]['c'] >= FLOOD_MAX_REQ) touch($flood_lockfile);
+    } else {
+        $flood_entries[$user_ip]['c'] = 1;
+    }
+    $flood_entries[$user_ip]['f'] = basename($c_pars['f']);
+    $flood_entries[$user_ip]['t'] = time();
 
-        # write updated flood array
+    # write updated flood array
 
-        $fh = fopen(FLOOD_DB, 'w');
-        fwrite($fh, serialize($flood_entries));
-        fclose($fh);
+    $fh = fopen(FLOOD_DB, 'w');
+    fwrite($fh, serialize($flood_entries));
+    fclose($fh);
 
+    if ($flood_entries[$user_ip]['c'] >= FLOOD_MAX_REQ) {
+        touch($flood_lockfile);
         header("HTTP/1.0 429 Too Many Requests", true, 429);
         exit();
     }
