@@ -16,37 +16,37 @@
             <datadir zip="true">$root/addons/matrix/zip/</datadir>
             <hashes>false</hashes>
         </dir>
-        <dir maxversion="18.9.0">
+        <dir minversion="18.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/leia/addons.xml</info>
             <checksum>$root/addons/leia/addons.xml.md5</checksum>
             <datadir zip="true">$root/addons/leia/zip/</datadir>
             <hashes>false</hashes>
         </dir>
-        <dir maxversion="17.9.0">
+        <dir minversion="17.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/krypton/addons.xml</info>
             <checksum>$root/addons/krypton/addons.xml.md5</checksum>
             <datadir zip="true">$root/addons/krypton/zip/</datadir>
             <hashes>false</hashes>
         </dir>
-        <dir maxversion="16.9.0">
+        <dir minversion="16.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/jarvis/addons.xml</info>
             <checksum>$root/addons/jarvis/addons.xml.md5</checksum>
             <datadir zip="true">$root/addons/jarvis/zip/</datadir>
             <hashes>false</hashes>
         </dir>
-        <dir maxversion="15.9.0">
+        <dir minversion="15.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/isengard/addons.xml</info>
             <checksum>$root/addons/isengard/addons.xml.md5</checksum>
             <datadir zip="true">$root/addons/isengard/zip/</datadir>
             <hashes>false</hashes>
         </dir>
-        <dir maxversion="14.9.0">
+        <dir minversion="14.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/helix/addons.xml</info>
             <checksum>$root/addons/helix/addons.xml.md5</checksum>
             <datadir zip="true">$root/addons/helix/zip/</datadir>
             <hashes>false</hashes>
         </dir>
-        <dir maxversion="13.9.0">
+        <dir minversion="13.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/gotham/addons.xml</info>
             <checksum>$root/addons/gotham/addons.xml.md5</checksum>
             <datadir zip="true">$root/addons/gotham/zip/</datadir>
