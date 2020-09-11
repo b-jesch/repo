@@ -31,11 +31,13 @@ define('VIEWS', 'views/');
 
 $routing = array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2');
 
-define('ADDONFOLDER', 'addons/');       # Rootfolder Upload
-define('DATADIR', 'zip/');              # Addons data folder
-define('TMPDIR', 'temp/');              # temporary files
-define('FLOOD_DB', 'flood/database');   # Antiflood database
-define('FLOOD_LOCKDIR', 'flood/lock/'); # Antiflood locked folder
+define('ADDONFOLDER', 'addons/');           # Rootfolder Upload
+define('DATADIR', 'zip/');                  # Addons data folder
+define('TMPDIR', 'temp/');                  # temporary files
+
+define('FLOOD_DB', 'antiflood/database');   # Antiflood database
+define('FLOOD_LOCKDIR', 'antiflood/lock/'); # Antiflood locked folder
+
 define('ARCHIVE', 'archive/');          # Archive folder
 define('ADDON_EXT', '.zip');            # Endung Addon-Objekt im Data-Verzeichnis
 define('META_EXT', '.xml');             # Endung Metadaten-Datei
