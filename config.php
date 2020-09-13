@@ -5,7 +5,7 @@ define('DEBUG', false);
 
 define('REPONAME', 'Kodinerds Addon Repo');
 define('REPO_ID', 'repository.kodinerds');
-define('REPOVERSION', '7.0.1');
+define('REPOVERSION', '7.0.1.1');
 define('PROVIDER', 'Kodinerds');
 
 define('REPO_TEMPLATES', '__repo_templates/');  # Template Files
