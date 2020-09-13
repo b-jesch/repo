@@ -43,6 +43,7 @@ define('ADDON_EXT', '.zip');            # Endung Addon-Objekt im Data-Verzeichni
 define('META_EXT', '.xml');             # Endung Metadaten-Datei
 define('ETC', 'etc/');                  # Verschiedenes
 define('USERDATA', 'userdata/');        # Nutzerdaten
+define('WEBDAV', 'webdav/');            # Webdav-/Repoverzeichnis
 
 # Antiflood Parameters
 

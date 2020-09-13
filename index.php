@@ -123,6 +123,10 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
     $repo->author = PROVIDER;
     $repo->create();
 
+    # copy to webdav
+
+    copy(ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT, WEBDAV.REPO_ID.'-'.REPOVERSION.ADDON_EXT);
+
     $master = new CreateRepoXML(ADDONFOLDER, REPO_ID.'/');
     $master->createMasterXML();
     $master->createMD5();
