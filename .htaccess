@@ -1,6 +1,10 @@
 Options -Indexes
 
 RewriteEngine On
+
+## Ausnahme für WebDav
+RewriteCond %{REQUEST_URI} !^/webdav/.*$
+
 ## Rewrite direct Download addon.zip to PHP ##
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteCond %{REQUEST_METHOD} !^HEAD$

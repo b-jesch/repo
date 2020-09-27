@@ -34,6 +34,7 @@ $routing = array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2');
 define('ADDONFOLDER', 'addons/');           # Rootfolder Upload
 define('DATADIR', 'zip/');                  # Addons data folder
 define('TMPDIR', 'temp/');                  # temporary files
+define('LOCKFILE', '.locked');              # mark folder as locked (prevent for deletion), when LOCKFILE exists
 
 define('FLOOD_DB', 'antiflood/database');   # Antiflood database
 define('FLOOD_LOCKDIR', 'antiflood/lock/'); # Antiflood locked folder
