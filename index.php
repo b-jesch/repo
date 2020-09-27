@@ -237,13 +237,13 @@ switch ($c_pars['action']) {
 
                 $upload = $c_pars['upload']['name'];
                 mkdir(TMPDIR, 0755, true);
-                touch(TMPDIR.LOCKFILE);
+                touch(TMPDIR . LOCKFILE);
 
                 # move and unpacking upload to TMPDIR, copy default icon to TMPDIR
 
-                move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR.$upload);
+                move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR . $upload);
                 $zip = new ZipArchive();
-                $zip->open(TMPDIR.$upload);
+                $zip->open(TMPDIR . $upload);
 
                 if ($zip->status == ZipArchive::ER_OK) {
                     for ($i = 0; $i < $zip->numFiles; $i++) {
@@ -254,21 +254,21 @@ switch ($c_pars['action']) {
                     }
                     $zip->close();
 
-                    $icon = TMPDIR.'icon.png';
-                    if (is_file(TMPDIR.'icon.jpg')) $icon = TMPDIR.'icon.jpg';
-                    elseif (!is_file(TMPDIR.'icon.png')) {
-                        copy(ADDONFOLDER.REPO_TEMPLATES.DEFAULT_ADDON_ICON, TMPDIR.'icon.png');
+                    $icon = TMPDIR . 'icon.png';
+                    if (is_file(TMPDIR . 'icon.jpg')) $icon = TMPDIR . 'icon.jpg';
+                    elseif (!is_file(TMPDIR . 'icon.png')) {
+                        copy(ADDONFOLDER . REPO_TEMPLATES . DEFAULT_ADDON_ICON, TMPDIR . 'icon.png');
                     }
                 } else {
                     $_SESSION['notice'] .= 'Die Zip-Datei ist defekt und konnte nicht geöffnet werden! Das Addon wurde nicht gespeichert. ';
-                    unlink(TMPDIR.LOCKFILE);
+                    unlink(TMPDIR . LOCKFILE);
                     require VIEWS . UPLOAD;
                     break;
                 }
 
                 # create addon object and thumbnail
 
-                $addon = new Addon(TMPDIR.$upload, time());
+                $addon = new Addon(TMPDIR . $upload, time());
                 $addon->provider = ($_SESSION['isadmin']) ? $c_pars['provider'] : $_SESSION['user'];
 
                 $addon->addon_types = $addon_types;
@@ -276,7 +276,7 @@ switch ($c_pars['action']) {
                 $addon->python = $addon_python;
                 $addon->version_dirs = $version_dirs;
 
-                if (is_file(TMPDIR.'addon.xml')) {
+                if (is_file(TMPDIR . 'addon.xml')) {
                     if ($addon->getAttrFromAddonXML()) {
                         # missing xbmc.python attribute in addon.xml, search for tree in addon name, else
                         # assign to FALLBACK_TREE anywhere
@@ -289,18 +289,18 @@ switch ($c_pars['action']) {
                                 }
                             }
                             if (empty($addon->tree)) $addon->tree = $version_dirs[FALLBACK_TREE];
-                            $_SESSION['notice'] .= "Der Upload wird der der Kodiversion '". ucwords(substr($addon->tree, 0, -1)) ."' zugeordnet. ";
+                            $_SESSION['notice'] .= "Der Upload wird der der Kodiversion '" . ucwords(substr($addon->tree, 0, -1)) . "' zugeordnet. ";
                         }
                     } else {
                         $_SESSION['notice'] .= "Die 'addon.xml im hochgeladenen ZIP ist defekt. Der Upload wird verworfen. ";
-                        unlink(TMPDIR.LOCKFILE);
+                        unlink(TMPDIR . LOCKFILE);
                         require VIEWS . UPLOAD;
                         break;
                     }
 
                 } else {
                     $_SESSION['notice'] .= "Im hochgeladenen ZIP befindet sich keine 'addon.xml'. Der Upload wird verworfen. ";
-                    unlink(TMPDIR.LOCKFILE);
+                    unlink(TMPDIR . LOCKFILE);
                     require VIEWS . UPLOAD;
                     break;
                 }
@@ -311,10 +311,9 @@ switch ($c_pars['action']) {
 
                 # (Re)name upload properly to addonId-addonVersion.zip
 
-                if ($upload != $addon->id.'-'.$addon->version.ADDON_EXT) {
-                    rename(TMPDIR.$upload, TMPDIR.$addon->id.'-'.$addon->version.ADDON_EXT);
-                    $upload = $addon->id.'-'.$addon->version.ADDON_EXT;
-                    $addon->file = $upload;
+                if ($upload != $addon->id . '-' . $addon->version . ADDON_EXT) {
+                    rename(TMPDIR . $upload, TMPDIR . $addon->id . '-' . $addon->version . ADDON_EXT);
+                    $upload = $addon->id . '-' . $addon->version . ADDON_EXT;
                     $_SESSION['notice'] .= "Die hochgeladene Datei entspricht nicht den Namensregeln für Kodi Addons und wurde in '$upload' umbenannt. ";
                 }
 
@@ -325,14 +324,12 @@ switch ($c_pars['action']) {
                     # new Addon
 
                     mkdir($addon_dir, 0755, true);
-
-                    $addon->file = $addon_dir.$upload;
-                    $addon->downloads_total = 0;
+                    $addon->file = $addon_dir . $upload;
                     $addon->create();
 
                     $files = scanFolder(TMPDIR, array('.', '..', LOCKFILE, $addon->id));
-                    foreach($files as $file) {
-                        if (is_file(TMPDIR.$file)) rename(TMPDIR . $file, $addon_dir . basename($file));
+                    foreach ($files as $file) {
+                        if (is_file(TMPDIR . $file)) rename(TMPDIR . $file, $addon_dir . basename($file));
                     }
 
                 } elseif (scanFolder($addon_dir, array('.', '..', 'archive'))) {
@@ -340,7 +337,7 @@ switch ($c_pars['action']) {
                     # existing addon files, check overwrite option and user permissions
                     # get info from current addon objects
 
-                    $files = glob($addon_dir.$addon->id.'*.zip');
+                    $files = glob($addon_dir . $addon->id . '*.zip');
                     foreach ($files as $c_file) {
                         $c_addon = new Addon($c_file);
                         $c_addon->read();
@@ -351,26 +348,27 @@ switch ($c_pars['action']) {
 
                         } elseif (calculateNumVersion($c_addon->version) > calculateNumVersion($addon->version)) {
                             $_SESSION['notice'] .= 'Ein Überschreiben vorhandener Addons mit älteren Addon-Versionen ist nicht zulässig! ';
-                            unlink(TMPDIR.LOCKFILE);
+                            unlink(TMPDIR . LOCKFILE);
                             require VIEWS . UPLOAD;
                             exit();
 
                         } else {
 
-                            # identical version but possibly different filenames
+                            # identical version
 
                             if (isset($c_pars['overwrite']) and ($_SESSION['user'] == $c_addon->provider or
                                     $_SESSION['isadmin'])) {
 
                                 $addon->object_id = $c_addon->object_id;
                                 $addon->downloads = $dl_current;
+                                $addon->downloads_total = $dl_total;
 
                                 unlink($c_addon->file);
                                 unlink($c_addon->meta);
                             } else {
                                 $_SESSION['notice'] = "Die Option 'vorhandene Version überschreiben' ist nicht gesetzt oder der ";
                                 $_SESSION['notice'] .= "angemeldete Nutzer ist nicht der Maintainer des Addons. ";
-                                unlink(TMPDIR.LOCKFILE);
+                                unlink(TMPDIR . LOCKFILE);
                                 require VIEWS . UPLOAD;
                                 exit();
                             }
@@ -387,26 +385,26 @@ switch ($c_pars['action']) {
                         if (!is_dir($addon_dir . ARCHIVE)) mkdir($addon_dir . ARCHIVE, 0755, true);
                         foreach ($archive_files as $file) rename($file, $addon_dir . ARCHIVE . basename($file));
                     }
-                    $addon->file = $addon_dir.$upload;
+                    $addon->file = $addon_dir . $upload;
                     $addon->downloads_total = $dl_total;
                     $addon->create();
 
                     # move uploaded addon to destination
 
                     $files = scanFolder(TMPDIR, array('.', '..', LOCKFILE, $addon->id));
-                    foreach($files as $file) {
-                        if (is_file(TMPDIR.$file)) rename(TMPDIR . $file, $addon_dir . basename($file));
+                    foreach ($files as $file) {
+                        if (is_file(TMPDIR . $file)) rename(TMPDIR . $file, $addon_dir . basename($file));
                     }
-                    unlink(TMPDIR.LOCKFILE);
+                    unlink(TMPDIR . LOCKFILE);
                 }
-            }
-            $repo = new CreateRepoXML(ADDONFOLDER.$addon->tree, DATADIR);
+            $repo = new CreateRepoXML(ADDONFOLDER . $addon->tree, DATADIR);
             $repo->createRepoXML();
             $repo->createMD5();
 
             $_SESSION['version'] = $addon->tree;
-            header('Location: ' . ROOT . CONTROLLER.'?user='.$_SESSION['user']);
+            header('Location: ' . ROOT . CONTROLLER . '?user=' . $_SESSION['user']);
             exit();
+            }
         }
         require VIEWS.LISTVIEW;
         break;
@@ -538,12 +536,12 @@ switch ($c_pars['action']) {
         break;
 
     case '404':
-        $errmsg = "Die von Dir aufgerufene Seite existiert nicht!";
+        $errmsg = "Die angeforderte Ressource existiert nicht!";
         require VIEWS.ERRORPAGE;
         break;
 
     case '403':
-        $errmsg = "Das was Du vor hast, ist hier nicht erlaubt!";
+        $errmsg = "Der Zugriff auf die angeforderte Ressource ist nicht erlaubt!";
         require VIEWS.ERRORPAGE;
         break;
 

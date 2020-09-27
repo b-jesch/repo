@@ -122,6 +122,7 @@ class Addon {
         $this->upload = date('d.m.Y H:i');
         $this->size = filesize($file);
         $this->downloads = 0;
+        $this->downloads_total = 0;
         $this->category = 'Unknown';
         $this->thumb = pathinfo($file, PATHINFO_DIRNAME).'/icon.tbn';
     }
