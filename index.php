@@ -260,7 +260,7 @@ switch ($c_pars['action']) {
                         copy(ADDONFOLDER . REPO_TEMPLATES . DEFAULT_ADDON_ICON, TMPDIR . 'icon.png');
                     }
                 } else {
-                    $_SESSION['notice'] .= 'Die Zip-Datei ist defekt und konnte nicht geöffnet werden! Das Addon wurde nicht gespeichert. ';
+                    $_SESSION['notice'] .= 'Die Zip-Datei ist defekt und konnte nicht geöffnet werden! Der Upload wird verworfen. ';
                     unlink(TMPDIR . LOCKFILE);
                     require VIEWS . UPLOAD;
                     break;
@@ -282,7 +282,7 @@ switch ($c_pars['action']) {
                         # assign to FALLBACK_TREE anywhere
 
                         if ($addon->tree === false) {
-                            $_SESSION['notice'] .= "Der Upload kann keiner Kodiversion zugeordnet werden und wird verworfen. ";
+                            $_SESSION['notice'] .= "Die Version des Moduls 'xbmc.python' kann keiner Kodiversion zugeordnet werden. Der Upload wird verworfen. ";
                             unlink(TMPDIR . LOCKFILE);
                             require VIEWS . UPLOAD;
                             break;
