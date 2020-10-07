@@ -213,7 +213,14 @@ class Addon {
         # Get Python Version (tree)
 
         foreach($xml->requires->import as $import) {
-            if ($import['addon'] == 'xbmc.python') $this->tree = $this->version_dirs[array_search($import['version'], $this->python)];
+            if ($import['addon'] == 'xbmc.python') {
+                if (in_array($import['version'], $this->python)) {
+                    $this->tree = $this->version_dirs[array_search($import['version'], $this->python)];
+                } else {
+                    $this->tree = false;
+                }
+                break;
+            }
         }
 
         $addon_attributes = iterator_to_array($xml->attributes());

@@ -281,7 +281,14 @@ switch ($c_pars['action']) {
                         # missing xbmc.python attribute in addon.xml, search for tree in addon name, else
                         # assign to FALLBACK_TREE anywhere
 
-                        if (empty($addon->tree)) {
+                        if ($addon->tree === false) {
+                            $_SESSION['notice'] .= "Der Upload kann keiner Kodiversion zugeordnet werden und wird verworfen. ";
+                            unlink(TMPDIR . LOCKFILE);
+                            require VIEWS . UPLOAD;
+                            break;
+                        }
+
+                        elseif (empty($addon->tree)) {
                             foreach ($version_dirs as $vdir) {
                                 if (strpos($addon->version, substr($vdir, 0, -1))) {
                                     $addon->tree = $vdir;
