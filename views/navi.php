@@ -17,6 +17,9 @@
         <li><a href="<?php echo ROOT.CONTROLLER.'?action=last'; ?>" title="Last uploaded Addons">last Addons</a></li>
         <li><a href="<?php echo ROOT.ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT; ?>"
                title="Download and install the '<?php echo REPONAME; ?>' Addon to receive automatic Updates of all Addons from this Repo">Download Repo Addon</a></li>
+        <li><input type='search' name='search' class='search' form='s'><img alt='Suche' src='<?php echo SYMBOL_SEARCH; ?>'
+                   class='symbol' onclick='document.s.action.value="search"; document.s.submit();'>
+        </li>
         <?php
             if ($_SESSION['state'] == 1) {
                 if ($_SESSION['isadmin']) {
@@ -38,7 +41,6 @@
                 echo "<li><a href=\"".ROOT.CONTROLLER.'?action=setup'."\" title='My settings and contact data'>Setup</a></li>".PHP_EOL;
                 echo "<li style=\"float: right\"><a href=\"".ROOT.CONTROLLER.'?action=logout'."\">Maintainer Logout</a></li>".PHP_EOL;
             } else {
-                echo "<li><input type='search' name='search' class='search' form='s'><img src='".SYMBOL_SEARCH."' class='symbol' onclick='document.s.action.value=\"search\"; document.s.submit();'></li>".PHP_EOL;
                 echo "<li style=\"float: right\"><a href=\"".ROOT.CONTROLLER.'?action=login'."\" title='Developers only'>Maintainer Login</a></li>".PHP_EOL;
             }
         ?>
