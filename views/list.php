@@ -77,13 +77,11 @@ echo $content;
 echo '<table id="outer"><tr>';
 
 foreach($addons as $addon) {
-    # list addons from specified user
-    # if (!empty($c_pars['user']) and $c_pars['user'] != $addon->provider) continue;
     createItemView($tc, $addon);
     $tc++;
 }
 echo '</tr></table>';
-
+if ($tc == 0) echo "<p class='alert'>Es wurden keine passenden Einträge gefunden.</p>".PHP_EOL;
 ?>
 <?php
 # Epilog
