@@ -562,5 +562,6 @@ switch ($c_pars['action']) {
 
     default:
         # Bootstrap
+        unset($c_pars);
         require VIEWS.LISTVIEW;
 }
