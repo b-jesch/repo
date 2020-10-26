@@ -19,15 +19,15 @@ function compare_tree($p1, $p2) {
 $addons = array();
 $addondirs = array();
 
-if (!empty($c_pars['user']) or !empty($c_pars['search'])) {
-    if (!empty($c_pars['user'])) {
+if (isset($c_pars['user']) or isset($c_pars['search'])) {
+    if (isset($c_pars['user'])) {
         $scope = 'user';
         $content = '<h3>Alle Addons in allen Versionen von '.$c_pars['user'].'</h3>';
     }
-    elseif (!empty($c_pars['search']))
+    elseif (isset($c_pars['search'])) {
         $scope = 'addon';
         $content = '<h3>Alle Addons in allen Versionen, die "'.$c_pars['search'].'" enthalten</h3>';
-
+    }
     foreach ($version_dirs as $version) {
         $v_dirs = scanFolder(ADDONFOLDER.$version.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
         if ($v_dirs) {
