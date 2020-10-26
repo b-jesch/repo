@@ -211,6 +211,14 @@ switch ($c_pars['action']) {
             require VIEWS.LISTVIEW;
         }
         break;
+    case 'search':
+        if (strlen($c_pars['search']) < 4) {
+            $_SESSION['notice'] .= "Der Suchbegriff ist zu kurz. Es wird die Standardansicht angezeigt. Geben Sie wenigsten 3 Zeichen ein";
+            $c_pars['action'] = 'list';
+            $c_pars['search'] = '';
+        }
+        require VIEWS.LISTVIEW;
+        break;
 
     case 'login':
         require VIEWS.LOGINPAGE;

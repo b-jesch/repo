@@ -19,8 +19,15 @@ function compare_tree($p1, $p2) {
 $addons = array();
 $addondirs = array();
 
-if (!empty($c_pars['user'])) {
-    echo '<h3>Alle Addons in allen Versionen von '.$c_pars['user']. '</h3>';
+if (!empty($c_pars['user']) or !empty($c_pars['search'])) {
+    if (!empty($c_pars['user'])) {
+        $scope = 'user';
+        $content = '<h3>Alle Addons in allen Versionen von '.$c_pars['user'].'</h3>';
+    }
+    elseif (!empty($c_pars['search']))
+        $scope = 'addon';
+        $content = '<h3>Alle Addons in allen Versionen, die "'.$c_pars['search'].'" enthalten</h3>';
+
     foreach ($version_dirs as $version) {
         $v_dirs = scanFolder(ADDONFOLDER.$version.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
         if ($v_dirs) {
@@ -30,7 +37,8 @@ if (!empty($c_pars['user'])) {
         }
     }
 } else {
-    echo '<h3>Addons ab ' . $_SESSION['version_name'] . '</h3>';
+    $scope = '';
+    $content = '<h3>Addons ab ' . $_SESSION['version_name'] . '</h3>';
     $v_dirs = scanFolder(ADDONFOLDER.$_SESSION['version'].DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
     if ($v_dirs) {
         foreach($v_dirs as $v) {
@@ -45,7 +53,18 @@ foreach ($addondirs as $addondir) {
         foreach ($meta as $item) {
             $addon = new Addon($item);
             $addon->read();
-            $addons[] = $addon;
+            switch ($scope) {
+                case 'user':
+                    if ($c_pars['user'] != $addon->provider) continue;
+                    $addons[] = $addon;
+                    break;
+                case 'addon':
+                    if (!stristr($addon->name, $c_pars['search'])) continue;
+                    $addons[] = $addon;
+                    break;
+                default:
+                    $addons[] = $addon;
+            }
         }
     }
 }
@@ -54,10 +73,12 @@ usort($addons, 'compare_tree');
 usort($addons, 'compare_names');
 
 $tc = 0;
+echo $content;
 echo '<table id="outer"><tr>';
 
 foreach($addons as $addon) {
-    if (!empty($c_pars['user']) and $c_pars['user'] != $addon->provider) continue;
+    # list addons from specified user
+    # if (!empty($c_pars['user']) and $c_pars['user'] != $addon->provider) continue;
     createItemView($tc, $addon);
     $tc++;
 }

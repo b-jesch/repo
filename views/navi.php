@@ -38,10 +38,14 @@
                 echo "<li><a href=\"".ROOT.CONTROLLER.'?action=setup'."\" title='My settings and contact data'>Setup</a></li>".PHP_EOL;
                 echo "<li style=\"float: right\"><a href=\"".ROOT.CONTROLLER.'?action=logout'."\">Maintainer Logout</a></li>".PHP_EOL;
             } else {
+                echo "<li><input type='search' name='search' class='search' form='s'><img src='".SYMBOL_SEARCH."' class='symbol' onclick='document.s.action.value=\"search\"; document.s.submit();'></li>".PHP_EOL;
                 echo "<li style=\"float: right\"><a href=\"".ROOT.CONTROLLER.'?action=login'."\" title='Developers only'>Maintainer Login</a></li>".PHP_EOL;
             }
         ?>
         </ul>
     </nav>
 </div>
+<form name="s" id="s" action="<?php echo CONTROLLER; ?>" method="post">
+    <input type="hidden" name="action" value="">
+</form>
 <hr class="spacer">

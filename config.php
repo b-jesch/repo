@@ -52,9 +52,10 @@ define('FLOOD_MAX_REQ', 10);            # max allowed page requests for an IP
 define('FLOOD_REQ_TIMEOUT', 3);         # start counting page requests if time between request lower than this value
 define('FLOOD_BAN_TIME', 120);          # lock delay, after this time without page requests, lock file will be removed on next request
 
-# Stylesheets
+# Stylesheets & Icons
 
 define('CSS', 'css/styles.css');
+define('SYMBOL_SEARCH', 'css/lupe2.svg');
 
 # Views
 

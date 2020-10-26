@@ -75,6 +75,19 @@ body {
     vertical-align: top;
 }
 
+.search {
+    margin: 0 5px 0 10px;
+    height: 1.8em;
+}
+
+.symbol {
+    height: 25px;
+    width: 25px;
+    padding: 10px;
+    margin: 0;
+    vertical-align: middle;
+}
+
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -98,7 +111,7 @@ nav li a, .dropbtn {
     font-weight: bold;
 }
 
-nav li a:hover, .dropdown:hover .dropbtn {
+nav li a:hover, .dropdown:hover .dropbtn, .symbol:hover {
     background-color: #224466;
 }
 
@@ -191,18 +204,7 @@ nav .dropdown:hover .dropdown-content {
 .button_red:hover {
     background-color: #A10000;
 }
-/*
-.select {
-    padding: 5px;
-    width: 130px;
-    background-color: #336699;
-    border-radius: 6px;
-}
 
-.select[type='small'] {
-    width: 90px;
-}
-*/
 .select {
     padding: 5px;
     margin-left: 8px;
