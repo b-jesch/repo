@@ -1,7 +1,7 @@
 <?php
 # Configuration File Repo saXBMC
 
-define('DEBUG', false);
+define('DEBUG', true);
 
 define('REPONAME', 'Kodinerds Addon Repo');
 define('REPO_ID', 'repository.kodinerds');
