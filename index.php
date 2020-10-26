@@ -185,18 +185,17 @@ $_SESSION['version_name'] = $kodiversions[$i];
 
 # Main Controller
 
+/*
 if (isset($c_pars['item'])) {
     foreach($c_pars['item'] as $element) {
         if ($element != '') list($c_pars['action'], $c_pars['item']) = explode('=', $element);
     }
 }
+*/
 
 switch ($c_pars['action']) {
     case 'list':
         require VIEWS.LISTVIEW;
-        break;
-    case 'last':
-        require VIEWS.LASTVIEW;
         break;
     case 'impress':
         require VIEWS.IMPRESS;
@@ -212,9 +211,10 @@ switch ($c_pars['action']) {
         }
         break;
     case 'search':
-        if (strlen($c_pars['search']) < 4) {
+        if (strlen($c_pars['item']) < 3) {
             $_SESSION['notice'] .= "Der Suchbegriff ist zu kurz. Es wird die Standardansicht angezeigt. Geben Sie wenigsten 3 Zeichen ein. ";
             $c_pars['action'] = 'list';
+            $c_pars['scope'] = 'all';
             unset($c_pars['search']);
         }
         require VIEWS.LISTVIEW;
