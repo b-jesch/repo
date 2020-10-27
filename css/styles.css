@@ -334,8 +334,9 @@ h3 {
     background-color: #336699;
     color: white;
     font-size: 16px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    font-weight: normal;
+    padding-top: 7px;
+    padding-bottom: 7px;
     padding-left: 1%;
     font-family: Verdana, Arial, Helevtica, sans-serif;
     width: 99%;
@@ -343,13 +344,13 @@ h3 {
 
 .footer {
     background-color: #336699;
-    color: white;
+    color: #f0f0f0;
     width: 98%;
     font-size: 14px;
     float: left;
     padding: 10px 1%;
     font-family: Verdana, Arial, Helevtica, sans-serif;
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 .footer a {

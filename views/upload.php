@@ -38,7 +38,6 @@ $users = new User();
         ist nicht erlaubt. Es gelten die Verhaltensregeln der Kodinerds Community.</li>
     </ul>
 
-    <!--<div id="upload">-->
     <div class="upload">
     <form name="u" id="u" method="post"
           action="<?php echo ROOT.CONTROLLER; ?>"

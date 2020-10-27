@@ -42,26 +42,26 @@ foreach ($addondirs as $addondir) {
             $addon->read();
             switch ($c_pars['scope']) {
                 case 'all':
-                    $content = '<h3>Addons ab ' . $_SESSION['version_name'] . '</h3>';
+                    $header = '<h3>Addons ab ' . $_SESSION['version_name'] . '</h3>';
                     if ($addon->tree != $_SESSION['version']) continue;
                     $addons[] = $addon;
                     break;
                 case 'user':
-                    $content = '<h3>Alle Addons in allen Versionen von '.$c_pars['item'].'</h3>';
+                    $header = '<h3>Alle Addons in allen Versionen von '.$c_pars['item'].'</h3>';
                     if ($c_pars['item'] != $addon->provider) continue;
                     $addons[] = $addon;
                     break;
                 case 'search':
-                    $content = '<h3>Alle Addons in allen Versionen, die "'.$c_pars['item'].'" enthalten</h3>';
+                    $header = '<h3>Alle Addons in allen Versionen, die "'.$c_pars['item'].'" enthalten</h3>';
                     if (!stristr($addon->name, $c_pars['item'])) continue;
                     $addons[] = $addon;
                     break;
                 case 'last':
-                    $content = '<h3>Zuletzt hochgeladene oder aktualisierte Addons</h3>';
+                    $header = '<h3>Zuletzt hochgeladene oder aktualisierte Addons</h3>';
                     $addons[] = $addon;
                     break;
                 default:
-                    $content = '<h3>Addons ab ' . $_SESSION['version_name'] . '</h3>';
+                    $header = '<h3>Addons ab ' . $_SESSION['version_name'] . '</h3>';
                     if ($addon->tree != $_SESSION['version']) continue;
                     $addons[] = $addon;
             }
@@ -76,7 +76,7 @@ if ($c_pars['scope'] == 'last') {
     usort($addons, 'compare_names');
 }
 $tc = 0;
-echo $content;
+echo $header;
 echo '<table id="outer"><tr>';
 
 foreach($addons as $addon) {
