@@ -83,7 +83,7 @@ body {
 .symbol {
     height: 21px;
     width: 21px;
-    padding: 12px;
+    padding: 10px;
     margin: 0;
     vertical-align: middle;
 }
@@ -105,10 +105,10 @@ nav li a, .dropbtn {
     display: inline-block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 12px;
     text-decoration: none;
     font-family: Verdana, Arial, Helevtica, sans-serif;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 nav li a:hover, .dropdown:hover .dropbtn, .symbol:hover {

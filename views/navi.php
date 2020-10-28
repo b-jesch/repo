@@ -37,7 +37,7 @@
                     echo "</div></li>";
 
                 } else {
-                    echo "<li><a href=\"".ROOT.CONTROLLER.'?action=list&scope=user&user='.$_SESSION['user']."\" title='My Addons'>Meine Addons</a></li>".PHP_EOL;
+                    echo "<li><a href=\"".ROOT.CONTROLLER.'?action=list&scope=user&item='.$_SESSION['user']."\" title='My Addons'>Meine Addons</a></li>".PHP_EOL;
                 }
                 echo "<li><a href=\"".ROOT.CONTROLLER.'?action=upload'."\" title='Addon Upload'>Upload</a></li>".PHP_EOL;
                 echo "<li><a href=\"".ROOT.CONTROLLER.'?action=setup'."\" title='My settings and contact data'>Setup</a></li>".PHP_EOL;
