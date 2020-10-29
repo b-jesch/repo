@@ -78,6 +78,9 @@ body {
 .search {
     margin: 0 5px 0 10px;
     height: 1.8em;
+    width: 120px;
+    border: none;
+    padding: 3px;
 }
 
 .symbol {
@@ -135,7 +138,7 @@ nav .dropdown-content {
 
 nav .dropdown-content a {
     color: black;
-    padding: 12px 16px;
+    padding: 8px 10px;
     text-decoration: none;
     display: block;
     text-align: left;

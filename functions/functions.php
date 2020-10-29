@@ -148,12 +148,12 @@ function createItemView($column, $addon) {
     echo PHP_TAB.'<tr><td colspan="3">'.PHP_EOL;
     echo '<form name="d'.$column.'" id="d'.$column.'" action="'.ROOT.CONTROLLER.'" method="post">'.PHP_EOL;
     if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
-        echo '<button form="d'.$column.'" name="item[]" type="submit" class="button_red" title="letzte Version löschen" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
+        echo '<button form="d'.$column.'" name="c_item[]" type="submit" class="button_red" title="letzte Version löschen" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
     }
 
     $archive = $addon->getArchiveFiles();
     if ($archive) {
-        echo '<select form="d'.$column.'" name="item[]" class="select" type="small" title="ältere Versionen aus dem Archiv downloaden" ';
+        echo '<select form="d'.$column.'" name="c_item[]" class="select" type="small" title="ältere Versionen aus dem Archiv downloaden" ';
         echo 'onchange="document.getElementById(\'d'.$column.'\').submit()">'.PHP_EOL;
         echo '<option value="" selected>* Archiv *</option>'.PHP_EOL;
         foreach ($archive as $file) {
@@ -162,7 +162,7 @@ function createItemView($column, $addon) {
         echo '</select>'.PHP_EOL;
     }
 
-    echo '<button form="d'.$column.'" name="item[]" type="submit" class="button" title="Download '.basename($addon->file).' (aktuelle Version)" value="download='.$addon->file.'">Download</button></td></tr></table>'.PHP_EOL;
+    echo '<button form="d'.$column.'" name="c_item[]" type="submit" class="button" title="Download '.basename($addon->file).' (aktuelle Version)" value="download='.$addon->file.'">Download</button></td></tr></table>'.PHP_EOL;
     echo '</form>'.PHP_EOL;
     echo '</td>'.PHP_EOL.PHP_EOL;
 }
