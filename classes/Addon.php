@@ -234,7 +234,7 @@ class Addon {
     }
 
     private function readProperties() {
-        $xml = simplexml_load_file($this->meta);
+        $xml = simplexml_load_string(file_get_contents($this->meta));
         if ($xml) {
             $this->object_id = $xml->object_id;
             $this->name = $xml->name;
@@ -272,7 +272,15 @@ class Addon {
 
         $dom = init_domxml();
         $dom->loadXML($xml->saveXML());
-        $dom->save($this->meta);
+        $content = $dom->saveXML();
+        $fh = fopen($this->meta, "w");
+        if (flock($fh, LOCK_EX)) {
+            ftruncate($fh, 0);
+            fwrite($fh, $content);
+            fflush($fh);
+            flock($fh, LOCK_UN);
+        }
+        fclose($fh);
     }
 }
 
