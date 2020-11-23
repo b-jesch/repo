@@ -137,11 +137,11 @@ class Addon {
     }
 
     public function download() {
-        $this->readProperties();
-        $this->downloads = intval($this->downloads) + 1;
-        $this->downloads_total = intval($this->downloads_total) + 1;
-        $this->writeProperties();
-
+        if ($this->readProperties()) {
+            $this->downloads = intval($this->downloads) + 1;
+            $this->downloads_total = intval($this->downloads_total) + 1;
+            $this->writeProperties();
+        }
         # ob_clean();
         # flush();
 
@@ -250,7 +250,10 @@ class Addon {
             $this->downloads_total = $xml->downloads_total;
             if (empty($this->downloads_total)) $this->downloads_total = $this->downloads;
             $this->category = $xml->category;
+        } else {
+            return false;
         }
+        return true;
     }
 
     private function writeProperties() {
