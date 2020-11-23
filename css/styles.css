@@ -200,13 +200,6 @@ nav .dropdown:hover .dropdown-content {
 .button:hover {
     background-color: #224466;
 }
-.button_red {
-    background-color: red;
-}
-
-.button_red:hover {
-    background-color: #A10000;
-}
 
 .select {
     padding: 5px;
@@ -221,6 +214,14 @@ nav .dropdown:hover .dropdown-content {
     background-position: right .7em top 50%, 0 0;
     /* icon size, then gradient */
     background-size: .65em auto, 100%;
+}
+
+.button_red {
+    background-color: red;
+}
+
+.button_red:hover {
+    background-color: #A10000;
 }
 
 /* Hide arrow icon in IE browsers */

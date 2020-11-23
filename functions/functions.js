@@ -1,3 +1,3 @@
 function fConfirm() {
-    return confirm('Die aktuelle Version des Addons wird gelöscht und die vorhergehende Version (sofern vorhanden) wieder hergestellt! Wirklich fortfahren?');
+    return confirm('Diese Version des Addons wird unwiderruflich gelöscht und evtl. die vorhergehende Version (sofern vorhanden) aus dem Archiv wieder hergestellt! Wirklich fortfahren?\'');
 }

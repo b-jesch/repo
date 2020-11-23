@@ -88,6 +88,32 @@ function convertHRV($value) {
     return sprintf('%01.2f', $value).$units[$i];
 }
 
+function unpackZip($zipfile) {
+    $path = pathinfo($zipfile, PATHINFO_DIRNAME).'/';
+    $zipfile = pathinfo($zipfile, PATHINFO_BASENAME);
+
+    $zip = new ZipArchive();
+    $zip->open($path.$zipfile);
+
+    if ($zip->status == ZipArchive::ER_OK) {
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+            if (in_array(basename($zip->statIndex($i)['name']), array('addon.xml', 'fanart.jpg', 'icon.png', 'icon.jpg', 'changelog.txt'))) {
+                $zip->extractTo($path, $zip->statIndex($i)['name']);
+                rename($path.$zip->statIndex($i)['name'], $path.basename($zip->statIndex($i)['name']));
+            }
+        }
+        $zip->close();
+
+        $icon = $path.'icon.png';
+        if (is_file($path.'icon.jpg')) $icon = $path.'icon.jpg';
+        elseif (!is_file($path.'icon.png')) {
+            copy(ADDONFOLDER.REPO_TEMPLATES.DEFAULT_ADDON_ICON, $path.'icon.png');
+        }
+        return $icon;
+    }
+    return false;
+}
+
 function createThumb($storage_path, $source, $status) {
     if (is_file($source)) {
         $image = getimagesize($source);
@@ -127,7 +153,7 @@ function createThumb($storage_path, $source, $status) {
 
 function createItemView($column, $addon) {
     if ($column % CPR == 0 and $column > 0) echo '</tr><tr>'.PHP_EOL;
-    echo '<td class="item">' .PHP_EOL;
+    echo PHP_EOL.'<td class="item">' .PHP_EOL;
     echo PHP_TAB.'<table class="inner">'.PHP_EOL;
     echo PHP_TAB.'<tr><td class="header" colspan="3">'.$addon->name.' - '.convertHRV($addon->size).'</td></tr>'.PHP_EOL;
     echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'" width="'.TBN_X.'" height="'.TBN_Y.'"></td>';
@@ -146,12 +172,23 @@ function createItemView($column, $addon) {
     }
 
     echo PHP_TAB.'<tr><td colspan="3">'.PHP_EOL;
-    echo '<form name="d'.$column.'" id="d'.$column.'" action="'.ROOT.CONTROLLER.'" method="post">'.PHP_EOL;
-    if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
-        echo '<button form="d'.$column.'" name="c_item[]" type="submit" class="button_red" title="letzte Version löschen" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
-    }
 
     $archive = $addon->getArchiveFiles();
+    echo '<form name="d'.$column.'" id="d'.$column.'" action="'.ROOT.CONTROLLER.'" method="post">'.PHP_EOL;
+    if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
+        echo '<select form="d'.$column.'" name="c_item[]" class="select button_red" type="small" title="aktuelle und Archivversionen löschen" ';
+        echo 'onchange="document.getElementById(\'d'.$column.'\').submit()">'.PHP_EOL;
+        echo '<option value="" selected>* delete *</option>'.PHP_EOL;
+        if ($archive) {
+            foreach ($archive as $file) {
+                echo '<option value="delete='.$file.'">'.basename($file).'</option>'.PHP_EOL;
+            }
+        }
+        echo '<option value="delete='.$addon->file.'">'.basename($addon->file).'</option>'.PHP_EOL;
+        echo '</select>'.PHP_EOL;
+        # echo '<button form="d'.$column.'" name="c_item[]" type="submit" class="button_red" title="letzte Version löschen" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
+    }
+
     if ($archive) {
         echo '<select form="d'.$column.'" name="c_item[]" class="select" type="small" title="ältere Versionen aus dem Archiv downloaden" ';
         echo 'onchange="document.getElementById(\'d'.$column.'\').submit()">'.PHP_EOL;
@@ -164,6 +201,6 @@ function createItemView($column, $addon) {
 
     echo '<button form="d'.$column.'" name="c_item[]" type="submit" class="button" title="Download '.basename($addon->file).' (aktuelle Version)" value="download='.$addon->file.'">Download</button></td></tr></table>'.PHP_EOL;
     echo '</form>'.PHP_EOL;
-    echo '</td>'.PHP_EOL.PHP_EOL;
+    echo '</td>'.PHP_EOL;
 }
 ?>

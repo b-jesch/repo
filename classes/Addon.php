@@ -154,26 +154,51 @@ class Addon {
     }
 
     public function delete() {
+        unlink($this->file);
+        unlink($this->meta);
+
         $path = pathinfo($this->file, PATHINFO_DIRNAME).'/';
-        $archive_content = scanFolder($path.ARCHIVE, array('.', '..'));
-        if (!$archive_content) {
+        $addon_content = scanFolder($path, array('.', '..', 'addon.xml', 'changelog.txt', 'fanart.jpg', 'icon.png', 'icon.jpg', 'icon.tbn'));
+
+        if (!$addon_content) {
             delTree($path);
-        } else {
-
-            # remove last archived item back to Repository
-
-            $archive_content = array_reverse($archive_content);
-            
-            rename($path.ARCHIVE.$archive_content[0], $path.$archive_content[0]);
-            rename($path.ARCHIVE.$archive_content[1], $path.$archive_content[1]);
-
-            # check if archive folder is empty, delete it
-
-            if (!scanFolder($path.ARCHIVE, array('.', '..'))) delTree($path.ARCHIVE);
+            return;
         }
-        if (is_file($this->meta)) unlink($this->meta);
-        if (is_file($this->file)) unlink($this->file);
+
+        $archive_content = scanFolder($path.ARCHIVE, array('.', '..'));
+        if (!$archive_content) return;
+
+        # remove last archived item back to Repository
+
+        $archive_content = array_reverse($archive_content);
+
+        rename($path.ARCHIVE.$archive_content[0], $path.$archive_content[0]);
+        rename($path.ARCHIVE.$archive_content[1], $path.$archive_content[1]);
+
+        # check if archive folder is empty, delete it
+
+        if (!scanFolder($path.ARCHIVE, array('.', '..'))) delTree($path.ARCHIVE);
+
+        $addon_content = scanFolder($path, array('.', '..', substr(ARCHIVE, 0, -1)));
+        foreach ($addon_content as $file) {
+            if (pathinfo($file, PATHINFO_EXTENSION) == substr(ADDON_EXT, -3)) {
+                $icon = unpackZip($path.$file);
+                $this->meta = $path.pathinfo($file, PATHINFO_FILENAME).META_EXT;
+                $this->readProperties();
+                createThumb($path, $path.$icon, $this->status);
+                break;
+            }
+        }
+
+        # remove created folders inside from zip
+
+        $addon_content = scanFolder($path, array('.', '..', substr(ARCHIVE, 0, -1)));
+        foreach($addon_content as $content) {
+            if (is_dir($path.$content)) delTree($path.$content);
+        }
     }
+
+    # used from function.php - do not delete!
 
     public function getArchiveFiles() {
         $path = pathinfo($this->file, PATHINFO_DIRNAME).'/';

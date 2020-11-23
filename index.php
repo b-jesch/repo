@@ -248,24 +248,9 @@ switch ($c_pars['action']) {
                 # move and unpacking upload to TMPDIR, copy default icon to TMPDIR
 
                 move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR.$upload);
-                $zip = new ZipArchive();
-                $zip->open(TMPDIR.$upload);
 
-                if ($zip->status == ZipArchive::ER_OK) {
-                    for ($i = 0; $i < $zip->numFiles; $i++) {
-                        if (in_array(basename($zip->statIndex($i)['name']), array('addon.xml', 'fanart.jpg', 'icon.png', 'icon.jpg', 'changelog.txt'))) {
-                            $zip->extractTo(TMPDIR, $zip->statIndex($i)['name']);
-                            rename(TMPDIR.$zip->statIndex($i)['name'], TMPDIR.basename($zip->statIndex($i)['name']));
-                        }
-                    }
-                    $zip->close();
-
-                    $icon = TMPDIR.'icon.png';
-                    if (is_file(TMPDIR.'icon.jpg')) $icon = TMPDIR.'icon.jpg';
-                    elseif (!is_file(TMPDIR.'icon.png')) {
-                        copy(ADDONFOLDER.REPO_TEMPLATES.DEFAULT_ADDON_ICON, TMPDIR.'icon.png');
-                    }
-                } else {
+                $icon = unpackZip(TMPDIR.$upload);
+                if (!$icon) {
                     $_SESSION['notice'] .= 'Die Zip-Datei ist defekt und konnte nicht geöffnet werden! Der Upload wird verworfen. ';
                     unlink(TMPDIR.LOCKFILE);
                     require VIEWS.UPLOAD;
@@ -430,28 +415,14 @@ switch ($c_pars['action']) {
 
     case 'delete':
         if ($_SESSION['state'] == 1) {
-            foreach ($version_dirs as $version_dir) {
-                $addondirs = scanFolder(ADDONFOLDER.$version_dir.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
-                if ($addondirs) {
-                    foreach ($addondirs as $addondir) {
-                        $metafiles = glob(ADDONFOLDER.$version_dir.DATADIR.$addondir.'/*.zip');
-                        foreach ($metafiles as $metadata) {
-                            $addon = new Addon($metadata);
-                            $addon->read();
-                            if ($addon->object_id != '' and $c_pars['item'] == $addon->object_id) {
-                                $modified_tree = $version_dir;
-                                $addon->delete();
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            if (!empty($modified_tree)) {
-                $repo = new CreateRepoXML(ADDONFOLDER.$_SESSION['version'], DATADIR);
-                $repo->createRepoXML();
-                $repo->createMD5();
-            }
+            $addon = new Addon($c_pars['item']);
+            $addon->read();
+            $addon->delete();
+
+            $repo = new CreateRepoXML(ADDONFOLDER.$addon->tree, DATADIR);
+            $repo->createRepoXML();
+            $repo->createMD5();
+
             $c_pars['user'] = $_SESSION['user'];
         }
         $c_pars['scope'] = 'user';
