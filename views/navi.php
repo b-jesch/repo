@@ -7,8 +7,8 @@
             <div class="dropdown-content">
                 <?php
                 $i = 0;
-                foreach ($kodiversions as $version) {
-                    echo "<a href='".ROOT.CONTROLLER.'?action=list&scope=all&version='.$version_dirs[$i]."'>".$version."</a>".PHP_EOL;
+                foreach (KODI_NAMES as $version) {
+                    echo "<a href='".ROOT.CONTROLLER.'?action=list&scope=all&version='.VERSION_DIRS[$i]."'>".$version."</a>".PHP_EOL;
                     $i++;
                 }
                 ?>

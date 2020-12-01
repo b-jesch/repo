@@ -189,12 +189,12 @@ nav .dropdown:hover .dropdown-content {
     width:90px;
     color: white;
     height:28px;
-    border-radius: 6px;
+    border-radius: 4px;
     border-width: 0;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size:12px;
     font-weight:normal;
-    margin: 5px;
+    margin: 9px 5px 5px 5px;
 }
 
 .button:hover {
@@ -213,7 +213,7 @@ nav .dropdown:hover .dropdown-content {
     /* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
     background-position: right .7em top 50%, 0 0;
     /* icon size, then gradient */
-    background-size: .65em auto, 100%;
+    background-size: .85em auto, 100%;
 }
 
 .button_red {

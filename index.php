@@ -83,7 +83,7 @@ if (!$_SESSION['state'] or $_SESSION['state'] == 0) {
 # Decrypt encrypted Routes
 
 if (isset($c_pars['action'])) {
-    foreach($routing as $route) {
+    foreach(ROUTE as $route) {
         $c = crypt($route, $c_pars['action']);
         if ($c == $c_pars['action']) {
             $c_pars['action'] = $route;
@@ -102,9 +102,9 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
 
     # copy files to Repo-Addon Folder from template folder
 
-    mkdir(ADDONFOLDER.REPO_ID, 0775, true);
+    mkdir(ADDONFOLDER.REPO_ID, 0755, true);
 
-    $files = scanFolder(ADDONFOLDER.REPO_TEMPLATES, array('.', '..', ADDON_TEMPLATE));
+    $files = scanFolder(ADDONFOLDER.REPO_TEMPLATES, array('.', '..', ADDON_TEMPLATE, DEFAULT_ADDON_ICON));
     foreach($files as $file) copy(ADDONFOLDER.REPO_TEMPLATES.$file, ADDONFOLDER.REPO_ID.'/'.$file);
     $repo =new CreateRepoXML(ADDONFOLDER.REPO_TEMPLATES, ADDON_TEMPLATE);
     $repo->createAddonXML(ADDONFOLDER.REPO_ID.'/addon.xml');
@@ -134,7 +134,7 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
     # create version folder and XML for certain Kodi versions as Kodi looks up at first in these
     # dependent on Kodi version. Kodi fails if these folders doesn't exist (maybe a bug?)
 
-    foreach ($version_dirs as $version_dir) {
+    foreach (VERSION_DIRS as $version_dir) {
         if (is_dir(ADDONFOLDER.$version_dir)) {
             if (is_file(ADDONFOLDER.$version_dir.'addons.xml')) continue;
         } else {
@@ -170,24 +170,27 @@ if (isset($c_pars['login'])) {
 
 # determine Kodi Version, select first if undetermined
 
-if (($c_pars['version'] != '') and (in_array($c_pars['version'], $version_dirs))) {
+if (($c_pars['version'] != '') and (in_array($c_pars['version'], VERSION_DIRS))) {
     $_SESSION['version'] = $c_pars['version'];
 } elseif (empty($_SESSION['version'])) {
-    $_SESSION['version'] = $version_dirs[DEFAULT_TREE]; # Krypton
+    $_SESSION['version'] = VERSION_DIRS[DEFAULT_TREE]; # Krypton
 }
 
 $i = 0;
-foreach($version_dirs as $version) {
+foreach(VERSION_DIRS as $version) {
     if ($_SESSION['version'] == $version) break;
     $i++;
 }
-$_SESSION['version_name'] = $kodiversions[$i];
+# $_SESSION['version_name'] = $kodiversions[$i];
+$_SESSION['version_name'] = KODI_NAMES[$i];
 
 # Main Controller
 
 if (isset($c_pars['c_item'])) {
     foreach($c_pars['c_item'] as $element) {
-        if ($element != '') list($c_pars['action'], $c_pars['item']) = explode('=', $element);
+        if (empty($element)) continue;
+        list($c_pars['action'], $c_pars['item']) = explode('=', $element);
+        break;
     }
 }
 
@@ -262,10 +265,10 @@ switch ($c_pars['action']) {
                 $addon = new Addon(TMPDIR.$upload, time());
                 $addon->provider = ($_SESSION['isadmin']) ? $c_pars['provider'] : $_SESSION['user'];
 
-                $addon->addon_types = $addon_types;
-                $addon->addon_category = $addon_category;
-                $addon->python = $addon_python;
-                $addon->version_dirs = $version_dirs;
+                $addon->addon_types = AD_TYPES;
+                $addon->addon_category = AD_CATEGORIES;
+                $addon->python = AD_PYTHON_VERS;
+                $addon->version_dirs = VERSION_DIRS;
 
                 if (is_file(TMPDIR.'addon.xml')) {
                     if ($addon->getAttrFromAddonXML()) {
@@ -280,13 +283,13 @@ switch ($c_pars['action']) {
                         }
 
                         elseif (empty($addon->tree)) {
-                            foreach ($version_dirs as $vdir) {
+                            foreach (VERSION_DIRS as $vdir) {
                                 if (strpos($addon->version, substr($vdir, 0, -1))) {
                                     $addon->tree = $vdir;
                                     break;
                                 }
                             }
-                            if (empty($addon->tree)) $addon->tree = $version_dirs[FALLBACK_TREE];
+                            if (empty($addon->tree)) $addon->tree = VERSION_DIRS[FALLBACK_TREE];
                             $_SESSION['notice'] .= "Der Upload wird der der Kodiversion '".ucwords(substr($addon->tree, 0, -1))."' zugeordnet. ";
                         }
                     } else {
@@ -303,6 +306,7 @@ switch ($c_pars['action']) {
                     break;
                 }
 
+                if (isset($c_pars['devtool'])) $addon->status += DEVTOOL;
                 createThumb(TMPDIR, $icon, $addon->status);
                 $addon_dir = ADDONFOLDER.$addon->tree.DATADIR.$addon->id.'/';
                 $summaries = ADDONFOLDER.$addon->tree;

@@ -10,8 +10,9 @@ include NAVIGATION;
 
 # Inhalt der View
 
-$ks = array_shift($kodiversions);
-$ke = array_pop($kodiversions);
+$kn = KODI_NAMES;
+$ks = array_shift($kn);
+$ke = array_pop($kn);
 
 $users = new User();
 ?>
@@ -33,7 +34,7 @@ $users = new User();
     <li>Die Einordnung des Addons in die passende Kodi-Version (hier Tree genannt) erfolgt über die
         <a href="https://kodi.wiki/view/Addon.xml#version_attribute_2">Versionierung der xbmc.python</a>. Ist
         das nicht möglich (z.B. bei Skins) wird das Addon der Kodi-Version
-        "<?php echo ucwords(substr($version_dirs[FALLBACK_TREE], 0, -1)); ?>" zugeordnet.</li>
+        "<?php echo ucwords(substr(VERSION_DIRS[FALLBACK_TREE], 0, -1)); ?>" zugeordnet.</li>
     <li>Der Upload von Addons, die das Konsumieren von illegal/widerrechtlich erworbenen oder bereitgestellten Content ermöglichen,
         ist nicht erlaubt. Es gelten die Verhaltensregeln der Kodinerds Community.</li>
     </ul>
@@ -51,6 +52,8 @@ $users = new User();
         <br>
     <input type="checkbox" name="overwrite" id="overwrite" value="overwrite">
     <label for="overwrite">vorhandene Version überschreiben</label><br>
+    <input type="checkbox" name="devtool" id="devtool" value="devtool">
+    <label for="devtool">Entwickler-Addon (nur für Maintainer sichtbar)</label><br>
 
     <?php
     if ($_SESSION['isadmin']) {

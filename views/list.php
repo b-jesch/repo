@@ -25,7 +25,7 @@ function compare_upload($p1, $p2) {
 $addons = array();
 $addondirs = array();
 
-foreach ($version_dirs as $version) {
+foreach (VERSION_DIRS as $version) {
     $v_dirs = scanFolder(ADDONFOLDER.$version.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
     if ($v_dirs) {
         foreach($v_dirs as $v) {
@@ -80,6 +80,7 @@ echo $header;
 echo '<table id="outer"><tr>';
 
 foreach($addons as $addon) {
+    if ($_SESSION['state'] == 0 and $addon->status & DEVTOOL) continue;
     createItemView($tc, $addon);
     $tc++;
     if ($c_pars['scope'] == 'last' and $tc >= MAX_ITEMS) break;

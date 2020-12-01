@@ -17,9 +17,13 @@ class CreateRepoXML
         $addons = scanFolder($this->repo_sources, array('.', '..'));
         $out = '<?xml version="1.0"?>' . PHP_EOL . '<addons>' . PHP_EOL;
         if ($addons) {
-            foreach ($addons as $addon) {
-                if (!is_dir($this->repo_sources.$addon)) continue;
-                $content = file($this->repo_sources . $addon . '/addon.xml', FILE_SKIP_EMPTY_LINES);
+            foreach ($addons as $addon_dir) {
+                if (!is_dir($this->repo_sources.$addon_dir)) continue;
+                $addon_zip = glob($this->repo_sources.$addon_dir.'/*'.ADDON_EXT);
+                $addon = new Addon($addon_zip[0]);
+                $addon->read();
+                if ($addon->status & DEVTOOL) continue;
+                $content = file($this->repo_sources . $addon_dir . '/addon.xml', FILE_SKIP_EMPTY_LINES);
                 $s = true;
                 foreach ($content as $line) {
                     if (substr($line, 0, 7) != '<addon ' and $s) {
@@ -29,6 +33,7 @@ class CreateRepoXML
                         $out .= '    ' . $line;
                     }
                 }
+                $out .= PHP_EOL;
             }
         }
         $out .= '</addons>' . PHP_EOL;
@@ -106,7 +111,7 @@ class Addon {
     public $author = NULL;                          # Addon-Autor
     public $downloads = NULL;                       # Anzahl Downloads aktuelle Version
     public $downloads_total = NULL;                 # Anzahl Downloads über alle Versionen im Tree
-    public $status = NULL;                          # Status des Addons (z.B. "broken")
+    public $status = 0;                             # Status des Addons (2: Devs only, 1: broken)
 
     public $addon_types = NULL;
     public $addon_category = NULL;
@@ -142,8 +147,6 @@ class Addon {
             $this->downloads_total = intval($this->downloads_total) + 1;
             $this->writeProperties();
         }
-        # ob_clean();
-        # flush();
 
         header('Content-Type: application.zip');
         header('Content-Disposition: attachment; filename="'.basename($this->file).'"');
@@ -223,7 +226,7 @@ class Addon {
             if ($ep['point'] == 'xbmc.addon.metadata') {
                 # remove BB code
                 $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
-                if ($ep->broken) $this->status = 'broken';
+                if ($ep->broken) $this->status |= BROKEN;
             }
             if (array_search($ep['point'], $this->addon_types) === false) {
                 continue;
@@ -270,9 +273,9 @@ class Addon {
             $this->upload = $xml->upload;
             $this->provider = $xml->provider;
             $this->author = $xml->author;
-            $this->status = $xml->status;
-            $this->downloads = $xml->downloads;
-            $this->downloads_total = $xml->downloads_total;
+            $this->status = intval($xml->status);
+            $this->downloads = intval($xml->downloads);
+            $this->downloads_total = intval($xml->downloads_total);
             if (empty($this->downloads_total)) $this->downloads_total = $this->downloads;
             $this->category = $xml->category;
         } else {

@@ -13,7 +13,12 @@ define('ADDON_TEMPLATE', '__addons.xml');       # Addon Template
 define('DEFAULT_ADDON_ICON', 'default.png');    # default Icon, if icon.png in addon.zip is missing
 
 define('REPOLOGO', 'css/9LWeq_c5_1920.jpg');
+
+define('BROKEN', 1);
 define('FLAG_BROKEN', 'css/broken.png');
+define('DEVTOOL', 2);
+define('FLAG_DEVTOOL', 'css/devtool.png');
+
 
 # Root/Folders of CMS
 # see also start.php in views folder
@@ -29,7 +34,7 @@ define('VIEWS', 'views/');
 
 # special actions (encrypted path) shown in hidden formular inputs
 
-$routing = array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2');
+define('ROUTE', array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2'));
 
 define('ADDONFOLDER', 'addons/');           # Rootfolder Upload
 define('DATADIR', 'zip/');                  # Addons data folder
@@ -90,27 +95,27 @@ define('LASTMODIFIED', date('y.m.d', filemtime(__FILE__)));
 
 # Arrays (Kodi specific)
 
-define('FALLBACK_TREE', 3);             # Default Tree zur Einordnung von Uploads, Jarvis (siehe Index $version_dirs)
-define('DEFAULT_TREE', 4);              # Default Tree zur Anzeige im CMS
+define('FALLBACK_TREE', 3);             # Index d. default Trees zur Einordnung von Uploads, Jarvis (siehe Index VERSION_DIRS)
+define('DEFAULT_TREE', 4);              # Index d. default Trees zur Anzeige im CMS (Krypton)
 
-$kodiversions = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
-    'Kodi 19 (Matrix)');
+define('KODI_NAMES', array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
+    'Kodi 19 (Matrix)'));
 
-$version_dirs = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/');
+define('VERSION_DIRS', array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/'));
 
-$addon_types = array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.repository', 'xbmc.service', 'xbmc.metadata.scraper.albuns',
+define('AD_TYPES', array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.repository', 'xbmc.service', 'xbmc.metadata.scraper.albuns',
     'xbmc.metadata.scraper.artists', 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
     'xbmc.metadata.scraper.library', 'xbmc.ui.screensaver', 'xbmc.player.musicviz', 'xbmc.python.pluginsource', 'xbmc.python.script',
     'xbmc.python.weather', 'xbmc.subtitle.module', 'xbmc.python.lyrics', 'xbmc.python.library', 'xbmc.python.module', 'xbmc.addon.video',
-    'xbmc.addon.audio', 'xbmc.addon.image', 'kodi.resource.images', 'kodi.source.languages');
+    'xbmc.addon.audio', 'xbmc.addon.image', 'kodi.resource.images', 'kodi.source.languages'));
 
-$addon_category = array('Skin', 'Web Interface', 'Repository', 'Service', 'Album Information',
+define('AD_CATEGORIES', array('Skin', 'Web Interface', 'Repository', 'Service', 'Album Information',
     'Artist Information', 'Movie Information', 'Music Video Information', 'TV Information',
     'Library', 'Screensaver', 'Visualization', 'Plugin', 'Script',
     'Weather', 'Subtitle Service Module', 'Lyrics', 'Python Library', 'Python Module', 'Video Addon',
-    'Music Addon', 'Image Addon', 'Image Resource', 'Language Resource');
+    'Music Addon', 'Image Addon', 'Image Resource', 'Language Resource'));
 
-$addon_python = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0');
+define('AD_PYTHON_VERS', array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0'));
 
 # Thumbnails
 
