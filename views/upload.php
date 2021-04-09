@@ -8,6 +8,14 @@ if (!defined('CONTEXT')) {
 include HEADER;
 include NAVIGATION;
 
+# functions for progress upload
+
+?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script type="text/javascript" src="<?php echo ROOT.FUNCTIONS; ?>upload_progress.js"></script>
+<?php
+
 # Inhalt der View
 
 $kn = KODI_NAMES;
@@ -68,13 +76,15 @@ $users = new User();
     }
     ?>
     <hr class="spacer">
-    <input type="submit" class="button" value="Hochladen"><br>
+    <input type="submit" class="button" name="submit_btn" id="submit_btn" value="Hochladen" onclick="upload_addon();">
+        <div class='progress' id="progress_div">
+        <div class='bar' id='bar'></div>
+        <div class='percent' id='percent'>0%</div>
+    </div>
     <input type="hidden" name="action" value="<?php echo crypt('upload_p2'); ?>" />
 
     </form>
     </div>
-
-
 <?php
 # Epilog
 include FOOTER;

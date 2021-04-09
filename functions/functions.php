@@ -192,7 +192,6 @@ function createItemView($column, $addon) {
         }
         echo '<option value="delete='.$addon->file.'">'.basename($addon->file).'</option>'.PHP_EOL;
         echo '</select>'.PHP_EOL;
-        # echo '<button form="d'.$column.'" name="c_item[]" type="submit" class="button_red" title="letzte Version löschen" value="delete='.$addon->object_id.'" onclick="return fConfirm()">löschen</button>';
     }
 
     if ($archive) {

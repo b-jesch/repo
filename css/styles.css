@@ -196,11 +196,12 @@ nav .dropdown:hover .dropdown-content {
     font-weight:normal;
     margin: 9px 5px 5px 5px;
 }
-
 .button:hover {
     background-color: #224466;
 }
-
+.button:disabled {
+    background-color: #848484;
+}
 .select {
     padding: 5px;
     margin-left: 8px;
@@ -397,4 +398,29 @@ h4, caption {
     margin: auto;
     padding: 30px;
     background-color: #F9F9F9;
+}
+.progress
+{
+    display:none;
+    float: right;
+    position:relative;
+    width:300px;
+    border: 1px solid #ddd;
+    padding: 1px;
+    border-radius: 3px;
+    margin: 10px 10px 5px 5px;
+}
+.bar
+{
+    background-color: #336699;
+    width:0;
+    height:20px;
+    border-radius: 3px;
+}
+.percent
+{
+    position:absolute;
+    display:inline-block;
+    top:3px;
+    left:48%;
 }

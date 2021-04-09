@@ -236,7 +236,7 @@ switch ($c_pars['action']) {
 
     case 'upload_p2':
         if ($_SESSION['state'] == 1) {
-            if ($c_pars['upload']['error'] == UPLOAD_ERR_NO_FILE) {
+            if ($c_pars['upload'] == '' or $c_pars['upload']['error'] == UPLOAD_ERR_NO_FILE) {
                 require VIEWS.UPLOAD;
                 break;
             }
