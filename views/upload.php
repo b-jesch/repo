@@ -12,7 +12,7 @@ include NAVIGATION;
 
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="<?php echo ROOT.FUNCTIONS; ?>jquery.form.js"></script>
 <script type="text/javascript" src="<?php echo ROOT.FUNCTIONS; ?>upload_progress.js"></script>
 <?php
 
