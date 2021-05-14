@@ -99,6 +99,10 @@ nav ul {
     background-color: #336699;
 }
 
+nav ul [color] {
+    background-color: #7d0000;
+}
+
 nav li {
     float: left;
     border-right: 1px solid white;

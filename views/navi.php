@@ -15,7 +15,7 @@
             </div>
         </li>
         <li><a href="<?php echo ROOT.CONTROLLER.'?action=list&scope=last'; ?>" title="Last uploaded Addons">last Addons</a></li>
-        <li><a href="<?php echo ROOT.ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT; ?>"
+        <li color="red"><a href="<?php echo ROOT.ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT; ?>"
                title="Download and install the '<?php echo REPONAME; ?>' Addon to receive automatic Updates of all Addons from this Repo">Download Repo Addon</a></li>
         <li><input type='search' name='item' class='search' form='s' placeholder='mind. 3 Zeichen'
                    onchange='document.s.action.value="search"; document.s.scope.value="search";'>
