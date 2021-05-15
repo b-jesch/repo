@@ -100,7 +100,7 @@ nav ul {
 }
 
 nav ul [color] {
-    background-color: #7d0000;
+    background-color: #B00000;
 }
 
 nav li {
@@ -222,11 +222,11 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .button_red {
-    background-color: red;
+    background-color: #B00000;
 }
 
 .button_red:hover {
-    background-color: #A10000;
+    background-color: #800000;
 }
 
 /* Hide arrow icon in IE browsers */
