@@ -25,9 +25,9 @@ const FLAG_DEVTOOL = 'css/devtool.png';
 #
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
-define('SCRIPT_ROOT', dirname(__FILE__));
+# define('SCRIPT_ROOT', dirname(__FILE__));
 const ROOT = 'https://repo.kodinerds.net/';
-# const ROOT = 'http://localhost/repo/';
+const ROOT = 'http://localhost/repo/';
 
 const CONTROLLER = 'index.php';
 const VIEWS = 'views/';

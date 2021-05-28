@@ -177,7 +177,7 @@ function createItemView($column, $addon) {
         echo PHP_TAB.'<tr><td>&nbsp;</td><td class="data">&nbsp;</td></tr>'.PHP_EOL;
     }
 
-    echo PHP_TAB.'<tr><td colspan="3">'.PHP_EOL;
+    echo PHP_TAB.'<tr><td colspan="3" class="button_bg">'.PHP_EOL;
 
     $archive = $addon->getArchiveFiles();
     echo '<form name="d'.$column.'" id="d'.$column.'" action="'.ROOT.CONTROLLER.'" method="post">'.PHP_EOL;

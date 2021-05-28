@@ -207,7 +207,7 @@ nav .dropdown:hover .dropdown-content {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size:12px;
     font-weight:normal;
-    margin: 10px 5px 5px 5px;
+    margin: 8px 5px 5px 5px;
 }
 .button:hover {
     background-color: #224466;
@@ -299,10 +299,18 @@ input[type='radio'] {
 }
 
 .header {
-    background-color: silver;
+    background-color: #eee;
     font-weight: bold;
     text-align: center;
     padding: 5px;
+    border-radius: 5px;
+    border-width: 0;
+}
+
+.button_bg {
+    background-color: #eee;
+    border-radius: 5px;
+    border-width: 0;
 }
 
 .desc_form {
