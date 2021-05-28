@@ -181,7 +181,7 @@ function createItemView($column, $addon) {
 
     $archive = $addon->getArchiveFiles();
     echo '<form name="d'.$column.'" id="d'.$column.'" action="'.ROOT.CONTROLLER.'" method="post">'.PHP_EOL;
-    if (!empty($addon->source)) echo "<a href='".$addon->source."' target='_blank'><img alt='View source on Github' title='View source on Github' src='".SYMBOL_GIT."' class='symbol_git'></a>";
+    if ($addon->source != "") echo "<a href='".$addon->source."' target='_blank'><img alt='View source on Github' title='View source on Github' src='".SYMBOL_GIT."' class='symbol_git'></a>";
     if ($_SESSION['state'] == 1 and $_SESSION['user'] == $addon->provider) {
         echo '<select form="d'.$column.'" name="c_item[]" class="select button_red" type="small" title="aktuelle und Archivversionen löschen" ';
         echo 'onchange="document.getElementById(\'d'.$column.'\').submit()">'.PHP_EOL;
