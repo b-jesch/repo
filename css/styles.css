@@ -94,7 +94,7 @@ body {
 .symbol_git {
     height: 32px;
     width: 32px;
-    padding: 10px;
+    padding: 6px;
     margin: 0;
     vertical-align: middle;
     float: left;
@@ -207,7 +207,7 @@ nav .dropdown:hover .dropdown-content {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size:12px;
     font-weight:normal;
-    margin: 12px 5px 5px 5px;
+    margin: 10px 5px 5px 5px;
 }
 .button:hover {
     background-color: #224466;
