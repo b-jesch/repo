@@ -91,6 +91,15 @@ body {
     vertical-align: middle;
 }
 
+.symbol_git {
+    height: 32px;
+    width: 32px;
+    padding: 10px;
+    margin: 0;
+    vertical-align: middle;
+    float: left;
+}
+
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -198,7 +207,7 @@ nav .dropdown:hover .dropdown-content {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size:12px;
     font-weight:normal;
-    margin: 9px 5px 5px 5px;
+    margin: 12px 5px 5px 5px;
 }
 .button:hover {
     background-color: #224466;

@@ -102,6 +102,7 @@ class Addon {
     public $id = NULL;                              # Addon-Id
     public $version = NULL;                         # Addon-Version
     public $summary = NULL;                         # Kurzbeschreibung
+    public $source = NULL;                          # Quell-Repository (Github)
     public $size = NULL;                            # Dateigröße ZIP
     public $meta = NULL;                            # Dateiname Metadaten
 
@@ -227,6 +228,7 @@ class Addon {
                 # remove BB code
                 $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
                 if ($ep->broken) $this->status |= BROKEN;
+                if ($ep->source and !(empty($ep->source))) $this->source = $ep->source;
             }
             if (array_search($ep['point'], $this->addon_types) === false) {
                 continue;
@@ -270,6 +272,7 @@ class Addon {
             $this->version = $xml->version;
             $this->tree = $xml->tree;
             $this->summary = $xml->summary;
+            $this->source = $xml->source;
             $this->upload = $xml->upload;
             $this->provider = $xml->provider;
             $this->author = $xml->author;
@@ -292,6 +295,7 @@ class Addon {
         $xml->addChild('category', $this->category);
         $xml->addChild('tree', $this->tree);
         $xml->addChild('summary', htmlspecialchars($this->summary));
+        $xml->addChild('source', $this->source);
         $xml->addChild('object', $this->file);
         $xml->addChild('object_id', $this->object_id);
         $xml->addChild('upload', $this->upload);

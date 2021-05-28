@@ -61,7 +61,7 @@ const FLOOD_BAN_TIME = 120;              # lock delay, after this time without p
 
 const CSS = 'css/styles.css';
 const SYMBOL_SEARCH = 'css/lupe2.svg';
-
+const SYMBOL_GIT = 'css/octicon.svg';
 # Views
 
 const DEFAULTPAGE = 'login.php';    # Bootstrap
