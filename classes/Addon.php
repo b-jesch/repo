@@ -228,7 +228,7 @@ class Addon {
                 # remove BB code
                 $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
                 if ($ep->broken) $this->status |= BROKEN;
-                if ($ep->source and !(empty($ep->source))) $this->source = $ep->source;
+                if ($ep->source and (!empty($ep->source)) and parse_url($ep->source)['host'] == GITHUB) $this->source = $ep->source;
             }
             if (array_search($ep['point'], $this->addon_types) === false) {
                 continue;

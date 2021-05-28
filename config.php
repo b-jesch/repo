@@ -25,9 +25,10 @@ const FLAG_DEVTOOL = 'css/devtool.png';
 #
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
-# define('SCRIPT_ROOT', dirname(__FILE__));
+define('SCRIPT_ROOT', dirname(__FILE__));
+
 const ROOT = 'https://repo.kodinerds.net/';
-const ROOT = 'http://localhost/repo/';
+# const ROOT = 'http://localhost/repo/';
 
 const CONTROLLER = 'index.php';
 const VIEWS = 'views/';
@@ -62,6 +63,12 @@ const FLOOD_BAN_TIME = 120;              # lock delay, after this time without p
 const CSS = 'css/styles.css';
 const SYMBOL_SEARCH = 'css/lupe2.svg';
 const SYMBOL_GIT = 'css/octicon.svg';
+
+# Misc
+
+const GITHUB = 'github.com';
+
+
 # Views
 
 const DEFAULTPAGE = 'login.php';    # Bootstrap
