@@ -6,7 +6,8 @@ if (!defined('CONTEXT')) {
     exit();
 }
 
-header("HTTP/1.0 404 Not Found", true, 404);
+if ($errcode == 404) header("HTTP/1.0 404 Not Found", true, $errcode);
+if ($errcode == 403) header("HTTP/1.0 403 Forbidden", true, $errcode);
 
 include HEADER;
 include NAVIGATION;

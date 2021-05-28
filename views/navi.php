@@ -19,7 +19,7 @@
                title="Download and install the '<?php echo REPONAME; ?>' Addon to receive automatic Updates of all Addons from this Repo">Download Repo Addon</a></li>
         <li><input type='search' name='item' class='search' form='s' placeholder='mind. 3 Zeichen'
                    onchange='document.s.action.value="search"; document.s.scope.value="search";'>
-            <img alt='Search for an Addon' src='<?php echo SYMBOL_SEARCH; ?>' title='Search for an Addon'
+            <img alt='Search for an Addon' src='<?php echo ROOT.SYMBOL_SEARCH; ?>' title='Search for an Addon'
                    class='symbol' onclick='document.s.action.value="search"; document.s.scope.value="search"; document.s.submit();'>
         </li>
         <?php

@@ -527,11 +527,13 @@ switch ($c_pars['action']) {
 
     case '404':
         $errmsg = "Die angeforderte Ressource existiert nicht!";
+        $errcode = 404;
         require VIEWS.ERRORPAGE;
         break;
 
     case '403':
         $errmsg = "Der Zugriff auf die angeforderte Ressource ist nicht erlaubt!";
+        $errcode = 403;
         require VIEWS.ERRORPAGE;
         break;
 
