@@ -180,10 +180,9 @@ nav .dropdown:hover .dropdown-content {
     display: table;
     width: 98%;
     padding: 5px 1%;
-    background-color: #A11625;
     font-weight: bold;
     margin-bottom: 10px;
-    color: white;
+    border: red solid 3px;
 }
 .alertbox_text {
     display: table-cell;
