@@ -22,6 +22,10 @@ function compare_upload($p1, $p2) {
     return strcmp($d2->getTimestamp(), $d1->getTimestamp());
 }
 
+function compare_category($p1, $p2) {
+    return strcmp($p1->category, $p2->category);
+}
+
 $addons = array();
 $addondirs = array();
 
@@ -51,6 +55,11 @@ foreach ($addondirs as $addondir) {
                     if ($c_pars['item'] != $addon->provider) continue;
                     $addons[] = $addon;
                     break;
+                case 'cat':
+                    $header = '<h3>Alle Addons der Kategorie "'.$c_pars['item'].'"</h3>';
+                    if ($c_pars['item'] != substr($addon->category, 0, strlen($c_pars['item']))) continue;
+                    $addons[] = $addon;
+                    break;
                 case 'search':
                     $header = '<h3>Alle Addons in allen Versionen, die "'.$c_pars['item'].'" enthalten</h3>';
                     if (!stristr($addon->name, $c_pars['item'])) continue;
@@ -71,10 +80,14 @@ foreach ($addondirs as $addondir) {
 
 if ($c_pars['scope'] == 'last') {
     usort($addons, 'compare_upload');
-} else {
+} elseif ($c_pars['scope'] == 'all') {
     usort($addons, 'compare_tree');
     usort($addons, 'compare_names');
+} elseif ($c_pars['scope'] == 'cat') {
+    usort($addons, 'compare_category');
+    usort($addons, 'compare_names');
 }
+
 $tc = 0;
 echo $header;
 echo '<table id="outer"><tr>';

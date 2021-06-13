@@ -14,6 +14,18 @@
                 ?>
             </div>
         </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">by Category</a>
+            <div class="dropdown-content">
+                <?php
+                $i = 0;
+                foreach (AD_CATEGORIES as $category) {
+                    echo "<a href='".ROOT.CONTROLLER.'?action=list&scope=cat&item='.AD_CATEGORIES[$i]."'>".$category."</a>".PHP_EOL;
+                    $i++;
+                }
+                ?>
+            </div>
+        </li>
         <li><a href="<?php echo ROOT.CONTROLLER.'?action=list&scope=last'; ?>" title="Last uploaded Addons">last Addons</a></li>
         <li color="red"><a href="<?php echo ROOT.ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT; ?>"
                title="Download and install the '<?php echo REPONAME; ?>' Addon to receive automatic Updates of all Addons from this Repo">Download Repo Addon</a></li>

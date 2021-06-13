@@ -27,8 +27,8 @@ const FLAG_DEVTOOL = 'css/devtool.png';
 
 define('SCRIPT_ROOT', dirname(__FILE__));
 
-const ROOT = 'https://repo.kodinerds.net/';
-# const ROOT = 'http://localhost/repo/';
+# const ROOT = 'https://repo.kodinerds.net/';
+const ROOT = 'http://localhost/repo/';
 
 const CONTROLLER = 'index.php';
 const VIEWS = 'views/';
@@ -129,6 +129,6 @@ const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '
 const TBN_X = 130;                  # Breite
 const TBN_Y = 130;                  # Höhe
 const CPR = 3;                      # Cells per Row
-const MAX_ITEMS = 15;               # max Items in List/Last Views
+const MAX_ITEMS = 18;               # max Items in List/Last Views
 define ('PHP_TAB', chr(9));
 ?>
