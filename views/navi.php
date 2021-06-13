@@ -15,7 +15,7 @@
             </div>
         </li>
         <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">by Category</a>
+            <a href="javascript:void(0)" class="dropbtn">Category</a>
             <div class="dropdown-content">
                 <?php
                 $i = 0;
@@ -49,7 +49,7 @@
                     echo "</div></li>";
 
                 } else {
-                    echo "<li><a href=\"".ROOT.CONTROLLER.'?action=list&scope=user&item='.$_SESSION['user']."\" title='My Addons'>Meine Addons</a></li>".PHP_EOL;
+                    echo "<li><a href=\"".ROOT.CONTROLLER.'?action=list&scope=user&item='.$_SESSION['user']."\" title='My Addons'>My Addons</a></li>".PHP_EOL;
                 }
                 echo "<li><a href=\"".ROOT.CONTROLLER.'?action=upload'."\" title='Addon Upload'>Upload</a></li>".PHP_EOL;
                 echo "<li><a href=\"".ROOT.CONTROLLER.'?action=setup'."\" title='My settings and contact data'>Setup</a></li>".PHP_EOL;
