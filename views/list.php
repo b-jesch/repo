@@ -48,7 +48,7 @@ foreach ($addondirs as $addondir) {
                     break;
                 case 'cat':
                     $header = '<h3>Alle Addons der Kategorie "'.$c_pars['item'].'"</h3>';
-                    if ($c_pars['item'] != substr($addon->category, 0, strlen($c_pars['item']))) continue;
+                    if ($c_pars['item'] != $addon->category) continue;
                     $addons[] = $addon;
                     break;
                 case 'search':
