@@ -127,8 +127,9 @@ function createPropertyList($property) {
             }
         }
     }
-    $propertylist = array_unique($plist);
-    return $propertylist;
+    $pl = array_unique($plist);
+    sort($pl, SORT_STRING);
+    return $pl;
 }
 
 function getAllAddonDirs() {
