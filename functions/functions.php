@@ -114,6 +114,36 @@ function unpackZip($zipfile) {
     return false;
 }
 
+function createPropertyList($property) {
+    $addondirs = getAllAddonDirs();
+    $plist = array();
+    foreach ($addondirs as $addondir) {
+        if (is_dir($addondir)) {
+            $meta = glob($addondir . '/*.zip');
+            foreach ($meta as $item) {
+                $addon = new Addon($item);
+                $addon->read();
+                $plist[] = $addon->$property;
+            }
+        }
+    }
+    $propertylist = array_unique($plist);
+    return $propertylist;
+}
+
+function getAllAddonDirs() {
+    $addondirs = array();
+    foreach (VERSION_DIRS as $version) {
+        $v_dirs = scanFolder(ADDONFOLDER.$version.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
+        if ($v_dirs) {
+            foreach($v_dirs as $v) {
+                if (is_dir(ADDONFOLDER.$version.DATADIR.$v)) $addondirs[] = ADDONFOLDER.$version.DATADIR.$v;
+            }
+        }
+    }
+    return $addondirs;
+}
+
 function createThumb($storage_path, $source, $status) {
     if (is_file($source)) {
         $image = getimagesize($source);

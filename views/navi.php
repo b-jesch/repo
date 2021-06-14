@@ -15,13 +15,12 @@
             </div>
         </li>
         <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Category</a>
+            <a href="javascript:void(0)" class="dropbtn">by Category</a>
             <div class="dropdown-content">
                 <?php
-                $i = 0;
-                foreach (AD_CATEGORIES as $category) {
-                    echo "<a href='".ROOT.CONTROLLER.'?action=list&scope=cat&item='.AD_CATEGORIES[$i]."'>".$category."</a>".PHP_EOL;
-                    $i++;
+                $categories = createPropertyList('category');
+                foreach ($categories as $category) {
+                    echo "<a href='".ROOT.CONTROLLER.'?action=list&scope=cat&item='.$category."'>".$category."</a>".PHP_EOL;
                 }
                 ?>
             </div>

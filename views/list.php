@@ -27,16 +27,7 @@ function compare_category($p1, $p2) {
 }
 
 $addons = array();
-$addondirs = array();
-
-foreach (VERSION_DIRS as $version) {
-    $v_dirs = scanFolder(ADDONFOLDER.$version.DATADIR, array('.', '..', 'addons.xml', 'addons.xml.md5'));
-    if ($v_dirs) {
-        foreach($v_dirs as $v) {
-            if (is_dir(ADDONFOLDER.$version.DATADIR.$v)) $addondirs[] = ADDONFOLDER.$version.DATADIR.$v;
-        }
-    }
-}
+$addondirs = getAllAddonDirs();
 
 foreach ($addondirs as $addondir) {
     if (is_dir($addondir)) {
