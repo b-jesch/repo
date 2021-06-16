@@ -92,12 +92,15 @@ body {
 }
 
 .symbol_git {
-    height: 25px;
-    width: 25px;
+    height: 28px;
+    width: 28px;
     padding: 6px;
     margin: 0;
     vertical-align: middle;
     float: left;
+}
+.symbol_git:hover {
+    content: url('octicon_hover.svg');
 }
 
 nav ul {
