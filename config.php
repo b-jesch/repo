@@ -114,13 +114,13 @@ const AD_TYPES = array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.reposit
     'xbmc.metadata.scraper.artists', 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
     'xbmc.metadata.scraper.library', 'xbmc.ui.screensaver', 'xbmc.player.musicviz', 'xbmc.python.pluginsource', 'xbmc.python.script',
     'xbmc.python.weather', 'xbmc.subtitle.module', 'xbmc.python.lyrics', 'xbmc.python.library', 'xbmc.python.module', 'xbmc.addon.video',
-    'xbmc.addon.audio', 'xbmc.addon.image', 'kodi.resource.images', 'kodi.source.languages');
+    'xbmc.addon.audio', 'xbmc.addon.image', 'kodi.resource.images', 'kodi.resource.language', 'kodi.resource.uisounds');
 
 const AD_CATEGORIES = array('Skin', 'Web Interface', 'Repository', 'Service', 'Album Information',
     'Artist Information', 'Movie Information', 'Music Video Information', 'TV Information',
     'Library', 'Screensaver', 'Visualization', 'Plugin', 'Script',
     'Weather', 'Subtitle Service Module', 'Lyrics', 'Python Library', 'Python Module', 'Video Addon',
-    'Music Addon', 'Image Addon', 'Image Resource', 'Language Resource');
+    'Music Addon', 'Image Addon', 'Image Resource', 'Language Resource', 'Sound Resource');
 
 const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0');
 
