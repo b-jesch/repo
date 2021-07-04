@@ -368,7 +368,8 @@ switch ($c_pars['action']) {
                                 unlink($c_addon->file);
                                 unlink($c_addon->meta);
                             } else {
-                                $_SESSION['notice'] = "Die Option 'vorhandene Version überschreiben' ist nicht gesetzt oder der ";
+                                $_SESSION['notice'] = "Das hochgeladene Addon hat die gleiche Versionsnummer wie das aktuelle Addon, ";
+                                $_SESSION['notice'] .= "jedoch ist die Option 'vorhandene Version überschreiben' nicht gesetzt oder der ";
                                 $_SESSION['notice'] .= "angemeldete Nutzer ist nicht der Maintainer des Addons. ";
                                 unlink(TMPDIR.LOCKFILE);
                                 require VIEWS.UPLOAD;

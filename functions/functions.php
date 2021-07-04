@@ -193,7 +193,7 @@ function createItemView($column, $addon) {
     echo PHP_EOL.'<td class="item">' .PHP_EOL;
     echo PHP_TAB.'<table class="inner">'.PHP_EOL;
     echo PHP_TAB.'<tr><td class="header" colspan="3">'.$addon->name.' - '.convertHRV($addon->size).'</td></tr>'.PHP_EOL;
-    echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img src="'.$addon->thumb.'" title="'.$addon->summary.'" width="'.TBN_X.'" height="'.TBN_Y.'"></td>';
+    echo PHP_TAB.'<tr><td rowspan="8" class="tbn_inner"><img class="thumb" src="'.$addon->thumb.'" title="'.$addon->summary.'" width="'.TBN_X.'" height="'.TBN_Y.'"></td>';
     echo PHP_TAB.'<tr><td>Kategorie:</td><td class="data">'.$addon->category.'</td></tr>'.PHP_EOL;
     echo PHP_TAB.'<tr><td>Addon ID:</td><td class="data">'.$addon->id.'</td></tr>'.PHP_EOL;
     echo PHP_TAB.'<tr><td>Version:</td><td class="data">'.$addon->version.' ('.ucwords(substr($addon->tree, 0, -1)).')</td></tr>'.PHP_EOL;
