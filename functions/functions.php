@@ -40,13 +40,24 @@ function passwdGen() {
     return $base;
 }
 
-function delTree($dir) {
-    $files = array_diff(scandir($dir), array('.', '..'));
-    foreach ($files as $file) {
-        (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+function delTree($dir, $prefix='') {
+
+    function delContent($dir) {
+        $files = array_diff(scandir($dir), array('.', '..'));
+        foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? delContent("$dir/$file") : unlink("$dir/$file");
+        }
+        return rmdir($dir);
     }
-    return rmdir($dir);
+
+    $cdir = getcwd();
+    if (!empty($prefix) and is_dir($prefix)) {
+        chdir($prefix);
+    }
+    delContent($dir);
+    chdir($cdir);
 }
+
 
 # Function calculating numeric version numbers from version strings
 # assume that version is not above 999.999.999 eg myaddon-999.999.999.zip

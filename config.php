@@ -1,7 +1,8 @@
 <?php
-# Configuration File Repo saXBMC
+# Configuration File Repo Nerdsrepo
 
 const DEBUG = false;
+const MAINTENANCE = false;
 
 const REPONAME = 'Kodinerds Addon Repo';
 const REPO_ID = 'repository.kodinerds';
@@ -106,9 +107,9 @@ const FALLBACK_TREE = 3;             # Index d. default Trees zur Einordnung von
 const DEFAULT_TREE = 4;              # Index d. default Trees zur Anzeige im CMS (Krypton)
 
 const KODI_NAMES = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
-    'Kodi 19 (Matrix)');
+    'Kodi 19 (Matrix)', 'Kodi 20 (Nexus)');
 
-const VERSION_DIRS = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/');
+const VERSION_DIRS = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/', 'nexus/');
 
 const AD_TYPES = array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.repository', 'xbmc.service', 'xbmc.metadata.scraper.albuns',
     'xbmc.metadata.scraper.artists', 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
@@ -122,7 +123,7 @@ const AD_CATEGORIES = array('Skin', 'Web Interface', 'Repository', 'Service', 'A
     'Weather', 'Subtitle Service Module', 'Lyrics', 'Python Library', 'Python Module', 'Video Addon',
     'Music Addon', 'Image Addon', 'Font Resource', 'Image Resource', 'Language Resource', 'Sound Resource');
 
-const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0');
+const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0', '3.0.1');
 
 # Thumbnails
 

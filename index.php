@@ -1,13 +1,13 @@
 <?php
 
-# ob_start();
-
 require ('config.php');
 require (FUNCTIONS.'functions.php');
 require (CLASSES.'Addon.php');
 
 $c_pars = array_merge($_POST, $_GET, $_FILES);
 debug($c_pars);
+
+if (MAINTENANCE) $c_pars['action'] = '503';
 
 # Handle direct Downloads
 
@@ -146,8 +146,6 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
     }
 }
 
-if (is_dir(TMPDIR) and (!is_file(LOCKFILE))) delTree(TMPDIR);
-
 # :::END OF BOOTSTRAP:::
 
 if (isset($c_pars['login'])) {
@@ -238,31 +236,31 @@ switch ($c_pars['action']) {
         if ($_SESSION['state'] == 1) {
             if ($c_pars['upload'] == '' or $c_pars['upload']['error'] == UPLOAD_ERR_NO_FILE) {
                 require VIEWS.UPLOAD;
-                break;
+                exit();
             }
             if ($c_pars['upload']['error'] == UPLOAD_ERR_OK) {
 
                 # :::PREREQUISITES:::
 
                 $upload = $c_pars['upload']['name'];
-                mkdir(TMPDIR, 0755, true);
-                touch(TMPDIR.LOCKFILE);
+                $rnddir = rand(1000, 9999).'/';
+                mkdir(TMPDIR . $rnddir, 0755, true);
 
                 # move and unpacking upload to TMPDIR, copy default icon to TMPDIR
 
-                move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR.$upload);
+                move_uploaded_file($c_pars['upload']['tmp_name'], TMPDIR.$rnddir.$upload);
 
-                $icon = unpackZip(TMPDIR.$upload);
+                $icon = unpackZip(TMPDIR.$rnddir.$upload);
                 if (!$icon) {
                     $_SESSION['notice'] .= 'Die Zip-Datei ist defekt und konnte nicht geöffnet werden! Der Upload wird verworfen. ';
-                    unlink(TMPDIR.LOCKFILE);
+                    delTree($rnddir, TMPDIR);
                     require VIEWS.UPLOAD;
-                    break;
+                    exit();
                 }
 
                 # create addon object and thumbnail
 
-                $addon = new Addon(TMPDIR.$upload, time());
+                $addon = new Addon(TMPDIR.$rnddir.$upload, time());
                 $addon->provider = ($_SESSION['isadmin']) ? $c_pars['provider'] : $_SESSION['user'];
 
                 $addon->addon_types = AD_TYPES;
@@ -270,14 +268,14 @@ switch ($c_pars['action']) {
                 $addon->python = AD_PYTHON_VERS;
                 $addon->version_dirs = VERSION_DIRS;
 
-                if (is_file(TMPDIR.'addon.xml')) {
+                if (is_file(TMPDIR.$rnddir.'addon.xml')) {
                     if ($addon->getAttrFromAddonXML()) {
                         # missing xbmc.python attribute in addon.xml, search for tree in addon name, else
                         # assign to FALLBACK_TREE anywhere
 
                         if ($addon->tree === false) {
                             $_SESSION['notice'] .= "Die Version des Moduls 'xbmc.python' kann keiner Kodiversion zugeordnet werden. Der Upload wird verworfen. ";
-                            unlink(TMPDIR.LOCKFILE);
+                            delTree($rnddir, TMPDIR);
                             require VIEWS.UPLOAD;
                             break;
                         }
@@ -294,27 +292,27 @@ switch ($c_pars['action']) {
                         }
                     } else {
                         $_SESSION['notice'] .= "Die 'addon.xml im hochgeladenen ZIP ist defekt. Der Upload wird verworfen. ";
-                        unlink(TMPDIR.LOCKFILE);
+                        delTree($rnddir, TMPDIR);
                         require VIEWS.UPLOAD;
-                        break;
+                        exit();
                     }
 
                 } else {
                     $_SESSION['notice'] .= "Im hochgeladenen ZIP befindet sich keine 'addon.xml'. Der Upload wird verworfen. ";
-                    unlink(TMPDIR.LOCKFILE);
+                    delTree($rnddir, TMPDIR);
                     require VIEWS.UPLOAD;
-                    break;
+                    exit();
                 }
 
                 if (isset($c_pars['devtool'])) $addon->status += DEVTOOL;
-                createThumb(TMPDIR, $icon, $addon->status);
+                createThumb(TMPDIR.$rnddir, $icon, $addon->status);
                 $addon_dir = ADDONFOLDER.$addon->tree.DATADIR.$addon->id.'/';
                 $summaries = ADDONFOLDER.$addon->tree;
 
                 # (Re)name upload properly to addonId-addonVersion.zip
 
                 if ($upload != $addon->id.'-'.$addon->version.ADDON_EXT) {
-                    rename(TMPDIR.$upload, TMPDIR.$addon->id.'-'.$addon->version.ADDON_EXT);
+                    rename(TMPDIR.$rnddir.$upload, TMPDIR.$rnddir.$addon->id.'-'.$addon->version.ADDON_EXT);
                     $upload = $addon->id.'-'.$addon->version.ADDON_EXT;
                     $_SESSION['notice'] .= "Die hochgeladene Datei entspricht nicht den Namensregeln für Kodi Addons und wurde in '$upload' umbenannt. ";
                 }
@@ -329,9 +327,9 @@ switch ($c_pars['action']) {
                     $addon->file = $addon_dir.$upload;
                     $addon->create();
 
-                    $files = scanFolder(TMPDIR, array('.', '..', LOCKFILE, $addon->id));
+                    $files = scanFolder(TMPDIR.$rnddir, array('.', '..', $addon->id));
                     foreach ($files as $file) {
-                        if (is_file(TMPDIR.$file)) rename(TMPDIR.$file, $addon_dir.basename($file));
+                        if (is_file(TMPDIR.$rnddir.$file)) rename(TMPDIR.$rnddir.$file, $addon_dir.basename($file));
                     }
 
                 } elseif (scanFolder($addon_dir, array('.', '..', 'archive'))) {
@@ -350,7 +348,7 @@ switch ($c_pars['action']) {
 
                         } elseif (calculateNumVersion($c_addon->version) > calculateNumVersion($addon->version)) {
                             $_SESSION['notice'] .= 'Ein Überschreiben vorhandener Addons mit älteren Addon-Versionen ist nicht zulässig! ';
-                            unlink(TMPDIR.LOCKFILE);
+                            delTree($rnddir, TMPDIR);
                             require VIEWS.UPLOAD;
                             exit();
 
@@ -371,7 +369,7 @@ switch ($c_pars['action']) {
                                 $_SESSION['notice'] = "Das hochgeladene Addon hat die gleiche Versionsnummer wie das aktuelle Addon, ";
                                 $_SESSION['notice'] .= "jedoch ist die Option 'vorhandene Version überschreiben' nicht gesetzt oder der ";
                                 $_SESSION['notice'] .= "angemeldete Nutzer ist nicht der Maintainer des Addons. ";
-                                unlink(TMPDIR.LOCKFILE);
+                                delTree($rnddir, TMPDIR);
                                 require VIEWS.UPLOAD;
                                 exit();
                             }
@@ -394,19 +392,19 @@ switch ($c_pars['action']) {
 
                     # move uploaded addon to destination
 
-                    $files = scanFolder(TMPDIR, array('.', '..', LOCKFILE, $addon->id));
+                    $files = scanFolder(TMPDIR.$rnddir, array('.', '..', $addon->id));
                     foreach ($files as $file) {
-                        if (is_file(TMPDIR.$file)) rename(TMPDIR.$file, $addon_dir.basename($file));
+                        if (is_file(TMPDIR.$rnddir.$file)) rename(TMPDIR.$rnddir.$file, $addon_dir.basename($file));
                     }
-                    unlink(TMPDIR.LOCKFILE);
                 }
-            $repo = new CreateRepoXML(ADDONFOLDER.$addon->tree, DATADIR);
-            $repo->createRepoXML();
-            $repo->createMD5();
+                delTree($rnddir, TMPDIR);
+                $repo = new CreateRepoXML(ADDONFOLDER.$addon->tree, DATADIR);
+                $repo->createRepoXML();
+                $repo->createMD5();
 
-            $_SESSION['version'] = $addon->tree;
-            header('Location: '.ROOT.CONTROLLER.'?action=list&scope=user&item='.$_SESSION['user']);
-            exit();
+                $_SESSION['version'] = $addon->tree;
+                header('Location: '.ROOT.CONTROLLER.'?action=list&scope=user&item='.$_SESSION['user']);
+                exit();
             }
         }
         require VIEWS.LISTVIEW;
@@ -535,6 +533,12 @@ switch ($c_pars['action']) {
     case '403':
         $errmsg = "Der Zugriff auf die angeforderte Ressource ist nicht erlaubt!";
         $errcode = 403;
+        require VIEWS.ERRORPAGE;
+        break;
+
+    case '503':
+        $errmsg = "Der Dienst ist aufgrund von Wartungsarbeiten momentan nicht verfügbar.";
+        $errcode = 503;
         require VIEWS.ERRORPAGE;
         break;
 
