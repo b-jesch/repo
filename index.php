@@ -179,7 +179,6 @@ foreach(VERSION_DIRS as $version) {
     if ($_SESSION['version'] == $version) break;
     $i++;
 }
-# $_SESSION['version_name'] = $kodiversions[$i];
 $_SESSION['version_name'] = KODI_NAMES[$i];
 
 # Main Controller
@@ -282,7 +281,7 @@ switch ($c_pars['action']) {
 
                         elseif (empty($addon->tree)) {
                             foreach (VERSION_DIRS as $vdir) {
-                                if (strpos($addon->version, substr($vdir, 0, -1))) {
+                                if (strpos(strtolower($addon->version), substr($vdir, 0, -1))) {
                                     $addon->tree = $vdir;
                                     break;
                                 }
@@ -309,12 +308,12 @@ switch ($c_pars['action']) {
                 $addon_dir = ADDONFOLDER.$addon->tree.DATADIR.$addon->id.'/';
                 $summaries = ADDONFOLDER.$addon->tree;
 
-                # (Re)name upload properly to addonId-addonVersion.zip
+                # (Re)name upload properly to addonId-addonVersion.extension
 
-                if ($upload != $addon->id.'-'.$addon->version.ADDON_EXT) {
-                    rename(TMPDIR.$rnddir.$upload, TMPDIR.$rnddir.$addon->id.'-'.$addon->version.ADDON_EXT);
-                    $upload = $addon->id.'-'.$addon->version.ADDON_EXT;
-                    $_SESSION['notice'] .= "Die hochgeladene Datei entspricht nicht den Namensregeln für Kodi Addons und wurde in '$upload' umbenannt. ";
+                if ($upload != $addon->id.'-'.$addon->version.$addon->extension) {
+                    rename(TMPDIR.$rnddir.$upload, TMPDIR.$rnddir.$addon->id.'-'.$addon->version.$addon->extension);
+                    $upload = $addon->id.'-'.$addon->version.$addon->extension;
+                    $_SESSION['notice'] .= "Der Name der hochgeladene Datei entspricht nicht den Namenskonventionen und wurde in '$upload' umbenannt. ";
                 }
 
                 # :::END PREREQUISITES:::
@@ -337,7 +336,7 @@ switch ($c_pars['action']) {
                     # existing addon files, check overwrite option and user permissions
                     # get info from current addon objects
 
-                    $files = glob($addon_dir.$addon->id.'*.zip');
+                    $files = glob($addon_dir.$addon->id.'*'.$addon->extension);
                     foreach ($files as $c_file) {
                         $c_addon = new Addon($c_file);
                         $c_addon->read();
@@ -395,6 +394,15 @@ switch ($c_pars['action']) {
                     $files = scanFolder(TMPDIR.$rnddir, array('.', '..', $addon->id));
                     foreach ($files as $file) {
                         if (is_file(TMPDIR.$rnddir.$file)) rename(TMPDIR.$rnddir.$file, $addon_dir.basename($file));
+                    }
+
+                    # limit count of archive files to ARCHIVE_MAX_COUNT
+
+                    $archive_files = $addon->getArchiveFiles();
+                    for ($i = 0;  $i < count($archive_files) - ARCHIVE_MAX_COUNT; $i++) {
+                        $d_addon = new Addon($archive_files[$i]);
+                        $d_addon->read();
+                        $d_addon->delete();
                     }
                 }
                 delTree($rnddir, TMPDIR);

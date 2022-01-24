@@ -131,6 +131,7 @@ class Addon {
         $this->downloads_total = 0;
         $this->category = 'Unknown';
         $this->thumb = pathinfo($file, PATHINFO_DIRNAME).'/icon.tbn';
+        $this->extension = '.'.pathinfo($file, PATHINFO_EXTENSION);
     }
 
     public function create() {
@@ -209,7 +210,7 @@ class Addon {
         $archive_content = scanFolder($path.ARCHIVE, array('.', '..'));
         if (!$archive_content) return false;
         foreach ($archive_content as $file) {
-            if (pathinfo($file, PATHINFO_EXTENSION) != 'zip') continue;
+            if (pathinfo($file, PATHINFO_EXTENSION) != 'zip' and pathinfo($file, PATHINFO_EXTENSION) != 'apk') continue;
             $archive[] = $path.ARCHIVE.$file;
         }
         return $archive;
@@ -236,6 +237,7 @@ class Addon {
                 if ($this->category == 'Unknown') {
                     $this->category = $this->addon_category[array_search($ep['point'], $this->addon_types)];
                     if (!empty($ep->provides)) $this->category .= ' ('.ucwords($ep->provides).')';
+                    if (!empty($ep['version'])) $this->category .= ' ('.$ep['version'].')';
                 }
             }
         }
@@ -264,6 +266,7 @@ class Addon {
     }
 
     private function readProperties() {
+        if (!file_exists($this->meta)) return false;
         $xml = simplexml_load_string(file_get_contents($this->meta));
         if ($xml) {
             $this->object_id = $xml->object_id;

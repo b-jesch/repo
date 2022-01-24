@@ -54,7 +54,7 @@ $users = new User();
 
 
         <input type="text" class="textfield_form" name="upload_info">
-        <input type="file" name="upload" id="upload" class="fileupload" accept="application/zip"
+        <input type="file" name="upload" id="upload" class="fileupload" accept="application/zip, application/vnd.android.package-archive"
                onchange="window.u.upload_info.value = this.value.replace('C:\\fakepath\\', '');">
         <label for="upload" class="button" >Addon auswählen</label>
         <br>

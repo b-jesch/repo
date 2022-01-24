@@ -130,7 +130,7 @@ function createPropertyList($property) {
     $plist = array();
     foreach ($addondirs as $addondir) {
         if (is_dir($addondir)) {
-            $meta = glob($addondir . '/*.zip');
+            $meta = array_merge(glob($addondir . '/*.zip'), glob($addondir . '/*.apk'));
             foreach ($meta as $item) {
                 $addon = new Addon($item);
                 $addon->read();
