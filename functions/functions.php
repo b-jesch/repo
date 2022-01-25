@@ -118,10 +118,14 @@ function unpackZip($zipfile) {
         }
         $zip->close();
 
-        $icon = $path.'icon.png';
-        if (is_file($path.'icon.jpg')) $icon = $path.'icon.jpg';
-        elseif (!is_file($path.'icon.png')) {
-            copy(ADDONFOLDER.REPO_TEMPLATES.DEFAULT_ADDON_ICON, $path.'icon.png');
+        $icon = $path . 'icon.png';
+        if (pathinfo($zipfile, PATHINFO_EXTENSION) == 'apk') {
+            copy(ADDONFOLDER.REPO_TEMPLATES.DEFAULT_APK_ICON, $path.'icon.png');
+        } else {
+            if (is_file($path . 'icon.jpg')) $icon = $path . 'icon.jpg';
+            elseif (!is_file($path . 'icon.png')) {
+                copy(ADDONFOLDER . REPO_TEMPLATES . DEFAULT_ADDON_ICON, $path . 'icon.png');
+            }
         }
         return $icon;
     }
