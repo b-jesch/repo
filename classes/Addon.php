@@ -203,16 +203,20 @@ class Addon {
         }
     }
 
-    # used from function.php - do not delete!
+    # simply sort by upload date
+    private static function sort_by_date($p1, $p2) {
+        return strcmp(filemtime($p1), filemtime($p2));
+    }
 
     public function getArchiveFiles() {
         $path = pathinfo($this->file, PATHINFO_DIRNAME).'/';
         $archive_content = scanFolder($path.ARCHIVE, array('.', '..'));
-        if (!$archive_content) return false;
+        if (!$archive_content) return [];
         foreach ($archive_content as $file) {
             if (pathinfo($file, PATHINFO_EXTENSION) != 'zip' and pathinfo($file, PATHINFO_EXTENSION) != 'apk') continue;
             $archive[] = $path.ARCHIVE.$file;
         }
+        usort($archive, array('Addon', 'sort_by_date'));
         return $archive;
     }
 

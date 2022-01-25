@@ -107,11 +107,14 @@ function unpackZip($zipfile) {
     $zip->open($path.$zipfile);
 
     if ($zip->status == ZipArchive::ER_OK) {
+        $files = array('addon.xml', 'fanart.jpg', 'icon.png', 'icon.jpg', 'changelog.txt');
         for ($i = 0; $i < $zip->numFiles; $i++) {
-            if (in_array(basename($zip->statIndex($i)['name']), array('addon.xml', 'fanart.jpg', 'icon.png', 'icon.jpg', 'changelog.txt'))) {
-                $zip->extractTo($path, $zip->statIndex($i)['name']);
-                rename($path.$zip->statIndex($i)['name'], $path.basename($zip->statIndex($i)['name']));
-            }
+            $index = array_search(basename($zip->statIndex($i)['name']), $files);
+            if ($index === false) continue;
+
+            $zip->extractTo($path, $zip->statIndex($i)['name']);
+            rename($path.$zip->statIndex($i)['name'], $path.basename($zip->statIndex($i)['name']));
+            unset($files[$index]);
         }
         $zip->close();
 

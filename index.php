@@ -399,7 +399,7 @@ switch ($c_pars['action']) {
                     # limit count of archive files to ARCHIVE_MAX_COUNT
 
                     $archive_files = $addon->getArchiveFiles();
-                    for ($i = 0;  $i < count($archive_files) - ARCHIVE_MAX_COUNT; $i++) {
+                    for ($i = 0;  $i <= count($archive_files) - ARCHIVE_MAX_COUNT; $i++) {
                         $d_addon = new Addon($archive_files[$i]);
                         $d_addon->read();
                         $d_addon->delete();
