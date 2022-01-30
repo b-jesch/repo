@@ -104,7 +104,7 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
 
     mkdir(ADDONFOLDER.REPO_ID, 0755, true);
 
-    $files = scanFolder(ADDONFOLDER.REPO_TEMPLATES, array('.', '..', ADDON_TEMPLATE, DEFAULT_ADDON_ICON));
+    $files = scanFolder(ADDONFOLDER.REPO_TEMPLATES, array('.', '..', ADDON_TEMPLATE, DEFAULT_ADDON_ICON, DEFAULT_APK_ICON));
     foreach($files as $file) copy(ADDONFOLDER.REPO_TEMPLATES.$file, ADDONFOLDER.REPO_ID.'/'.$file);
     $repo =new CreateRepoXML(ADDONFOLDER.REPO_TEMPLATES, ADDON_TEMPLATE);
     $repo->createAddonXML(ADDONFOLDER.REPO_ID.'/addon.xml');
@@ -125,6 +125,7 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
 
     # copy to webdav
 
+    mkdir(WEBDAV, 0755);
     copy(ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT, WEBDAV.REPO_ID.'-'.REPOVERSION.ADDON_EXT);
 
     $master = new CreateRepoXML(ADDONFOLDER, REPO_ID.'/');
