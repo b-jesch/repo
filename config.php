@@ -6,7 +6,7 @@ const MAINTENANCE = false;
 
 const REPONAME = 'Kodinerds Addon Repo';
 const REPO_ID = 'repository.kodinerds';
-const REPOVERSION = '7.0.1.1';
+const REPOVERSION = '7.0.1.2';
 const PROVIDER = 'Kodinerds';
 
 const REPO_TEMPLATES = '__repo_templates/';  # Template Files

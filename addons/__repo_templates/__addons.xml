@@ -10,13 +10,13 @@
             <datadir zip="true">$root/addons</datadir>
             <hashes>false</hashes>
         </dir>
-        <dir minversion="19.9.9" maxversion="20.9.0">
+        <dir minversion="19.9.9">
             <info compressed="true">$root/addons/nexus/addons.xml</info>
             <checksum>$root/addons/nexus/addons.xml.md5</checksum>
             <datadir zip="true">$root/addons/nexus/zip/</datadir>
             <hashes>false</hashes>
         </dir>
-        <dir minversion="19.0.0" maxversion="19.9.0">
+        <dir minversion="19.0.0">
             <info compressed="true">$root/addons/matrix/addons.xml</info>
             <checksum>$root/addons/matrix/addons.xml.md5</checksum>
             <datadir zip="true">$root/addons/matrix/zip/</datadir>
