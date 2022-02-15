@@ -13,7 +13,7 @@ const REPO_TEMPLATES = '__repo_templates/';  # Template Files
 const ADDON_TEMPLATE = '__addons.xml';       # Addon Template
 const DEFAULT_ADDON_ICON = 'default.png';    # default Icon, if icon.png in addon.zip is missing
 const DEFAULT_APK_ICON = 'default_apk.png';  # default APK Icon
-const HASH_ALGO = 'sha256';                  # Hash algorithm
+const HASH_ALGO = 'md5';                     # Hash algorithm
 
 const REPOLOGO = 'css/9LWeq_c5_1920.jpg';
 
