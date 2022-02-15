@@ -6,57 +6,57 @@
     <extension point="xbmc.addon.repository" name="$name">
         <dir>
             <info compressed="true">$root/addons/addons.xml</info>
-            <checksum>$root/addons/addons.xml.md5</checksum>
+            <checksum verify="$hash">$root/addons/addons.xml.$hash</checksum>
             <datadir zip="true">$root/addons</datadir>
-            <hashes>false</hashes>
+            <hashes>$hash</hashes>
         </dir>
         <dir minversion="19.9.9">
             <info compressed="true">$root/addons/nexus/addons.xml</info>
-            <checksum>$root/addons/nexus/addons.xml.md5</checksum>
+            <checksum verify="$hash">$root/addons/nexus/addons.xml.$hash</checksum>
             <datadir zip="true">$root/addons/nexus/zip/</datadir>
-            <hashes>false</hashes>
+            <hashes>$hash</hashes>
         </dir>
         <dir minversion="19.0.0">
             <info compressed="true">$root/addons/matrix/addons.xml</info>
-            <checksum>$root/addons/matrix/addons.xml.md5</checksum>
+            <checksum verify="$hash">$root/addons/matrix/addons.xml.$hash</checksum>
             <datadir zip="true">$root/addons/matrix/zip/</datadir>
-            <hashes>false</hashes>
+            <hashes>$hash</hashes>
         </dir>
         <dir minversion="18.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/leia/addons.xml</info>
-            <checksum>$root/addons/leia/addons.xml.md5</checksum>
+            <checksum verify="$hash">$root/addons/leia/addons.xml.$hash</checksum>
             <datadir zip="true">$root/addons/leia/zip/</datadir>
-            <hashes>false</hashes>
+            <hashes>$hash</hashes>
         </dir>
         <dir minversion="17.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/krypton/addons.xml</info>
-            <checksum>$root/addons/krypton/addons.xml.md5</checksum>
+            <checksum verify="$hash">$root/addons/krypton/addons.xml.$hash</checksum>
             <datadir zip="true">$root/addons/krypton/zip/</datadir>
-            <hashes>false</hashes>
+            <hashes>$hash</hashes>
         </dir>
         <dir minversion="16.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/jarvis/addons.xml</info>
-            <checksum>$root/addons/jarvis/addons.xml.md5</checksum>
+            <checksum verify="$hash">$root/addons/jarvis/addons.xml.$hash</checksum>
             <datadir zip="true">$root/addons/jarvis/zip/</datadir>
-            <hashes>false</hashes>
+            <hashes>$hash</hashes>
         </dir>
         <dir minversion="15.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/isengard/addons.xml</info>
-            <checksum>$root/addons/isengard/addons.xml.md5</checksum>
+            <checksum verify="$hash">$root/addons/isengard/addons.xml.$hash</checksum>
             <datadir zip="true">$root/addons/isengard/zip/</datadir>
-            <hashes>false</hashes>
+            <hashes>$hash</hashes>
         </dir>
         <dir minversion="14.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/helix/addons.xml</info>
-            <checksum>$root/addons/helix/addons.xml.md5</checksum>
+            <checksum verify="$hash">$root/addons/helix/addons.xml.$hash</checksum>
             <datadir zip="true">$root/addons/helix/zip/</datadir>
-            <hashes>false</hashes>
+            <hashes>$hash</hashes>
         </dir>
         <dir minversion="13.0.0" maxversion="18.9.0">
             <info compressed="true">$root/addons/gotham/addons.xml</info>
-            <checksum>$root/addons/gotham/addons.xml.md5</checksum>
+            <checksum verify="$hash">$root/addons/gotham/addons.xml.$hash</checksum>
             <datadir zip="true">$root/addons/gotham/zip/</datadir>
-            <hashes>false</hashes>
+            <hashes>$hash</hashes>
         </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
