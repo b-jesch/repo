@@ -71,10 +71,7 @@ class CreateRepoXML
         $out = '';
         $content = file($this->repo_sources, FILE_SKIP_EMPTY_LINES);
         foreach ($content as $line) {
-
-            $inject = array('$root/' => ROOT, '$id' => REPO_ID, '$name' => REPONAME, '$version' => REPOVERSION,
-                '$provider' => PROVIDER, '$hash' => HASH_ALGO);
-
+            $inject = array('$root/' => ROOT, '$id' => REPO_ID, '$name' => REPONAME, '$version' => REPOVERSION, '$provider' => PROVIDER);
             $line = strtr($line, $inject);
             $out .= $line;
         }
@@ -85,14 +82,13 @@ class CreateRepoXML
 
     function createMD5() {
 
-        # create checksum, see HASH_ALGO for algorithm
+        # create md5
 
         $out = '';
         $content = file($this->repo_folder . '/addons.xml');
         foreach ($content as $line) $out .= $line;
-
-        $handle = fopen($this->repo_folder . '/addons.xml.'.HASH_ALGO, 'w');
-        fwrite($handle, hash(HASH_ALGO, $out));
+        $handle = fopen($this->repo_folder . '/addons.xml.md5', 'w');
+        fwrite($handle, md5($out));
         fclose($handle);
     }
 }
