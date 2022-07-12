@@ -208,7 +208,7 @@ function createThumb($storage_path, $source, $status) {
 
 function createItemView($column, $addon) {
     if ($column % CPR == 0 and $column > 0) echo '</tr><tr>'.PHP_EOL;
-    $desc = empty($addon->description) ? $addon->summary : $addon->description;
+    $desc = strlen($addon->description) > 0 ? $addon->description : $addon->summary;
     echo PHP_EOL.'<td class="item">' .PHP_EOL;
     echo PHP_TAB.'<table class="inner">'.PHP_EOL;
     echo PHP_TAB.'<tr><td class="header" colspan="3">'.$addon->name.' - '.convertHRV($addon->size).'</td></tr>'.PHP_EOL;
