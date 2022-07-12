@@ -102,6 +102,7 @@ class Addon {
     public $id = NULL;                              # Addon-Id
     public $version = NULL;                         # Addon-Version
     public $summary = NULL;                         # Kurzbeschreibung
+    public $description = NULL;                     # Beschreibung
     public $source = NULL;                          # Quell-Repository (Github)
     public $size = NULL;                            # Dateigröße ZIP
     public $meta = NULL;                            # Dateiname Metadaten
@@ -226,12 +227,13 @@ class Addon {
         $xml = simplexml_load_file(pathinfo($this->file, PATHINFO_DIRNAME).'/addon.xml');
         if (!$xml) return false;
 
-        # Get short description (summary), Addon-Type
+        # Get short description (summary), description, Addon-Type
 
         foreach($xml->extension as $ep) {
             if ($ep['point'] == 'xbmc.addon.metadata') {
                 # remove BB code
                 $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
+                $this->description = preg_replace('#\[[^\]]+\]#', '', $ep->description[0]);
                 if ($ep->broken) $this->status |= BROKEN;
                 if ($ep->source and (!empty($ep->source)) and parse_url($ep->source)['host'] == GITHUB) $this->source = $ep->source;
             }
@@ -279,6 +281,7 @@ class Addon {
             $this->version = $xml->version;
             $this->tree = $xml->tree;
             $this->summary = $xml->summary;
+            $this->description = $xml->description;
             $this->source = $xml->source;
             $this->upload = $xml->upload;
             $this->provider = $xml->provider;
@@ -302,6 +305,7 @@ class Addon {
         $xml->addChild('category', $this->category);
         $xml->addChild('tree', $this->tree);
         $xml->addChild('summary', htmlspecialchars($this->summary));
+        $xml->addChild('description', htmlspecialchars($this->description));
         $xml->addChild('source', $this->source);
         $xml->addChild('object', $this->file);
         $xml->addChild('object_id', $this->object_id);
