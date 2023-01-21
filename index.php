@@ -125,7 +125,7 @@ if (!is_file(ADDONFOLDER.'addons.xml')) {
 
     # copy to webdav
 
-    mkdir(WEBDAV, 0755);
+    if (!file_exists(WEBDAV)) mkdir(WEBDAV, 0755);
     copy(ADDONFOLDER.REPO_ID.'/'.REPO_ID.'-'.REPOVERSION.ADDON_EXT, WEBDAV.REPO_ID.'-'.REPOVERSION.ADDON_EXT);
 
     $master = new CreateRepoXML(ADDONFOLDER, REPO_ID.'/');
