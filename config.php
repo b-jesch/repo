@@ -29,8 +29,8 @@ const FLAG_DEVTOOL = 'css/devtool.png';
 
 define('SCRIPT_ROOT', dirname(__FILE__));
 
-const ROOT = 'https://repo.kodinerds.net/';
-# const ROOT = 'http://localhost/repo/';
+# const ROOT = 'https://repo.kodinerds.net/';
+const ROOT = 'http://localhost/repo/';
 
 const CONTROLLER = 'index.php';
 const VIEWS = 'views/';
@@ -109,9 +109,9 @@ const FALLBACK_TREE = 3;             # Index d. default Trees zur Einordnung von
 const DEFAULT_TREE = 4;              # Index d. default Trees zur Anzeige im CMS (Krypton)
 
 const KODI_NAMES = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
-    'Kodi 19 (Matrix)', 'Kodi 20 (Nexus)');
+    'Kodi 19 (Matrix)', 'Kodi 20 (Nexus)', 'Kodi 21 (Omega)');
 
-const VERSION_DIRS = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/', 'nexus/');
+const VERSION_DIRS = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/', 'nexus/', 'omega/');
 
 const AD_TYPES = array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.repository', 'xbmc.service', 'xbmc.metadata.scraper.albuns',
     'xbmc.metadata.scraper.artists', 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
@@ -127,7 +127,7 @@ const AD_CATEGORIES = array('Skin', 'Web Interface', 'Repository', 'Service', 'A
     'Music Addon', 'Image Addon', 'Font Resource', 'Image Resource', 'Language Resource', 'Sound Resource',
     'Context Item', 'Binary');
 
-const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0', '3.0.1');
+const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0', '3.0.1', '3.0.2');
 
 # Thumbnails
 
