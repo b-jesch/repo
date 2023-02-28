@@ -348,7 +348,7 @@ class User
         if (!scanFolder(ETC.USERDATA, array('.', '..'))) {
             if (!is_dir(ETC.USERDATA)) mkdir(ETC.USERDATA, 0775, true);
             $this->database = passwdGen().META_EXT;
-            $init = '<users><user login="admin"><passwd>'.crypt('admin').'</passwd>';
+            $init = '<users><user login="admin"><passwd>'.crypt('admin', 'KN').'</passwd>';
             $init.= '<isadmin>true</isadmin></user></users>';
             $this->users = simplexml_load_string($init);
             $this->persist();
@@ -422,7 +422,7 @@ class User
     public function create($username, $passwd) {
         $user = $this->users->addChild('user');
         $user->addAttribute('login', $username);
-        $user->addChild('passwd', crypt($passwd));
+        $user->addChild('passwd', crypt($passwd, $username));
         $user->addChild('isadmin', 'false');
         $this->persist();
     }

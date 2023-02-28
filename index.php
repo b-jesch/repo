@@ -76,7 +76,7 @@ if ($c_pars['action'] == 'direct_dl') {
 # start session
 
 session_start();
-if (!$_SESSION['state'] or $_SESSION['state'] == 0) {
+if (!isset($_SESSION['state']) or $_SESSION['state'] == 0) {
     $_SESSION['state'] = 0;
 }
 
@@ -169,9 +169,9 @@ if (isset($c_pars['login'])) {
 
 # determine Kodi Version, select first if undetermined
 
-if (($c_pars['version'] != '') and (in_array($c_pars['version'], VERSION_DIRS))) {
+if (isset($_SESSION['version']) and ($c_pars['version'] != '') and (in_array($c_pars['version'], VERSION_DIRS))) {
     $_SESSION['version'] = $c_pars['version'];
-} elseif (empty($_SESSION['version'])) {
+} elseif (!isset($_SESSION['version'])) {
     $_SESSION['version'] = VERSION_DIRS[DEFAULT_TREE]; # Krypton
 }
 
@@ -462,7 +462,7 @@ switch ($c_pars['action']) {
                     require VIEWS.SETUP;
                     break;
                 }
-                $user->passwd = crypt($c_pars['newpw']);
+                $user->passwd = crypt($c_pars['newpw'], $user);
                 $cpw = true;
             }
             $user->realname = $c_pars['realname'];

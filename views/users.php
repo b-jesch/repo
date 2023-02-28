@@ -17,7 +17,7 @@ $user = new User($_SESSION['user']);
 <h4>Maintainer-Bereich</h4>
 <div class="setup">
     <form name="maintainer" id="maintainer" action="<?php echo ROOT.CONTROLLER; ?>" method="post">
-        <input type="hidden" name="action" value="<?php echo crypt('setup_p1'); ?>">
+        <input type="hidden" name="action" value="<?php echo crypt('setup_p1', 'KN'); ?>">
         <input type="text" class="textfield_form" readonly name="loginname" id="loginname" value="<?php echo $user->username; ?>">
         <label for="loginname">Login-Name</label><br>
         <input type="password" class="textfield_form" name="newpw" id="newpw" value="">
@@ -42,7 +42,7 @@ $user = new User($_SESSION['user']);
         <h4>Admin-Bereich - Maintainer hinzufügen</h4>
         <div class="setup">
             <form name="admin_a" id="admin_a" action="<?php echo ROOT . CONTROLLER; ?>" method="post">
-                <input type="hidden" name="action" value="<?php echo crypt('setup_p2'); ?>">
+                <input type="hidden" name="action" value="<?php echo crypt('setup_p2', 'KN'); ?>">
                 <input type="text" class="textfield_form" name="m_loginname" id="m_loginname" value="">
                 <label for="m_loginname">Login-Name</label><br>
                 <input type="text" class="textfield_form" name="passwd" id="passwd" value="<?php echo passwdGen(); ?>">
@@ -54,7 +54,7 @@ $user = new User($_SESSION['user']);
         <h4>Admin-Bereich - Maintainer ändern/löschen</h4>
         <div class="setup">
             <form name="admin_b" id="admin_b" action="<?php echo ROOT . CONTROLLER; ?>" method="post">
-                <input type="hidden" name="action" value="<?php echo crypt('setup_p3'); ?>">
+                <input type="hidden" name="action" value="<?php echo crypt('setup_p3', 'KN'); ?>">
                 <select class="select" name="users" id="userlist">
                     <option value="" selected>* Maintainer *</option>
                     <?php

@@ -81,7 +81,7 @@ $users = new User();
         <div class='bar' id='bar'></div>
         <div class='percent' id='percent'>0%</div>
     </div>
-    <input type="hidden" name="action" value="<?php echo crypt('upload_p2'); ?>" />
+    <input type="hidden" name="action" value="<?php echo crypt('upload_p2', 'KN'); ?>" />
 
     </form>
     </div>
