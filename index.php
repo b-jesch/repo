@@ -462,7 +462,7 @@ switch ($c_pars['action']) {
                     require VIEWS.SETUP;
                     break;
                 }
-                $user->passwd = crypt($c_pars['newpw'], $user);
+                $user->passwd = crypt($c_pars['newpw'], '$1$'.md5(rand()));
                 $cpw = true;
             }
             $user->realname = $c_pars['realname'];
@@ -504,7 +504,7 @@ switch ($c_pars['action']) {
             switch ($c_pars['adm_lounge']) {
                 case 'create_pw':
                     $user = new User($c_pars['users']);
-                    $user->passwd = passwdGen();
+                    $user->passwd = crypt(passwdGen(), '$1$'.md5(rand())) ;
                     $user->update();
                     $_SESSION['notice'] = 'Diese Daten kopieren und per Email an den Nutzer schicken. ';
                     $_SESSION['notice'].= 'Username: '.$c_pars['users'].' Passwort: '.$user->passwd;
