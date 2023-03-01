@@ -422,7 +422,7 @@ class User
     public function create($username, $passwd) {
         $user = $this->users->addChild('user');
         $user->addAttribute('login', $username);
-        $user->addChild('passwd', crypt($passwd, $username));
+        $user->addChild('passwd', crypt($passwd, '$1$'.md5(rand())));
         $user->addChild('isadmin', 'false');
         $this->persist();
     }
