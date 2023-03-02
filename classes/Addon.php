@@ -217,8 +217,11 @@ class Addon {
             if (pathinfo($file, PATHINFO_EXTENSION) != 'zip' and pathinfo($file, PATHINFO_EXTENSION) != 'apk') continue;
             $archive[] = $path.ARCHIVE.$file;
         }
-        usort($archive, array('Addon', 'sort_by_date'));
-        return $archive;
+        if (isset($archive)  and is_array($archive)) {
+            usort($archive, array('Addon', 'sort_by_date'));
+            return $archive;
+        }
+        return [];
     }
 
     public function getAttrFromAddonXML() {
