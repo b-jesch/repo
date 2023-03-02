@@ -29,7 +29,10 @@ if (isset($c_pars['action']) and $c_pars['action'] == 'direct_dl') {
 
     if (file_exists(FLOOD_DB)) {
         $fh = fopen(FLOOD_DB, 'r');
-        $flood_entries = array_merge($flood_entries, unserialize(fread($fh, filesize(FLOOD_DB))));
+        $fs = filesize(FLOOD_DB);
+        if ($fs > 0) {
+            $flood_entries = array_merge($flood_entries, unserialize(fread($fh, $fs)));
+        }
         fclose($fh);
     }
     if (isset($flood_entries[$user_ip])) {
@@ -212,7 +215,7 @@ switch ($c_pars['action']) {
         break;
     case 'search':
         if (strlen($c_pars['item']) < 3) {
-            $_SESSION['notice'] .= "Der Suchbegriff ist zu kurz. Es wird die Standardansicht angezeigt. Geben Sie wenigsten 3 Zeichen ein. ";
+            $_SESSION['notice'] = "Der Suchbegriff ist zu kurz. Es wird die Standardansicht angezeigt. Geben Sie wenigsten 3 Zeichen ein. ";
             $c_pars['action'] = 'list';
             $c_pars['scope'] = 'all';
             unset($c_pars['search']);
