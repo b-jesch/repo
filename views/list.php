@@ -39,22 +39,22 @@ foreach ($addondirs as $addondir) {
                 switch ($c_pars['scope']) {
                     case 'all':
                         $header = '<h3>Addons ab ' . $_SESSION['version_name'] . '</h3>';
-                        if ($addon->tree != $_SESSION['version']) continue;
+                        if ($addon->tree != $_SESSION['version']) continue 2;
                         $addons[] = $addon;
                         break;
                     case 'user':
                         $header = '<h3>Alle Addons in allen Versionen von ' . $c_pars['item'] . '</h3>';
-                        if ($c_pars['item'] != $addon->provider) continue;
+                        if ($c_pars['item'] != $addon->provider) continue 2;
                         $addons[] = $addon;
                         break;
                     case 'cat':
                         $header = '<h3>Alle Addons der Kategorie "' . $c_pars['item'] . '"</h3>';
-                        if ($c_pars['item'] != $addon->category) continue;
+                        if ($c_pars['item'] != $addon->category) continue 2;
                         $addons[] = $addon;
                         break;
                     case 'search':
                         $header = '<h3>Alle Addons in allen Versionen, die "' . $c_pars['item'] . '" enthalten</h3>';
-                        if (!stristr($addon->name, $c_pars['item'])) continue;
+                        if (!stristr($addon->name, $c_pars['item'])) continue 2;
                         $addons[] = $addon;
                         break;
                     case 'last':

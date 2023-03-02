@@ -192,6 +192,7 @@ if (isset($c_pars['c_item'])) {
     }
 }
 
+if (!isset($c_pars['action'])) $c_pars['action'] = 'list';
 switch ($c_pars['action']) {
     case 'list':
         require VIEWS.LISTVIEW;
