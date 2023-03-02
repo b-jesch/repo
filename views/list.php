@@ -87,7 +87,7 @@ foreach($addons as $addon) {
     if ($_SESSION['state'] == 0 and $addon->status & DEVTOOL) continue;
     createItemView($tc, $addon);
     $tc++;
-    if ($c_pars['scope'] == 'last' and $tc >= MAX_ITEMS) break;
+    if (isset($c_pars['scope']) and $c_pars['scope'] == 'last' and $tc >= MAX_ITEMS) break;
 }
 echo '</tr></table>';
 if ($tc == 0) echo "<p class='alert'>Es wurden keine passenden Einträge gefunden.</p>".PHP_EOL;
