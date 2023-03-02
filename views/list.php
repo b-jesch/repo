@@ -71,14 +71,16 @@ foreach ($addondirs as $addondir) {
     }
 }
 
-if ($c_pars['scope'] == 'last') {
-    usort($addons, 'compare_upload');
-} elseif ($c_pars['scope'] == 'all') {
-    usort($addons, 'compare_tree');
-    usort($addons, 'compare_names');
-} elseif ($c_pars['scope'] == 'cat') {
-    usort($addons, 'compare_category');
-    usort($addons, 'compare_names');
+if (isset($c_pars['scope'])) {
+    if ($c_pars['scope'] == 'last') {
+        usort($addons, 'compare_upload');
+    } elseif ($c_pars['scope'] == 'all') {
+        usort($addons, 'compare_tree');
+        usort($addons, 'compare_names');
+    } elseif ($c_pars['scope'] == 'cat') {
+        usort($addons, 'compare_category');
+        usort($addons, 'compare_names');
+    }
 }
 
 $tc = 0;
