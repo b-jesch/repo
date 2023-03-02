@@ -11,7 +11,7 @@ if (MAINTENANCE) $c_pars['action'] = '503';
 
 # Handle direct Downloads
 
-if ($c_pars['action'] == 'direct_dl') {
+if (isset($c_pars['action']) and $c_pars['action'] == 'direct_dl') {
 
 # Antiflood section
 
@@ -169,7 +169,7 @@ if (isset($c_pars['login'])) {
 
 # determine Kodi Version, select first if undetermined
 
-if (isset($_SESSION['version']) and ($c_pars['version'] != '') and (in_array($c_pars['version'], VERSION_DIRS))) {
+if (isset($_SESSION['version']) and isset($c_pars['version']) and ($c_pars['version'] != '') and (in_array($c_pars['version'], VERSION_DIRS))) {
     $_SESSION['version'] = $c_pars['version'];
 } elseif (!isset($_SESSION['version'])) {
     $_SESSION['version'] = VERSION_DIRS[DEFAULT_TREE]; # Krypton
