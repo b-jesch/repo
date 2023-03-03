@@ -172,7 +172,7 @@ if (isset($c_pars['login'])) {
 
 # determine Kodi Version, select first if undetermined
 
-if (isset($_SESSION['version']) and isset($c_pars['version']) and ($c_pars['version'] != '') and (in_array($c_pars['version'], VERSION_DIRS))) {
+if (isset($c_pars['version']) and (in_array($c_pars['version'], VERSION_DIRS))) {
     $_SESSION['version'] = $c_pars['version'];
 } elseif (!isset($_SESSION['version'])) {
     $_SESSION['version'] = VERSION_DIRS[DEFAULT_TREE]; # Krypton
