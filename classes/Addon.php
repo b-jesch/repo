@@ -151,12 +151,14 @@ class Addon {
             $this->writeProperties();
         }
 
-        header('Content-Type: application.zip');
+        # X-Sendfile requires an apache/nginx mod 'mod_xsendfile' to be installed and configured
+        # see: https://tn123.org/mod_xsendfile/
+
+        header('X-Sendfile: '.APP_PATH.$this->file);
+        header('Content-Type: application/zip');
         header('Content-Disposition: attachment; filename="'.basename($this->file).'"');
         header('Content-Transfer-Encoding: binary');
         header('Content-Length: '.$this->size);
-
-        readfile($this->file);
     }
 
     public function delete() {

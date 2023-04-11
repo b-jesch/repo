@@ -28,6 +28,7 @@ const FLAG_DEVTOOL = 'css/devtool.png';
 # .htaccess must reside in the root directory of the CMS e.g. ROOT (see below)
 
 define('SCRIPT_ROOT', dirname(__FILE__));
+define('APP_PATH', $_SERVER['DOCUMENT_ROOT'].'/');  # path of application in servers DocumentRoot
 
 const ROOT = 'https://repo.kodinerds.net/';
 # const ROOT = 'http://localhost/repo/';
@@ -42,7 +43,6 @@ const ROUTE = array('setup_p1', 'setup_p2', 'setup_p3', 'upload_p2');
 const ADDONFOLDER = 'addons/';           # Rootfolder Upload
 const DATADIR = 'zip/';                  # Addons data folder
 const TMPDIR = 'temp/';                  # temporary files
-const LOCKFILE = '.locked';              # mark folder as locked (prevent for deletion), when LOCKFILE exists
 
 const FLOOD_DB = 'antiflood/database';   # Antiflood database
 const FLOOD_LOCKDIR = 'antiflood/lock/'; # Antiflood locked folder
