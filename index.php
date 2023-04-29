@@ -17,7 +17,6 @@ if (isset($c_pars['action']) and $c_pars['action'] == 'direct_dl') {
 
     $user_ip = $_SERVER['REMOTE_ADDR'];
     $flood_lockfile = FLOOD_LOCKDIR.md5($user_ip);
-    $flood_entries = array();
 
     if (!file_exists(FLOOD_LOCKDIR)) mkdir(FLOOD_LOCKDIR, $mode=0755, $recursive=true);
 
@@ -27,14 +26,8 @@ if (isset($c_pars['action']) and $c_pars['action'] == 'direct_dl') {
 
     # count flood requests
 
-    if (file_exists(FLOOD_DB)) {
-        $fh = fopen(FLOOD_DB, 'r');
-        $fs = filesize(FLOOD_DB);
-        if ($fs > 0) {
-            $flood_entries = array_merge($flood_entries, unserialize(fread($fh, $fs)));
-        }
-        fclose($fh);
-    }
+    if (file_exists(FLOOD_DB)) $flood_entries = unserialize(file_get_contents(FLOOD_DB));
+    if (!is_array($flood_entries)) $flood_entries = array();
     if (isset($flood_entries[$user_ip])) {
 
         # prevent downloading the same file multiple times within FLOOD_REQ_TIMEOUT,
