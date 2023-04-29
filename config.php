@@ -6,7 +6,7 @@ const MAINTENANCE = false;
 
 const REPONAME = 'Kodinerds Addon Repo';
 const REPO_ID = 'repository.kodinerds';
-const REPOVERSION = '7.0.1.3';
+const REPOVERSION = '7.0.1.4';
 const PROVIDER = 'Kodinerds';
 
 const REPO_TEMPLATES = '__repo_templates/';  # Template Files
@@ -106,7 +106,7 @@ define('LASTMODIFIED', date('y.m.d', filemtime(__FILE__)));
 # Arrays (Kodi specific)
 
 const FALLBACK_TREE = 3;             # Index d. default Trees zur Einordnung von Uploads, Jarvis (siehe Index VERSION_DIRS)
-const DEFAULT_TREE = 4;              # Index d. default Trees zur Anzeige im CMS (Krypton)
+const DEFAULT_TREE = 6;              # Index d. default Trees zur Anzeige im CMS (Krypton)
 
 const KODI_NAMES = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
     'Kodi 19 (Matrix)', 'Kodi 20 (Nexus)', 'Kodi 21 (Omega)');
