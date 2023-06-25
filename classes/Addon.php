@@ -239,7 +239,8 @@ class Addon {
                 # remove BB code
                 $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
                 $this->description = preg_replace('#\[[^\]]+\]#', '', $ep->description[0]);
-                if ($ep->broken) $this->status |= BROKEN;
+                if ($ep->lifecyclestate['type'] == 'broken') $this->status |= BROKEN;
+                if ($ep->lifecyclestate['type'] == 'deprecated') $this->status |= DEPRECATED;
                 if ($ep->source and (!empty($ep->source)) and parse_url($ep->source)['host'] == GITHUB) $this->source = $ep->source;
             }
             if (array_search($ep['point'], $this->addon_types) === false) {

@@ -20,7 +20,8 @@ const BROKEN = 1;
 const FLAG_BROKEN = 'css/broken.png';
 const DEVTOOL = 2;
 const FLAG_DEVTOOL = 'css/devtool.png';
-
+const DEPRECATED = 4;
+const FLAG_DEPRECATED = 'css/deprecated.png';
 
 # Root/Folders of CMS
 # see also start.php in views folder

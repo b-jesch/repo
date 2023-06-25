@@ -186,9 +186,12 @@ function createThumb($storage_path, $source, $status) {
         imagecopyresampled($ram_tbn, $ram, 0, 0, 0,0,
             $x, $y, $image[0], $image[1]);
 
-        if ($status & BROKEN) {
-            $flag_image = imagecreatefrompng(FLAG_BROKEN);
-            $flag_properties = getimagesize(FLAG_BROKEN);
+        if ($status & BROKEN) $flag_src = FLAG_BROKEN;
+        elseif ($status & DEPRECATED) $flag_src = FLAG_DEPRECATED;
+
+        if (isset($flag_src)) {
+            $flag_image = imagecreatefrompng($flag_src);
+            $flag_properties = getimagesize($flag_src);
             imagecopyresampled($ram_tbn, $flag_image,$x - $flag_properties[0],0,0,0,
                 $flag_properties[0], $flag_properties[1], $flag_properties[0], $flag_properties[1]);
         }
