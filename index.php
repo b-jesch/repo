@@ -260,11 +260,6 @@ switch ($c_pars['action']) {
                 $addon = new Addon(TMPDIR.$rnddir.$upload, time());
                 $addon->provider = ($_SESSION['isadmin']) ? $c_pars['provider'] : $_SESSION['user'];
 
-                $addon->addon_types = AD_TYPES;
-                $addon->addon_category = AD_CATEGORIES;
-                $addon->python = AD_PYTHON_VERS;
-                $addon->version_dirs = VERSION_DIRS;
-
                 if (is_file(TMPDIR.$rnddir.'addon.xml')) {
                     if ($addon->getAttrFromAddonXML()) {
                         # missing xbmc.python attribute in addon.xml, search for tree in addon name, else

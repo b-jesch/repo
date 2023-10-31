@@ -115,10 +115,6 @@ class Addon {
     public $downloads_total = NULL;                 # Anzahl Downloads über alle Versionen im Tree
     public $status = 0;                             # Status des Addons (2: Devs only, 1: broken)
 
-    public $addon_types = NULL;
-    public $addon_category = NULL;
-    public $python = NULL;
-    public $version_dirs = NULL;
     public $thumb = NULL;
 
 
@@ -243,27 +239,32 @@ class Addon {
                 if ($ep->lifecyclestate['type'] == 'deprecated') $this->status |= DEPRECATED;
                 if ($ep->source and (!empty($ep->source)) and parse_url($ep->source)['host'] == GITHUB) $this->source = $ep->source;
             }
-            if (array_search($ep['point'], $this->addon_types) === false) {
+            if (array_search($ep['point'], AD_TYPES) === false) {
                 continue;
             } else {
                 if ($this->category == 'Unknown') {
-                    $this->category = $this->addon_category[array_search($ep['point'], $this->addon_types)];
+                    $this->category = AD_CATEGORIES[array_search($ep['point'], AD_TYPES)];
                     if (!empty($ep->provides)) $this->category .= ' ('.ucwords($ep->provides).')';
                     if (!empty($ep['version'])) $this->category .= ' ('.$ep['version'].')';
                 }
             }
         }
 
-        # Get Python Version (tree)
+        # Get Python Version (tree) or GUI Version (skins)
 
         foreach($xml->requires->import as $import) {
-            if ($import['addon'] == 'xbmc.python') {
-                if (in_array($import['version'], $this->python)) {
-                    $this->tree = $this->version_dirs[array_search($import['version'], $this->python)];
-                } else {
-                    $this->tree = false;
+            $this->tree = false;
+            if (($import['addon'] == 'xbmc.python') and $this->category != 'Skin') {
+                if (in_array($import['version'], AD_PYTHON_VERS)) {
+                    $this->tree = VERSION_DIRS[array_search($import['version'], AD_PYTHON_VERS)];
+                    break;
+                    }
+            }
+            elseif ($import['addon'] == 'xbmc.gui') {
+                if (in_array($import['version'], AD_GUI_VERS)) {
+                    $this->tree = VERSION_DIRS[array_search($import['version'], AD_GUI_VERS)];
+                    break;
                 }
-                break;
             }
         }
 

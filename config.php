@@ -107,7 +107,7 @@ define('LASTMODIFIED', date('y.m.d', filemtime(__FILE__)));
 # Arrays (Kodi specific)
 
 const FALLBACK_TREE = 3;             # Index d. default Trees zur Einordnung von Uploads, Jarvis (siehe Index VERSION_DIRS)
-const DEFAULT_TREE = 6;              # Index d. default Trees zur Anzeige im CMS (Krypton)
+const DEFAULT_TREE = 6;              # Index d. default Trees zur Anzeige im CMS (Matrix)
 
 const KODI_NAMES = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
     'Kodi 19 (Matrix)', 'Kodi 20 (Nexus)', 'Kodi 21 (Omega)');
@@ -129,6 +129,7 @@ const AD_CATEGORIES = array('Skin', 'Web Interface', 'Repository', 'Service', 'A
     'Context Item', 'Binary');
 
 const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0', '3.0.1', '3.0.2');
+const AD_GUI_VERS = array('5.0.1', '5.3.0', '5.9.0', '5.10.0', '5.12.0', '5.14.0', '5.15.0', '5.16.0', '5.17.0');
 
 # Thumbnails
 
@@ -137,4 +138,3 @@ const TBN_Y = 130;                  # Höhe
 const CPR = 3;                      # Cells per Row
 const MAX_ITEMS = 18;               # max Items in List/Last Views
 define ('PHP_TAB', chr(9));
-?>
