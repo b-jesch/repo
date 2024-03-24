@@ -31,8 +31,8 @@ const FLAG_DEPRECATED = 'css/deprecated.png';
 define('SCRIPT_ROOT', dirname(__FILE__));
 define('APP_PATH', $_SERVER['DOCUMENT_ROOT'].'/');  # path of application in servers DocumentRoot
 
-# const ROOT = 'https://repo.kodinerds.net/';
-const ROOT = 'http://localhost/repo/';
+const ROOT = 'https://repo.kodinerds.net/';
+# const ROOT = 'http://localhost/repo/';
 
 const CONTROLLER = 'index.php';
 const VIEWS = 'views/';
