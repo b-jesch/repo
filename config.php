@@ -6,7 +6,7 @@ const MAINTENANCE = false;
 
 const REPONAME = 'Kodinerds Addon Repo';
 const REPO_ID = 'repository.kodinerds';
-const REPOVERSION = '7.0.1.4';
+const REPOVERSION = '7.0.1.5';
 const PROVIDER = 'Kodinerds';
 
 const REPO_TEMPLATES = '__repo_templates/';  # Template Files
@@ -31,8 +31,8 @@ const FLAG_DEPRECATED = 'css/deprecated.png';
 define('SCRIPT_ROOT', dirname(__FILE__));
 define('APP_PATH', $_SERVER['DOCUMENT_ROOT'].'/');  # path of application in servers DocumentRoot
 
-const ROOT = 'https://repo.kodinerds.net/';
-# const ROOT = 'http://localhost/repo/';
+# const ROOT = 'https://repo.kodinerds.net/';
+const ROOT = 'http://localhost/repo/';
 
 const CONTROLLER = 'index.php';
 const VIEWS = 'views/';
@@ -106,13 +106,13 @@ define('LASTMODIFIED', date('y.m.d', filemtime(__FILE__)));
 
 # Arrays (Kodi specific)
 
-const FALLBACK_TREE = 3;             # Index d. default Trees zur Einordnung von Uploads, Jarvis (siehe Index VERSION_DIRS)
+const FALLBACK_TREE = 6;             # Index d. default Trees zur Einordnung von Uploads, Matrix (siehe Index VERSION_DIRS)
 const DEFAULT_TREE = 6;              # Index d. default Trees zur Anzeige im CMS (Matrix)
 
 const KODI_NAMES = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
-    'Kodi 19 (Matrix)', 'Kodi 20 (Nexus)', 'Kodi 21 (Omega)');
+    'Kodi 19 (Matrix)', 'Kodi 20 (Nexus)', 'Kodi 21 (Omega)', 'Kodi 22 (Pegasus)');
 
-const VERSION_DIRS = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/', 'nexus/', 'omega/');
+const VERSION_DIRS = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/', 'nexus/', 'omega/', 'pegasus/');
 
 const AD_TYPES = array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.repository', 'xbmc.service', 'xbmc.metadata.scraper.albuns',
     'xbmc.metadata.scraper.artists', 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
@@ -128,8 +128,8 @@ const AD_CATEGORIES = array('Skin', 'Web Interface', 'Repository', 'Service', 'A
     'Music Addon', 'Image Addon', 'Font Resource', 'Image Resource', 'Language Resource', 'Sound Resource',
     'Context Item', 'Binary');
 
-const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0', '3.0.1', '3.0.2');
-const AD_GUI_VERS = array('5.0.1', '5.3.0', '5.9.0', '5.10.0', '5.12.0', '5.14.0', '5.15.0', '5.16.0', '5.17.0');
+const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0', '3.0.1', '3.0.2', '3.0.3');
+const AD_GUI_VERS = array('5.0.1', '5.3.0', '5.9.0', '5.10.0', '5.12.0', '5.14.0', '5.15.0', '5.16.0', '5.17.0', '5.17.0');
 
 # Thumbnails
 

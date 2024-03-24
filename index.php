@@ -208,7 +208,7 @@ switch ($c_pars['action']) {
         break;
     case 'search':
         if (strlen($c_pars['item']) < 3) {
-            $_SESSION['notice'] = "Der Suchbegriff ist zu kurz. Es wird die Standardansicht angezeigt. Geben Sie wenigsten 3 Zeichen ein. ";
+            $_SESSION['notice'] = "The search term is too short. The standard view is displayed. Enter at least 3 characters. ";
             $c_pars['action'] = 'list';
             $c_pars['scope'] = 'all';
             unset($c_pars['search']);
@@ -249,7 +249,7 @@ switch ($c_pars['action']) {
 
                 $icon = unpackZip(TMPDIR.$rnddir.$upload);
                 if (!$icon) {
-                    $_SESSION['notice'] .= 'Die Zip-Datei ist defekt und konnte nicht geöffnet werden! Der Upload wird verworfen. ';
+                    $_SESSION['notice'] .= 'The zip file is corrupt and could not be opened! The upload will be rejected. ';
                     delTree($rnddir, TMPDIR);
                     require VIEWS.UPLOAD;
                     exit();
@@ -266,7 +266,7 @@ switch ($c_pars['action']) {
                         # assign to FALLBACK_TREE anywhere
 
                         if ($addon->tree === false) {
-                            $_SESSION['notice'] .= "Die Version des Moduls 'xbmc.python' kann keiner Kodiversion zugeordnet werden. Der Upload wird verworfen. ";
+                            $_SESSION['notice'] .= "The version of the 'xbmc.python' module cannot be assigned to a Kodi version. The upload will be rejected. ";
                             delTree($rnddir, TMPDIR);
                             require VIEWS.UPLOAD;
                             break;
@@ -280,17 +280,17 @@ switch ($c_pars['action']) {
                                 }
                             }
                             if (empty($addon->tree)) $addon->tree = VERSION_DIRS[FALLBACK_TREE];
-                            $_SESSION['notice'] .= "Der Upload wird der der Kodiversion '".ucwords(substr($addon->tree, 0, -1))."' zugeordnet. ";
+                            $_SESSION['notice'] .= "The upload is assigned to code version '".ucwords(substr($addon->tree, 0, -1))."' ";
                         }
                     } else {
-                        $_SESSION['notice'] .= "Die 'addon.xml im hochgeladenen ZIP ist defekt. Der Upload wird verworfen. ";
+                        $_SESSION['notice'] .= "The 'addon.xml' in the uploaded ZIP is malformed. The upload is rejected. ";
                         delTree($rnddir, TMPDIR);
                         require VIEWS.UPLOAD;
                         exit();
                     }
 
                 } else {
-                    $_SESSION['notice'] .= "Im hochgeladenen ZIP befindet sich keine 'addon.xml'. Der Upload wird verworfen. ";
+                    $_SESSION['notice'] .= "There is no 'addon.xml' in the uploaded ZIP. The upload is rejected. ";
                     delTree($rnddir, TMPDIR);
                     require VIEWS.UPLOAD;
                     exit();
@@ -306,7 +306,7 @@ switch ($c_pars['action']) {
                 if ($upload != $addon->id.'-'.$addon->version.$addon->extension) {
                     rename(TMPDIR.$rnddir.$upload, TMPDIR.$rnddir.$addon->id.'-'.$addon->version.$addon->extension);
                     $upload = $addon->id.'-'.$addon->version.$addon->extension;
-                    $_SESSION['notice'] .= "Der Name der hochgeladene Datei entspricht nicht den Namenskonventionen und wurde in '$upload' umbenannt. ";
+                    $_SESSION['notice'] .= "The name of the uploaded file does not comply with the naming conventions and has been renamed to '$upload'. ";
                 }
 
                 # :::END PREREQUISITES:::
@@ -339,7 +339,7 @@ switch ($c_pars['action']) {
                             continue;
 
                         } elseif (calculateNumVersion($c_addon->version) > calculateNumVersion($addon->version)) {
-                            $_SESSION['notice'] .= 'Ein Überschreiben vorhandener Addons mit älteren Addon-Versionen ist nicht zulässig! ';
+                            $_SESSION['notice'] .= 'Overwriting existing add-ons with older add-on versions is not permitted! ';
                             delTree($rnddir, TMPDIR);
                             require VIEWS.UPLOAD;
                             exit();
@@ -358,9 +358,9 @@ switch ($c_pars['action']) {
                                 unlink($c_addon->file);
                                 unlink($c_addon->meta);
                             } else {
-                                $_SESSION['notice'] = "Das hochgeladene Addon hat die gleiche Versionsnummer wie das aktuelle Addon, ";
-                                $_SESSION['notice'] .= "jedoch ist die Option 'vorhandene Version überschreiben' nicht gesetzt oder der ";
-                                $_SESSION['notice'] .= "angemeldete Nutzer ist nicht der Maintainer des Addons. ";
+                                $_SESSION['notice'] = "The uploaded addon has the same version number as the current addon, ";
+                                $_SESSION['notice'] .= "but the option 'Overwrite existing version' is not set ";
+                                $_SESSION['notice'] .= "or the registered user is not the maintainer of the addon. ";
                                 delTree($rnddir, TMPDIR);
                                 require VIEWS.UPLOAD;
                                 exit();
@@ -439,7 +439,7 @@ switch ($c_pars['action']) {
             require VIEWS.SETUP;
         } else {
             $c_pars['action'] = '';
-            $_SESSION['notice'] = "Die aktuelle Session ist abgelaufen. Bitte erneut anmelden.";
+            $_SESSION['notice'] = "The current session has expired. Please login again. ";
             require VIEWS.LISTVIEW;
         }
         break;
@@ -450,7 +450,7 @@ switch ($c_pars['action']) {
             $user = new User($_SESSION['user']);
             if ($c_pars['newpw'] != "") {
                 if ($c_pars['newpw'] != $c_pars['confirmpw']) {
-                    $_SESSION['notice'] = "Die Passwörter in den Feldern 'neues Passwort' und 'neues Passwort erneut eingeben' sind unterschiedlich. ";
+                    $_SESSION['notice'] = "The passwords in the 'new password' and 're-enter new password' fields are different! ";
                     require VIEWS.SETUP;
                     break;
                 }
@@ -474,19 +474,19 @@ switch ($c_pars['action']) {
             }
             $user = new User($c_pars['m_loginname']);
             if ($user->indb) {
-                $_SESSION['notice'] = 'Ein Nutzer mit dem Login-Namen \''.$c_pars['m_loginname'].'\' befindet sich bereits in der Datenbank! ';
+                $_SESSION['notice'] = 'A user with the login name \''.$c_pars['m_loginname'].'\' is already in the database! ';
                 require VIEWS.SETUP;
                 break;
             }
             if (empty($c_pars['passwd'])) {
-                $_SESSION['notice'] = 'Das Erstellen eines Maintainer-Logins ohne Passwort ist nicht zulässig! ';
+                $_SESSION['notice'] = 'Creating a maintainer login without a password is not permitted! ';
                 require VIEWS.SETUP;
                 break;
             }
             $user = new User();
             $user->create($c_pars['m_loginname'], $c_pars['passwd']);
-            $_SESSION['notice'] = 'Diese Daten kopieren und per Email an den Nutzer schicken. ';
-            $_SESSION['notice'].= 'Username: '.$c_pars['m_loginname'].' Passwort: '.$c_pars['passwd'];
+            $_SESSION['notice'] = 'Copy this data and send it to the user by email. ';
+            $_SESSION['notice'].= 'Username: '.$c_pars['m_loginname'].' Password: '.$c_pars['passwd'];
         }
         require VIEWS.LISTVIEW;
         break;
@@ -498,8 +498,8 @@ switch ($c_pars['action']) {
                     $user = new User($c_pars['users']);
                     $user->passwd = crypt(passwdGen(), '$1$'.md5(rand())) ;
                     $user->update();
-                    $_SESSION['notice'] = 'Diese Daten kopieren und per Email an den Nutzer schicken. ';
-                    $_SESSION['notice'].= 'Username: '.$c_pars['users'].' Passwort: '.$user->passwd;
+                    $_SESSION['notice'] = 'Copy this data and send it to the user by email. ';
+                    $_SESSION['notice'].= 'Username: '.$c_pars['users'].' Password: '.$user->passwd;
                     break;
                 case 'grant_adm':
                     $admin = new User($c_pars['users']);
@@ -520,25 +520,25 @@ switch ($c_pars['action']) {
             require VIEWS.SETUP;
             break;
         } else {
-            $_SESSION['notice'] = "Es wurde kein Nutzer aus der Maintainerliste ausgewählt. Die gewünschte Aktion kann nicht ausgeführt werden. ";
+            $_SESSION['notice'] = "No user has been selected from the maintainer list. The desired action cannot be executed. ";
             require VIEWS.SETUP;
         }
         break;
 
     case '404':
-        $errmsg = "Die angeforderte Ressource existiert nicht!";
+        $errmsg = "The requested resource does not exist!";
         $errcode = 404;
         require VIEWS.ERRORPAGE;
         break;
 
     case '403':
-        $errmsg = "Der Zugriff auf die angeforderte Ressource ist nicht erlaubt!";
+        $errmsg = "Access to the requested resource is not permitted!";
         $errcode = 403;
         require VIEWS.ERRORPAGE;
         break;
 
     case '503':
-        $errmsg = "Der Dienst ist aufgrund von Wartungsarbeiten momentan nicht verfügbar.";
+        $errmsg = "The service is currently unavailable due to maintenance work.";
         $errcode = 503;
         require VIEWS.ERRORPAGE;
         break;

@@ -38,32 +38,32 @@ foreach ($addondirs as $addondir) {
             if (isset($c_pars['scope'])) {
                 switch ($c_pars['scope']) {
                     case 'all':
-                        $header = '<h3>Addons ab ' . $_SESSION['version_name'] . '</h3>';
+                        $header = '<h3>Addons upwards from ' . $_SESSION['version_name'] . '</h3>';
                         if ($addon->tree != $_SESSION['version']) continue 2;
                         $addons[] = $addon;
                         break;
                     case 'user':
-                        $header = '<h3>Alle Addons in allen Versionen von ' . $c_pars['item'] . '</h3>';
+                        $header = '<h3>All Addons in all versions from ' . $c_pars['item'] . '</h3>';
                         if ($c_pars['item'] != $addon->provider) continue 2;
                         $addons[] = $addon;
                         break;
                     case 'cat':
-                        $header = '<h3>Alle Addons der Kategorie "' . $c_pars['item'] . '"</h3>';
+                        $header = '<h3>All Addons from Category "' . $c_pars['item'] . '"</h3>';
                         if ($c_pars['item'] != $addon->category) continue 2;
                         $addons[] = $addon;
                         break;
                     case 'search':
-                        $header = '<h3>Alle Addons in allen Versionen, die "' . $c_pars['item'] . '" enthalten</h3>';
+                        $header = '<h3>All Addons in all Versions containing "' . $c_pars['item'] . '</h3>';
                         if (!stristr($addon->name, $c_pars['item'])) continue 2;
                         $addons[] = $addon;
                         break;
                     case 'last':
-                        $header = '<h3>Zuletzt hochgeladene oder aktualisierte Addons</h3>';
+                        $header = '<h3>Last uploaded or updated Addons</h3>';
                         $addons[] = $addon;
                         break;
                 }
             } else {
-                $header = '<h3>Addons ab ' . $_SESSION['version_name'] . '</h3>';
+                $header = '<h3>Addons upwards from ' . $_SESSION['version_name'] . '</h3>';
                 if ($addon->tree != $_SESSION['version']) continue;
                 $addons[] = $addon;
             }
@@ -94,7 +94,7 @@ foreach($addons as $addon) {
     if (isset($c_pars['scope']) and $c_pars['scope'] == 'last' and $tc >= MAX_ITEMS) break;
 }
 echo '</tr></table>';
-if ($tc == 0) echo "<p class='alert'>Es wurden keine passenden Einträge gefunden.</p>".PHP_EOL;
+if ($tc == 0) echo "<p class='alert'>No matching entries found.</p>".PHP_EOL;
 
 # Epilog
 include FOOTER;
