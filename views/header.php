@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -12,8 +12,8 @@
 <body id="xhr_output">
 <hr class="spacer">
 
-<div class="banner" onclick="document.location.href='https://maerz.media';">
-<div class="banner_txt">
+<div class="banner">
+    <div class="banner_txt">
         <h1><?php echo REPONAME.' '.REPOVERSION; ?></h1>
         <h2><?php echo 'Tree: '.substr($_SESSION['version'], 0, -1);
         if ($_SESSION['state'] == 1) {

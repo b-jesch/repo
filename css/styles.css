@@ -8,9 +8,8 @@
 }
 
 .banner {
-    /*height:120px; */
     margin-bottom: 5px;
-    background-image: url(9LWeq_c5_1920.jpg);
+    background-image: url(repo_banner.jpg);
     float: left;
     width: 100%;
     height: 110px;
@@ -18,7 +17,6 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-color: black;
-    cursor: pointer;
 }
 
 .nav {
