@@ -6,7 +6,7 @@ const MAINTENANCE = false;
 
 const REPONAME = 'Kodinerds Addon Repo';
 const REPO_ID = 'repository.kodinerds';
-const REPOVERSION = '7.0.1.6';
+const REPOVERSION = '7.0.1.7';
 const PROVIDER = 'Kodinerds';
 
 const REPO_TEMPLATES = '__repo_templates/';  # Template Files
@@ -110,9 +110,9 @@ const FALLBACK_TREE = 6;             # Index d. default Trees zur Einordnung von
 const DEFAULT_TREE = 6;              # Index d. default Trees zur Anzeige im CMS (Matrix)
 
 const KODI_NAMES = array('Kodi 13 (Gotham)', 'Kodi 14 (Helix)', 'Kodi 15 (Isengard)', 'Kodi 16 (Jarvis)', 'Kodi 17 (Krypton)', 'Kodi 18 (Leia)',
-    'Kodi 19 (Matrix)', 'Kodi 20 (Nexus)', 'Kodi 21 (Omega)', 'Kodi 22 (Pegasus)');
+    'Kodi 19 (Matrix)', 'Kodi 20 (Nexus)', 'Kodi 21 (Omega)', 'Kodi 22 (Piers)');
 
-const VERSION_DIRS = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/', 'nexus/', 'omega/', 'pegasus/');
+const VERSION_DIRS = array('gotham/', 'helix/', 'isengard/', 'jarvis/', 'krypton/', 'leia/', 'matrix/', 'nexus/', 'omega/', 'piers/');
 
 const AD_TYPES = array('xbmc.gui.skin', 'xbmc.webinterface', 'xbmc.addon.repository', 'xbmc.service', 'xbmc.metadata.scraper.albuns',
     'xbmc.metadata.scraper.artists', 'xbmc.metadata.scraper.movies', 'xbmc.metadata.scraper.musicvideos', 'xbmc.metadata.scraper.tvshows',
