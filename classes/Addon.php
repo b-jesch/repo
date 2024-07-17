@@ -232,9 +232,27 @@ class Addon {
 
         foreach($xml->extension as $ep) {
             if ($ep['point'] == 'xbmc.addon.metadata') {
+                # get lang=de
+                foreach($ep->summary as $lang) {
+                    if ($lang['lang'] == 'en') {
+                        # remove BB code
+                        $this->summary = preg_replace('#\[[^\]]+\]#', '', $lang);
+                        break;
+                    }
+                }
                 # remove BB code
-                $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
-                $this->description = preg_replace('#\[[^\]]+\]#', '', $ep->description[0]);
+                if (!isset($this->summary)) $this->summary = preg_replace('#\[[^\]]+\]#', '', $ep->summary[0]);
+
+                # same for description
+                foreach($ep->description as $desc) {
+                    if ($desc['lang'] == 'en') {
+                        # remove BB code
+                        $this->description = preg_replace('#\[[^\]]+\]#', '', $desc);
+                        break;
+                    }
+                }
+                if (!isset($this->description)) $this->description = preg_replace('#\[[^\]]+\]#', '', $ep->description[0]);
+
                 if ($ep->lifecyclestate['type'] == 'broken') $this->status |= BROKEN;
                 if ($ep->lifecyclestate['type'] == 'deprecated') $this->status |= DEPRECATED;
                 if ($ep->source and (!empty($ep->source)) and parse_url($ep->source)['host'] == GITHUB) $this->source = $ep->source;
