@@ -232,9 +232,9 @@ class Addon {
 
         foreach($xml->extension as $ep) {
             if ($ep['point'] == 'xbmc.addon.metadata') {
-                # get lang=de
+                # get lang=en or en_GB
                 foreach($ep->summary as $lang) {
-                    if ($lang['lang'] == 'en') {
+                    if (strtolower($lang['lang']) == 'en' or strtolower($lang['lang']) == 'en_gb') {
                         # remove BB code
                         $this->summary = preg_replace('#\[[^\]]+\]#', '', $lang);
                         break;
@@ -245,7 +245,7 @@ class Addon {
 
                 # same for description
                 foreach($ep->description as $desc) {
-                    if ($desc['lang'] == 'en') {
+                    if (strtolower($desc['lang']) == 'en' or strtolower($desc['lang']) == 'en_gb') {
                         # remove BB code
                         $this->description = preg_replace('#\[[^\]]+\]#', '', $desc);
                         break;
