@@ -129,7 +129,7 @@ const AD_CATEGORIES = array('Skin', 'Web Interface', 'Repository', 'Service', 'A
     'Context Item', 'Binary');
 
 const AD_PYTHON_VERS = array('2.14.0', '2.19.0', '2.20.0', '2.24.0', '2.25.0', '2.26.0', '3.0.0', '3.0.1', '3.0.2', '3.0.3');
-const AD_GUI_VERS = array('5.0.1', '5.3.0', '5.9.0', '5.10.0', '5.12.0', '5.14.0', '5.15.0', '5.16.0', '5.17.0', '5.17.0');
+const AD_GUI_VERS = array('5.0.1', '5.3.0', '5.9.0', '5.10.0', '5.12.0', '5.14.0', '5.15.0', '5.16.0', '5.17.0', '5.18.0');
 
 # Thumbnails
 
