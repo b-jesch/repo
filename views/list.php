@@ -53,8 +53,10 @@ foreach ($addondirs as $addondir) {
                         $addons[] = $addon;
                         break;
                     case 'search':
-                        $header = '<h3>All Addons in all Versions containing "' . $c_pars['item'] . '</h3>';
-                        if (!stristr($addon->name, $c_pars['item'])) continue 2;
+                        $header = '<h3>All Addons in all Versions containing "' . $c_pars['item'] . '"</h3>';
+                        if (!stristr($addon->name, $c_pars['item']) && !stristr($addon->author, $c_pars['item']))  {
+                            continue 2;
+                        }
                         $addons[] = $addon;
                         break;
                     case 'last':
