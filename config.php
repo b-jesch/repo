@@ -102,7 +102,7 @@ const NAVIGATION = 'navi.php';       # Navigation
 # global MVC-Context
 
 const CONTEXT = true;
-define('LASTMODIFIED', date('y.m.d', filemtime(__FILE__)));
+define('LASTMODIFIED', date('Y.m.d', filemtime(__FILE__)));
 
 # Arrays (Kodi specific)
 
