@@ -13,9 +13,6 @@ const REPO_TEMPLATES = '__repo_templates/';  # Template Files
 const ADDON_TEMPLATE = '__addons.xml';       # Addon Template
 const DEFAULT_ADDON_ICON = 'default.png';    # default Icon, if icon.png in addon.zip is missing
 const DEFAULT_APK_ICON = 'default_apk.png';  # default APK Icon
-
-const REPOLOGO = 'css/9LWeq_c5_1920.jpg';
-
 const BROKEN = 1;
 const FLAG_BROKEN = 'css/broken.png';
 const DEVTOOL = 2;
@@ -32,7 +29,7 @@ define('SCRIPT_ROOT', dirname(__FILE__));
 define('APP_PATH', $_SERVER['DOCUMENT_ROOT'].'/');  # path of application in servers DocumentRoot
 
 const ROOT = 'https://repo.kodinerds.net/';
-# const ROOT = 'http://localhost/repo/';
+# const ROOT = 'http://192.168.10.150/repo/';
 
 const CONTROLLER = 'index.php';
 const VIEWS = 'views/';
@@ -138,3 +135,7 @@ const TBN_Y = 130;                  # Höhe
 const CPR = 3;                      # Cells per Row
 const MAX_ITEMS = 18;               # max Items in List/Last Views
 define ('PHP_TAB', chr(9));
+
+# Variables
+
+$header = '';

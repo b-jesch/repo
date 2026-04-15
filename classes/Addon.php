@@ -1,5 +1,6 @@
 <?php
 
+#[\AllowDynamicProperties]
 class CreateRepoXML
 {
 
@@ -93,6 +94,7 @@ class CreateRepoXML
     }
 }
 
+#[\AllowDynamicProperties]
 class Addon {
 
     public $file = NULL;                            # Dateiname im Addon-Data-Verzeichnis
@@ -355,6 +357,7 @@ class Addon {
     }
 }
 
+#[\AllowDynamicProperties]
 class User
 {
     public $database = NULL;        # User Database File

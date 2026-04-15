@@ -72,9 +72,8 @@ if (isset($c_pars['action']) and $c_pars['action'] == 'direct_dl') {
 # start session
 
 session_start();
-if (!isset($_SESSION['state']) or $_SESSION['state'] == 0) {
-    $_SESSION['state'] = 0;
-}
+if (!isset($_SESSION['state']) or $_SESSION['state'] == 0) $_SESSION['state'] = 0;
+if (!isset($_SESSION['notice'])) $_SESSION['notice'] = '';
 
 # Decrypt encrypted Routes
 
